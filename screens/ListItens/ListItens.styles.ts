@@ -1,0 +1,8 @@
+import styled from "styled-components/native";
+import theme from "../../global/styles/theme";
+
+export const Conatiner = styled.View`
+    justify-content: center;
+    align-items: center;
+    background-color: ${() => theme?.colors?.primary};
+`;

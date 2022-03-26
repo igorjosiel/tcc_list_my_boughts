@@ -1,18 +1,13 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ThemeProvider } from "styled-components";
 
-import FirstScreen from './screens/FirstScreen/FirstScreen';
-import { Theme } from './templates/theme';
-
-const Stack = createNativeStackNavigator();
+import theme from './global/styles/theme';
+import ListItens from "./screens/ListItens/ListItens";
 
 export default function App() {
+  console.log('Deu: ', theme.colors.primary);
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='FirstScreen'>
-        <Stack.Screen name="FirstScreen" component={FirstScreen}></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <ListItens />
+    </ThemeProvider>
   )
 }
