@@ -36,7 +36,11 @@ const ListItens = () => {
                     <Icon size={26} color="#000" name="pencil" />
                 </Conatiner> */}
             </View>
-            <View style={{ height: '10%' }}>ffs</View>
+            <View style={{ height: '10%', alignItems: 'flex-end', marginRight: '20px' }}>
+                <Pressable style={{ backgroundColor: '#1E90FF', height: 70, width: 70, borderRadius: '50%', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon size={40} color="#000" name="plus" />
+                </Pressable>
+            </View>
         </ImageBackground>
     );
 }
