@@ -39,7 +39,7 @@ const ListItens = () => {
         const newItems = listItems?.map(item => {
             item.id === id ? {
                 ...item,
-                checked: !item.checked,
+                checked: !item?.checked,
             } : item
         });
 
@@ -61,7 +61,7 @@ const ListItens = () => {
                     return (
                         <Conatiner style={styles.section} key={index}>
                             <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} />
-                            <Text fontFamily={Poppins_400Regular} fontSize={20}>{item?.name}</Text>
+                            <Text style={item?.checked && styles.tachado} fontFamily={Poppins_400Regular} fontSize={20}>{item?.name}</Text>
                             <Icon size={26} color="#000" name="pencil" />
                         </Conatiner>
                     );
@@ -104,6 +104,9 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'contain',
         backgroundColor: theme.colors.primary,
+    },
+    tachado: {
+        textDecorationLine: 'line-through',
     },
     container: {
         flex: 1,
