@@ -36,7 +36,14 @@ const ListItens = () => {
     }
 
     const changeItemOfList = (id: number) => {
-        console.log('Chegou: ', id);
+        const newItems = listItems?.map(item => {
+            item.id === id ? {
+                ...item,
+                checked: !item.checked,
+            } : item
+        });
+
+        setListItems(newItems);
     }
 
     const editItemName = (itemName: string) => {
@@ -50,11 +57,11 @@ const ListItens = () => {
                 <Text fontFamily={Poppins_600SemiBold} fontSize={26}>Lista de Compras</Text>
             </View>
             <View style={{ height: '75%', padding: '10%', paddingTop: 0 }}>
-                {listItems?.map((item => {
+                {listItems?.map(((item, index) => {
                     return (
-                        <Conatiner style={styles.section}>
-                            <Checkbox value={item.checked} onValueChange={() => changeItemOfList(item.id)} />
-                            <Text fontFamily={Poppins_400Regular} fontSize={20}>{item.name}</Text>
+                        <Conatiner style={styles.section} key={index}>
+                            <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} />
+                            <Text fontFamily={Poppins_400Regular} fontSize={20}>{item?.name}</Text>
                             <Icon size={26} color="#000" name="pencil" />
                         </Conatiner>
                     );
