@@ -66,21 +66,6 @@ const ListItens = () => {
                         </Conatiner>
                     );
                 }))}
-                {/* <Conatiner style={styles.section}>
-                    <Checkbox value={isChecked} onValueChange={setChecked} />
-                    <Text fontFamily={Poppins_400Regular} fontSize={22}>Arroz</Text>
-                    <Icon size={26} color="#000" name="pencil" />
-                </Conatiner>
-                <Conatiner style={styles.section}>
-                    <Checkbox value={isChecked} onValueChange={setChecked} />
-                    <Text fontFamily={Poppins_400Regular} fontSize={22}>Feijão</Text>
-                    <Icon size={26} color="#000" name="pencil" />
-                </Conatiner> */}
-                {/* <Conatiner style={styles.section}>
-                    <Checkbox value={isChecked} onValueChange={setChecked} />
-                    <Text style={{ fontFamily: Poppins_400Regular, fontSize: 22 }}>Leite</Text>
-                    <Icon size={26} color="#000" name="pencil" />
-                </Conatiner> */}
             </View>
             <View style={{ height: '15%', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '10px', marginRight: '20px', marginLeft: '10px' }}>
                 <TextInput
