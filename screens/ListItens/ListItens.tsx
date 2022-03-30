@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Conatiner } from "./ListItens.styles";
-import { ImageBackground, StyleSheet, Pressable, View } from "react-native";
+import { ImageBackground, StyleSheet, Pressable, View, TextInput } from "react-native";
 import Checkbox from 'expo-checkbox';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import imagePaper from '../../assets/paper.png';
+// import imagePaper from '../../assets/paper.png';
 
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from '../../components/Text/Text';
+import theme from '../../global/styles/theme';
 
 const ListItens = () => {
     const Poppins_400Regular = useSetFonts('Poppins_600SemiBold');
@@ -18,6 +19,7 @@ const ListItens = () => {
         checked: boolean,
     }
 
+    const [item, setItem] = useState<string>('');
     const [listItems, setListItems] = useState<Item[]>([]);
     const [count, setCount] = useState<number>(0);
 
@@ -36,12 +38,17 @@ const ListItens = () => {
         console.log('Chegou: ', id);
     }
 
+    const editItemName = (itemName: string) => {
+        setItem(itemName);
+    }
+
     return (
-        <ImageBackground source={imagePaper} style={styles.image}>
+        // <ImageBackground source={imagePaper} style={styles.image}>
+        <>
             <View style={{ height: '10%', marginLeft: 'auto', marginRight: 'auto', justifyContent: 'center' }}>
                 <Text fontFamily={Poppins_600SemiBold} fontSize={28}>Lista de Compras</Text>
             </View>
-            <View style={{ height: '80%', padding: '10%', paddingTop: 0 }}>
+            <View style={{ height: '75%', padding: '10%', paddingTop: 0 }}>
                 {listItems?.map((item => {
                     return (
                         <Conatiner style={styles.section}>
@@ -67,12 +74,20 @@ const ListItens = () => {
                     <Icon size={26} color="#000" name="pencil" />
                 </Conatiner> */}
             </View>
-            <View style={{ height: '10%', alignItems: 'flex-end', marginRight: '20px' }}>
+            <View style={{ height: '15%', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '10px', marginRight: '10px', marginLeft: '10px' }}>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(value) => editItemName(value)}
+                    value={item}
+                    placeholder="Digite aqui o protudo"
+                    keyboardType="numeric"
+                />
                 <Pressable style={{ backgroundColor: '#1E90FF', height: 55, width: 55, borderRadius: '50%', alignItems: 'center', justifyContent: 'center' }}>
                     <Icon size={40} color="#000" name="plus" />
                 </Pressable>
             </View>
-        </ImageBackground>
+        </>
+        // </ImageBackground>
     );
 }
 
@@ -80,6 +95,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'contain',
+        backgroundColor: theme.colors.primary,
     },
     container: {
         flex: 1,
@@ -99,6 +115,14 @@ const styles = StyleSheet.create({
         margin: 8,
         height: 20,
         width: 20,
+    },
+    input: {
+        height: 50,
+        width: 230,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 10,
     },
 })
 
