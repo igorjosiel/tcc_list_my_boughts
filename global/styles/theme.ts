@@ -1,7 +1,7 @@
 export default {
     colors: {
-        primary: '#F8F8FF',
-        secondary: 'green',
+        primary: '#00BFFF',
+        secondary: '#000',
         success: '#12A454',
         attention: '#E83F5B'
     }
