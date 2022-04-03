@@ -16,7 +16,7 @@ const ListItens = () => {
     interface Item {
         id: number,
         name: string,
-        checked: boolean,
+        made: boolean,
     }
 
     const [item, setItem] = useState<string>('');
@@ -24,10 +24,12 @@ const ListItens = () => {
     const [count, setCount] = useState<number>(0);
 
     const addItemToList = () => {
+        if (!item) return;
+
         const newItem = {
             id: count,
             name: item,
-            checked: false,
+            made: false,
         };
 
         setListItems(oldState => [...oldState, newItem]);
@@ -39,56 +41,118 @@ const ListItens = () => {
         const newItems = listItems?.map(item => {
             item.id === id ? {
                 ...item,
-                checked: !item?.checked,
+                made: !item?.made,
             } : item
         });
 
         setListItems(newItems);
     }
 
+    const changeItemStatus = (id: number) => {
+        const changedItem = listItems?.map(item => item?.id === id ? {
+            ...item,
+            made: !item.made,
+        } : item);
+
+        setListItems(changedItem);
+    }
+
     const editItemName = (itemName: string) => {
         setItem(itemName);
+    }
+
+    const deleteItem = (id: number) => {
+        const listItemsFiltered = listItems?.filter(item => item.id !== id);
+
+        setListItems(listItemsFiltered);
     }
 
     return (
         // <ImageBackground source={imagePaper} style={styles.image}>
         <>
-            <View style={{ height: '10%', marginLeft: 'auto', marginRight: 'auto', justifyContent: 'center' }}>
-                <Text fontFamily={Poppins_600SemiBold} fontSize={26}>Lista de Compras</Text>
+            <View style={{
+                width: '100%',
+                backgroundColor: theme.colors.primary,
+                height: '12%',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                flex: 1,
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+            }}>
+                <Text fontFamily={Poppins_600SemiBold} fontSize={25}>Lista de Compras</Text>
             </View>
-            <View style={{ height: '75%', padding: '10%', paddingTop: 0 }}>
+            <View style={{
+                height: '73%',
+                padding: '5%',
+                paddingTop: 0,
+                backgroundColor: theme.colors.secondary
+            }}>
                 {listItems?.map(((item, index) => {
                     return (
-                        <Conatiner style={styles.section} key={index}>
-                            <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} />
-                            <Text style={item?.checked && styles.tachado} fontFamily={Poppins_400Regular} fontSize={20}>{item?.name}</Text>
-                            <Icon size={26} color="#000" name="pencil" />
+                        <Conatiner style={item?.made ? styles.made : styles.section} key={index}>
+                            <Pressable style={{ width: '75%' }} onPress={() => changeItemStatus(item?.id)}>
+                                <Text style={item?.made && styles.tachado} fontFamily={Poppins_400Regular} fontSize={20}>{item?.name}</Text>
+                            </Pressable>
+                            {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
+                            <View style={{ width: '25%', flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Icon size={28} style={{ color: '#B22222' }} name="trash" onPress={() => deleteItem(item.id)} />
+                                <Icon size={28} style={{ color: theme.colors.primary }} name="pencil" />
+                            </View>
                         </Conatiner>
                     );
                 }))}
             </View>
-            <View style={{ height: '15%', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '10px', marginRight: '20px', marginLeft: '10px' }}>
+            <View style={{ height: '15%', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, marginRight: 20, marginLeft: 10 }}>
                 <TextInput
                     style={styles.input}
                     onChangeText={(value) => editItemName(value)}
                     value={item}
                     placeholder="Digite aqui o protudo"
-                    keyboardType="numeric"
+                    keyboardType="default"
                 />
-                <Pressable onPress={() => addItemToList()} style={{ backgroundColor: '#1E90FF', height: 55, width: 55, borderRadius: '50%', alignItems: 'center', justifyContent: 'center' }} >
-                    <Icon size={40} color="#000" name="plus" />
+                <Pressable onPress={() => addItemToList()} style={{
+                    backgroundColor: theme.colors.primary,
+                    height: 60,
+                    width: 60,
+                    borderRadius: 50,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <Icon size={30} color="#000" name="plus" />
+                </Pressable>
+                <Pressable onPress={() => addItemToList()} style={{
+                    backgroundColor: theme.colors.primary,
+                    height: 60,
+                    width: 60,
+                    borderRadius: 50,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <Icon size={30} color="#000" name="search" />
                 </Pressable>
             </View>
         </>
-        // </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    image: {
-        flex: 1,
-        resizeMode: 'contain',
-        backgroundColor: theme.colors.primary,
+    // image: {
+    //     flex: 1,
+    //     resizeMode: 'contain',
+    //     backgroundColor: theme.colors.primary,
+    // },
+    made: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+        backgroundColor: '#87CEEB',
+        marginTop: 10,
+        padding: 15,
+        borderRadius: 10,
+        opacity: 0.2
     },
     tachado: {
         textDecorationLine: 'line-through',
@@ -102,7 +166,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: '10px'
+        marginBottom: 10,
+        backgroundColor: '#87CEEB',
+        marginTop: 10,
+        padding: 15,
+        borderRadius: 10
     },
     paragraph: {
         fontSize: 15,
@@ -113,12 +181,14 @@ const styles = StyleSheet.create({
         width: 20,
     },
     input: {
-        height: 50,
-        width: 230,
+        height: 60,
+        width: 210,
         margin: 12,
-        borderWidth: 1,
+        borderWidth: 3,
+        borderColor: theme.colors.primary,
         padding: 10,
         borderRadius: 10,
+        fontSize: 20
     },
 })
 
