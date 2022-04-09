@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Conatiner } from "./ListItens.styles";
-import { ImageBackground, StyleSheet, Pressable, View, TextInput } from "react-native";
-import Checkbox from 'expo-checkbox';
+import { StyleSheet, Pressable, View, TextInput, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import imagePaper from '../../assets/paper.png';
+import { ImageBackground } from 'react-native';
+
 
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from '../../components/Text/Text';
 import theme from '../../global/styles/theme';
+import compras from '../../assets/compras.jpg';
 
 const ListItens = () => {
     const Poppins_400Regular = useSetFonts('Poppins_600SemiBold');
@@ -15,8 +16,10 @@ const ListItens = () => {
 
     interface Item {
         id: number,
+        amount: number,
         name: string,
         made: boolean,
+        category: string,
     }
 
     const [item, setItem] = useState<string>('');
@@ -28,8 +31,10 @@ const ListItens = () => {
 
         const newItem = {
             id: count,
+            amount: 1,
             name: item,
             made: false,
+            category: 'teste',
         };
 
         setListItems(oldState => [...oldState, newItem]);
@@ -37,16 +42,31 @@ const ListItens = () => {
         setItem('');
     }
 
-    const changeItemOfList = (id: number) => {
-        const newItems = listItems?.map(item => {
+    const removeItemToList = (id: number) => {
+        const listItemsFiltered: Item[] = listItems?.filter(item => item.id !== id);
+
+        setListItems(listItemsFiltered);
+    }
+
+    function increaseItemAmount(id: number) {
+        const newItems: Item[] = listItems?.map(item =>
             item.id === id ? {
                 ...item,
-                made: !item?.made,
-            } : item
-        });
+                amount: item?.amount + 1,
+            } : item);
 
         setListItems(newItems);
-    }
+    };
+
+    function decreaseItemAmount(id: number) {
+        const newItems: Item[] = listItems?.map(item =>
+            item.id === id ? {
+                ...item,
+                amount: item?.amount - 1,
+            } : item);
+
+        setListItems(newItems);
+    };
 
     const changeItemStatus = (id: number) => {
         const changedItem = listItems?.map(item => item?.id === id ? {
@@ -61,14 +81,7 @@ const ListItens = () => {
         setItem(itemName);
     }
 
-    const deleteItem = (id: number) => {
-        const listItemsFiltered = listItems?.filter(item => item.id !== id);
-
-        setListItems(listItemsFiltered);
-    }
-
     return (
-        // <ImageBackground source={imagePaper} style={styles.image}>
         <>
             <View style={{
                 width: '100%',
@@ -79,32 +92,53 @@ const ListItens = () => {
                 flex: 1,
                 flexDirection: 'row',
                 alignItems: 'flex-end',
-                justifyContent: 'center'
+                justifyContent: 'center',
             }}>
                 <Text fontFamily={Poppins_600SemiBold} fontSize={25}>Lista de Compras</Text>
             </View>
             <View style={{
-                height: '73%',
-                padding: '5%',
+                height: '78%',
+                // padding: '5%',
                 paddingTop: 0,
-                backgroundColor: theme.colors.secondary
+                // backgroundColor: theme.colors.secondary
             }}>
-                {listItems?.map(((item, index) => {
-                    return (
-                        <Conatiner style={item?.made ? styles.made : styles.section} key={index}>
-                            <Pressable style={{ width: '75%' }} onPress={() => changeItemStatus(item?.id)}>
-                                <Text style={item?.made && styles.tachado} fontFamily={Poppins_400Regular} fontSize={20}>{item?.name}</Text>
-                            </Pressable>
-                            {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
-                            <View style={{ width: '25%', flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Icon size={28} style={{ color: '#B22222' }} name="trash" onPress={() => deleteItem(item.id)} />
-                                <Icon size={28} style={{ color: theme.colors.primary }} name="pencil" />
-                            </View>
-                        </Conatiner>
-                    );
-                }))}
+                <ImageBackground source={compras} style={styles.image}>
+                    <ScrollView>
+                        {listItems?.map(((item, index) => {
+                            return (
+                                <Conatiner style={item?.made ? styles.made : styles.section} key={index}>
+                                    <Pressable style={{ width: '65%' }} onPress={() => changeItemStatus(item?.id)}>
+                                        <Text style={item?.made && styles.tachado} fontFamily={Poppins_400Regular} fontSize={20}>{item?.name}</Text>
+                                    </Pressable>
+                                    {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
+                                    <View style={{ width: '45%', flex: 1, flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 5 }}>
+                                        {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
+                                        <Pressable onPress={item?.amount === 1 ? () => removeItemToList(item?.id) : () => decreaseItemAmount(item?.id)} style={{
+                                            width: 25,
+                                            borderRadius: 50,
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}>
+                                            <Icon size={30} color="#000" name="minus" />
+                                        </Pressable>
+                                        <Text fontFamily={Poppins_600SemiBold} fontSize={20}>{item.amount}</Text>
+                                        {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
+                                        <Pressable onPress={() => increaseItemAmount(item?.id)} style={{
+                                            width: 25,
+                                            borderRadius: 50,
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}>
+                                            <Icon size={30} color="#000" name="plus" />
+                                        </Pressable>
+                                    </View>
+                                </Conatiner>
+                            );
+                        }))}
+                    </ScrollView>
+                </ImageBackground>
             </View>
-            <View style={{ height: '15%', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, marginRight: 20, marginLeft: 10 }}>
+            <View style={{ height: '10%', backgroundColor: 'white', paddingTop: '3%', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, marginRight: 20, marginLeft: 10 }}>
                 <TextInput
                     style={styles.input}
                     onChangeText={(value) => editItemName(value)}
@@ -114,23 +148,13 @@ const ListItens = () => {
                 />
                 <Pressable onPress={() => addItemToList()} style={{
                     backgroundColor: theme.colors.primary,
-                    height: 60,
-                    width: 60,
+                    height: 55,
+                    width: 55,
                     borderRadius: 50,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
                     <Icon size={30} color="#000" name="plus" />
-                </Pressable>
-                <Pressable onPress={() => addItemToList()} style={{
-                    backgroundColor: theme.colors.primary,
-                    height: 60,
-                    width: 60,
-                    borderRadius: 50,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <Icon size={30} color="#000" name="search" />
                 </Pressable>
             </View>
         </>
@@ -138,11 +162,11 @@ const ListItens = () => {
 }
 
 const styles = StyleSheet.create({
-    // image: {
-    //     flex: 1,
-    //     resizeMode: 'contain',
-    //     backgroundColor: theme.colors.primary,
-    // },
+    image: {
+        flex: 1,
+        resizeMode: 'contain',
+        // backgroundColor: theme.colors.primary,
+    },
     made: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -167,8 +191,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 10,
-        backgroundColor: '#87CEEB',
+        backgroundColor: theme?.colors?.primary,
         marginTop: 10,
+        marginLeft: '5%',
+        marginRight: '5%',
         padding: 15,
         borderRadius: 10
     },
@@ -182,13 +208,14 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 60,
-        width: 210,
-        margin: 12,
+        width: '60%',
+        margin: '2%',
         borderWidth: 3,
         borderColor: theme.colors.primary,
         padding: 10,
         borderRadius: 10,
-        fontSize: 20
+        fontSize: 20,
+        shadowOffset: { width: 0, height: 1 }
     },
 })
 

@@ -4,5 +4,5 @@ import { TextProps as Props } from "react-native";
 export interface TextProps extends Props {
     fontFamily: string,
     fontSize: number,
-    children: ReactNode | string,
+    children: ReactNode | string | number,
 }
