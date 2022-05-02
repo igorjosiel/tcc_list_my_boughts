@@ -1,12 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { Conatiner } from "./ListItens.styles";
-import { StyleSheet, Pressable, View, ScrollView, ImageBackground } from "react-native";
+import { StyleSheet, Pressable, View, ScrollView, ImageBackground, TextInput, TouchableOpacity, Image } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from '../../components/Text/Text';
 import theme from '../../global/styles/theme';
 import compras from '../../assets/compras.jpg';
+const arrowDropDown = require("../../assets/arrow_drop_down.png");
+
+const categories = [
+    {
+        id: 0,
+        name: 'Comida',
+    },
+    {
+        id: 1,
+        name: 'Limpeza',
+    },
+    {
+        id: 2,
+        name: 'Bebida',
+    },
+    {
+        id: 3,
+        name: 'Gelados',
+    },
+    {
+        id: 4,
+        name: 'Higiene',
+    },
+    {
+        id: 5,
+        name: 'Vestuário',
+    },
+];
 
 const ListItens = ({ navigation }) => {
     const Poppins_400Regular = useSetFonts('Poppins_600SemiBold');
@@ -14,25 +42,36 @@ const ListItens = ({ navigation }) => {
 
     interface Item {
         id: number,
-        amount: string,
+        amount: number,
         product: string,
         category: string,
         price: number,
     }
 
     const [listItems, setListItems] = useState<Item[]>([]);
+    const [item, setItem] = useState<string>('');
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
+    const [showOption, setShowOption] = useState<boolean>(false);
     const [idGenerator, setIdGenerator] = useState<number>(0);
     const [totalValue, setTotalValue] = useState<number>(0);
 
-    const addItemToList = (item: Item) => {
+    const onSelect = (category: string) => {
+        setShowOption(false);
+        setSelectedCategory(category);
+    }
+
+    const addItemToList = () => {
         if (!item) return;
 
         const newItem = {
-            ...item,
             id: idGenerator,
+            amount: 1,
+            product: item,
+            category: '',
+            price: 0.00,
         };
 
-        setTotalValue(oldState => oldState + (item?.price * parseInt(item?.amount)));
+        // setTotalValue(oldState => oldState + (item?.price * parseInt(item?.amount)));
         setListItems(oldState => [...oldState, newItem]);
         setIdGenerator(oldState => oldState + 1);
     }
@@ -62,6 +101,10 @@ const ListItens = ({ navigation }) => {
 
         setListItems(newItems);
     };
+
+    function editItemName(value: string) {
+        setItem(value);
+    }
 
     return (
         <>
@@ -95,7 +138,7 @@ const ListItens = ({ navigation }) => {
                                     {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
                                     <View style={{ width: '45%', flex: 1, flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 5 }}>
                                         {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
-                                        <Pressable onPress={item?.amount === "1" ? () => removeItemToList(item?.id) : () => decreaseItemAmount(item?.id)} style={{
+                                        <Pressable onPress={item?.amount === 1 ? () => removeItemToList(item?.id) : () => decreaseItemAmount(item?.id)} style={{
                                             width: 25,
                                             borderRadius: 50,
                                             alignItems: 'center',
@@ -120,15 +163,47 @@ const ListItens = ({ navigation }) => {
                     </ScrollView>
                 </ImageBackground>
             </View>
-            <View style={{ height: '10%', backgroundColor: 'white', paddingTop: '3%', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, marginRight: 20, marginLeft: 10 }}>
-                {/* <TextInput
-                    style={styles.input}
-                    onChangeText={(value) => editItemName(value)}
-                    value={item}
-                    placeholder="Digite aqui o protudo"
-                    keyboardType="default"
-                /> */}
-                <View style={{
+            <View style={{ height: '15%', backgroundColor: 'white', paddingTop: '3%', marginBottom: 10, marginRight: 20, marginLeft: 10 }}>
+                {showOption && <View style={{
+                    backgroundColor: theme?.colors?.primary,
+                    padding: 4,
+                    borderRadius: 6,
+                    maxHeight: 150
+                }}>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled">
+                        {categories?.map((category, index) => {
+                            return (
+                                <TouchableOpacity
+                                    key={category?.id}
+                                    onPress={() => onSelect(category?.name)}
+                                    style={{
+                                        backgroundColor: category?.name === selectedCategory ? theme.colors.primary : 'white',
+                                        paddingVertical: 8,
+                                        paddingHorizontal: 4,
+                                        borderRadius: 6,
+                                        marginBottom: 2
+                                    }}>
+                                    <Text fontFamily={Poppins_400Regular} fontSize={20}>{category?.name}</Text>
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </ScrollView>
+                </View>}
+                <TouchableOpacity style={styles.dropDownStyle} activeOpacity={0.8} onPress={() => setShowOption(!showOption)}>
+                    <Text fontFamily={Poppins_400Regular} fontSize={20}>{selectedCategory ? selectedCategory : `Selecione uma categoria`}</Text>
+                    <Image source={arrowDropDown} style={{ backgroundColor: 'black' }} />
+                </TouchableOpacity>
+                <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(value) => editItemName(value)}
+                        value={item}
+                        placeholder="Digite aqui o protudo"
+                        keyboardType="default"
+                    />
+                    {/* <View style={{
                     backgroundColor: theme?.colors?.primary,
                     width: '70%',
                     height: '80%',
@@ -141,17 +216,19 @@ const ListItens = ({ navigation }) => {
                     paddingLeft: '3%',
                 }}>
                     <Text fontFamily={Poppins_600SemiBold} fontSize={25}>R$ {totalValue}</Text>
+                </View> */}
+                    <Pressable onPress={() => addItemToList()} style={{
+                        backgroundColor: theme.colors.primary,
+                        height: 55,
+                        width: 55,
+                        borderRadius: 50,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <Icon size={30} color="#000" name="plus" />
+                    </Pressable>
                 </View>
-                <Pressable onPress={() => navigation.navigate('ProductsPage', { addItemToList: (newItem: object) => addItemToList(newItem) })} style={{
-                    backgroundColor: theme.colors.primary,
-                    height: 55,
-                    width: 55,
-                    borderRadius: 50,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <Icon size={30} color="#000" name="plus" />
-                </Pressable>
+
             </View>
         </>
     );
@@ -202,6 +279,28 @@ const styles = StyleSheet.create({
         height: 20,
         width: 20,
     },
+    input: {
+        height: 50,
+        width: 230,
+        margin: 12,
+        borderWidth: 3,
+        borderColor: theme.colors.primary,
+        padding: 10,
+        borderRadius: 10,
+        fontSize: 20
+    },
+    dropDownStyle: {
+        backgroundColor: theme.colors.primary,
+        width: 300,
+        padding: 10,
+        borderRadius: 10,
+        minHeight: 42,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 6,
+        marginLeft: 12,
+    }
 })
 
 export default ListItens;
