@@ -61,7 +61,7 @@ const ListItens = ({ navigation }) => {
     }
 
     const addItemToList = () => {
-        if (!item) return;
+        if (!item || !selectedCategory) return;
 
         const newItem = {
             id: idGenerator,
@@ -136,7 +136,7 @@ const ListItens = ({ navigation }) => {
                                         <Text fontFamily={Poppins_400Regular} fontSize={20}>{item?.product}</Text>
                                     </Pressable>
                                     {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
-                                    <View style={{ width: '45%', flex: 1, flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 5 }}>
+                                    <View style={{ width: '45%', flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderRadius: 5 }}>
                                         {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
                                         <Pressable onPress={item?.amount === 1 ? () => removeItemToList(item?.id) : () => decreaseItemAmount(item?.id)} style={{
                                             width: 25,
@@ -163,7 +163,7 @@ const ListItens = ({ navigation }) => {
                     </ScrollView>
                 </ImageBackground>
             </View>
-            <View style={{ height: '15%', backgroundColor: 'white', paddingTop: '3%', marginBottom: 10, marginRight: 20, marginLeft: 10 }}>
+            <View style={{ height: '15%', paddingTop: '3%', marginBottom: 10, marginRight: 20, marginLeft: 10 }}>
                 {showOption && <View style={{
                     backgroundColor: theme?.colors?.primary,
                     padding: 4,
@@ -173,7 +173,7 @@ const ListItens = ({ navigation }) => {
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps="handled">
-                        {categories?.map((category, index) => {
+                        {categories?.map((category) => {
                             return (
                                 <TouchableOpacity
                                     key={category?.id}
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     },
     dropDownStyle: {
         backgroundColor: theme.colors.primary,
-        width: 300,
+        width: 280,
         padding: 10,
         borderRadius: 10,
         minHeight: 42,
