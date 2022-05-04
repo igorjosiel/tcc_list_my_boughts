@@ -160,7 +160,7 @@ const ListItens = ({ navigation }) => {
                         {listItems?.map(((item, index) => {
                             return (
                                 <Conatiner style={styles.section} key={index}>
-                                    <Pressable style={{ width: '65%' }}>
+                                    <Pressable style={{ width: '65%' }} onPress={() => navigation?.navigate('ProductsPage', { item })}>
                                         <Text fontFamily={Poppins_400Regular} fontSize={20}>{item?.product}</Text>
                                     </Pressable>
                                     {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
