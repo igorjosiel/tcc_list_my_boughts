@@ -226,32 +226,11 @@ const ListItens = ({ navigation }) => {
                         })}
                     </ScrollView>
                 </View>}
-                <TouchableOpacity style={styles.dropDownStyle} activeOpacity={0.8} onPress={() => setShowOption(!showOption)}>
-                    <Text fontFamily={Poppins_400Regular} fontSize={20}>{selectedCategory ? selectedCategory : `Categoria`}</Text>
-                    <MaterialIcons name={!showOption ? 'arrow-drop-down' : 'arrow-drop-up'} size={35} color={'black'} />
-                </TouchableOpacity>
-                <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={(value) => editItemName(value)}
-                        value={item}
-                        placeholder="Digite aqui o protudo"
-                        keyboardType="default"
-                    />
-                    {/* <View style={{
-                    backgroundColor: theme?.colors?.primary,
-                    width: '70%',
-                    height: '80%',
-                    borderRadius: 10,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    paddingRight: '3%',
-                    paddingLeft: '3%',
-                }}>
-                    <Text fontFamily={Poppins_600SemiBold} fontSize={25}>R$ {totalValue}</Text>
-                </View> */}
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <TouchableOpacity style={styles.dropDownStyle} activeOpacity={0.8} onPress={() => setShowOption(!showOption)}>
+                        <Text fontFamily={Poppins_400Regular} fontSize={20}>{selectedCategory ? selectedCategory : `Categoria`}</Text>
+                        <MaterialIcons name={!showOption ? 'arrow-drop-down' : 'arrow-drop-up'} size={35} color={'black'} />
+                    </TouchableOpacity>
                     <Pressable onPress={() => addItemToList()} style={{
                         backgroundColor: theme.colors.primary,
                         height: 55,
@@ -263,7 +242,29 @@ const ListItens = ({ navigation }) => {
                         <FontAwesome size={30} color="#000" name="plus" />
                     </Pressable>
                 </View>
-
+                <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(value) => editItemName(value)}
+                        value={item}
+                        placeholder="Digite aqui o protudo"
+                        keyboardType="default"
+                    />
+                    {/* <View style={{
+                        backgroundColor: theme?.colors?.primary,
+                        width: '40%',
+                        height: '80%',
+                        borderRadius: 10,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        paddingRight: '3%',
+                        paddingLeft: '3%',
+                    }}>
+                        <Text fontFamily={Poppins_600SemiBold} fontSize={25}>R$ {totalValue}</Text>
+                    </View> */}
+                </View>
             </View>
         </>
     );
@@ -315,9 +316,9 @@ const styles = StyleSheet.create({
         width: 20,
     },
     input: {
-        height: 50,
-        width: 230,
-        margin: 12,
+        height: 56,
+        width: '100%',
+        margin: 15,
         borderWidth: 3,
         borderColor: theme.colors.primary,
         padding: 10,
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
     },
     dropDownStyle: {
         backgroundColor: theme.colors.primary,
-        width: 280,
+        width: '77%',
         padding: 10,
         borderRadius: 10,
         minHeight: 42,
