@@ -100,6 +100,8 @@ const ListItens = ({ navigation }) => {
         // setTotalValue(oldState => oldState + (item?.price * parseInt(item?.amount)));
         setListItems(oldState => [...oldState, newItem]);
         setIdGenerator(oldState => oldState + 1);
+        setItem('');
+        setSelectedCategory('');
     }
 
     const removeItemToList = (id: number) => {
