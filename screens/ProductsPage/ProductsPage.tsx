@@ -10,7 +10,7 @@ import Text from '../../components/Text/Text';
 import theme from '../../global/styles/theme';
 
 const ProductsPage = ({ navigation, route }) => {
-    const { addItemToList } = route?.params;
+    const { item } = route?.params;
 
     const Poppins_600SemiBold = useSetFonts('Poppins_600SemiBold');
 
@@ -53,25 +53,26 @@ const ProductsPage = ({ navigation, route }) => {
                                 Voltar
                             </Text>
                         </Pressable>
-                        <Pressable onPress={() => {
-                            addItemToList({
-                                product,
-                                amount,
-                                price,
-                                category,
-                            });
-                            navigation.navigate('ListItens');
-                        }} style={{
-                            backgroundColor: theme.colors.primary,
-                            // height: '10%',
-                            width: '48%',
-                            borderRadius: 10,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
-                        }}>
+                        <Pressable
+                            onPress={() => {
+                                // addItemToList({
+                                //     product,
+                                //     amount,
+                                //     price,
+                                //     category,
+                                // });
+                                navigation.navigate('ListItens');
+                            }} style={{
+                                backgroundColor: theme.colors.primary,
+                                // height: '10%',
+                                width: '48%',
+                                borderRadius: 10,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                            }}>
                             <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
-                                Adicionar
+                                Salvar
                             </Text>
                             <Icon size={30} color="#000" name="plus" />
                         </Pressable>
@@ -92,7 +93,7 @@ const ProductsPage = ({ navigation, route }) => {
                             shadowOffset: { width: 0, height: 1 }
                         }}
                         onChangeText={(value) => setProduct(value)}
-                        value={product}
+                        value={item?.product}
                         placeholder="Nome do produto"
                         keyboardType="default"
                     />
@@ -115,7 +116,7 @@ const ProductsPage = ({ navigation, route }) => {
                                 setAmount(value)
                             }
                             }
-                            value={amount}
+                            value={item?.amount}
                             placeholder="Quantidade"
                             maxLength={10}
                         />
@@ -132,7 +133,7 @@ const ProductsPage = ({ navigation, route }) => {
                                 shadowOffset: { width: 0, height: 1 }
                             }}
                             placeholder="Preço"
-                            value={price}
+                            value={item?.price}
                             onChangeValue={(value) => setPrice(value)}
                             prefix="R$ "
                             delimiter="."
