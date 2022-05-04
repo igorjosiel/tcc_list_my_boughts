@@ -9,8 +9,6 @@ import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from '../../components/Text/Text';
 import theme from '../../global/styles/theme';
 import compras from '../../assets/compras.jpg';
-const arrowDropDown = require("../../assets/arrow_drop_down.png");
-
 interface Category {
     id: number,
     name: string,
