@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Conatiner } from "./ListItens.styles";
 import { StyleSheet, Pressable, View, ScrollView, ImageBackground, TextInput, TouchableOpacity, Image } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from '../../components/Text/Text';
@@ -9,30 +11,56 @@ import theme from '../../global/styles/theme';
 import compras from '../../assets/compras.jpg';
 const arrowDropDown = require("../../assets/arrow_drop_down.png");
 
+interface Category {
+    id: number,
+    name: string,
+    icon: string,
+    iconColor: string,
+    library: string,
+}
+
 const categories = [
     {
         id: 0,
         name: 'Comida',
+        icon: 'restaurant',
+        iconColor: 'red',
+        library: 'MaterialIcons',
     },
     {
         id: 1,
         name: 'Limpeza',
+        icon: 'cleaning-services',
+        iconColor: 'green',
+        library: 'MaterialIcons',
     },
     {
         id: 2,
         name: 'Bebida',
+        icon: 'local-drink',
+        iconColor: 'blue',
+        library: 'MaterialIcons',
     },
     {
         id: 3,
         name: 'Gelados',
+        icon: 'ice-cream',
+        iconColor: 'orange',
+        library: 'MaterialCommunityIcons',
     },
     {
         id: 4,
         name: 'Higiene',
+        icon: 'clean-hands',
+        iconColor: '#b38b6d',
+        library: 'MaterialIcons',
     },
     {
         id: 5,
         name: 'Vestuário',
+        icon: 'hanger',
+        iconColor: 'brown',
+        library: 'MaterialCommunityIcons',
     },
 ];
 
@@ -144,7 +172,7 @@ const ListItens = ({ navigation }) => {
                                             alignItems: 'center',
                                             justifyContent: 'center'
                                         }}>
-                                            <Icon size={30} color="#000" name="minus" />
+                                            <FontAwesome size={30} color="#000" name="minus" />
                                         </Pressable>
                                         <Text fontFamily={Poppins_600SemiBold} fontSize={20}>{item.amount}</Text>
                                         {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
@@ -154,7 +182,7 @@ const ListItens = ({ navigation }) => {
                                             alignItems: 'center',
                                             justifyContent: 'center'
                                         }}>
-                                            <Icon size={30} color="#000" name="plus" />
+                                            <FontAwesome size={30} color="#000" name="plus" />
                                         </Pressable>
                                     </View>
                                 </Conatiner>
@@ -182,18 +210,25 @@ const ListItens = ({ navigation }) => {
                                         backgroundColor: category?.name === selectedCategory ? theme.colors.primary : 'white',
                                         paddingVertical: 8,
                                         paddingHorizontal: 4,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around',
+                                        alignItems: 'center',
                                         borderRadius: 6,
                                         marginBottom: 2
                                     }}>
                                     <Text fontFamily={Poppins_400Regular} fontSize={20}>{category?.name}</Text>
+                                    {category?.library === "MaterialIcons" && <MaterialIcons name={category?.icon} size={35} color={category?.iconColor} />}
+                                    {category?.library === "FontAwesome" && <FontAwesome name={category?.icon} size={35} color={category?.iconColor} />}
+                                    {category?.library === "MaterialCommunityIcons" && <MaterialCommunityIcons name={category?.icon} size={35} color={category?.iconColor} />}
                                 </TouchableOpacity>
                             );
                         })}
                     </ScrollView>
                 </View>}
                 <TouchableOpacity style={styles.dropDownStyle} activeOpacity={0.8} onPress={() => setShowOption(!showOption)}>
-                    <Text fontFamily={Poppins_400Regular} fontSize={20}>{selectedCategory ? selectedCategory : `Selecione uma categoria`}</Text>
-                    <Image source={arrowDropDown} style={{ backgroundColor: 'black' }} />
+                    <Text fontFamily={Poppins_400Regular} fontSize={20}>{selectedCategory ? selectedCategory : `Categoria`}</Text>
+                    <MaterialIcons name={!showOption ? 'arrow-drop-down' : 'arrow-drop-up'} size={35} color={'black'} />
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TextInput
@@ -225,7 +260,7 @@ const ListItens = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        <Icon size={30} color="#000" name="plus" />
+                        <FontAwesome size={30} color="#000" name="plus" />
                     </Pressable>
                 </View>
 
