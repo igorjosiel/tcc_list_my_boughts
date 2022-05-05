@@ -9,10 +9,13 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Modal,
+  Button,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import CurrencyInput from "react-native-currency-input";
 
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
@@ -81,19 +84,30 @@ const ListItens = ({ navigation }) => {
     product: string;
     category: string;
     price: number;
+    priority: boolean;
   }
 
   const [listItems, setListItems] = useState<Item[]>([
     {
       id: 0,
       amount: 2,
-      product: "Teste",
+      product: "Testando",
       category: "comida",
       price: 10,
+      priority: true,
     },
+    // {
+    //   id: 0,
+    //   amount: 2,
+    //   product: "Teste",
+    //   category: "comida",
+    //   price: 10,
+    //   priority: false,
+    // },
   ]);
   const [item, setItem] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [showOption, setShowOption] = useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
@@ -162,6 +176,240 @@ const ListItens = ({ navigation }) => {
   return (
     <>
       <ImageBackground source={compras} style={styles.image}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "5%",
+                  // marginTop: "5%",
+                }}
+              >
+                <Text
+                  fontFamily={Poppins_600SemiBold}
+                  fontSize={22}
+                  color={"#000"}
+                >
+                  Informações do Produto
+                </Text>
+              </View>
+              <TextInput
+                style={{
+                  height: 60,
+                  width: "100%",
+                  marginBottom: "5%",
+                  borderWidth: 3,
+                  borderColor: theme.colors.primary,
+                  padding: 10,
+                  borderRadius: 10,
+                  fontSize: 20,
+                  shadowOffset: { width: 0, height: 1 },
+                }}
+                // onChangeText={(value) => setProduct(value)}
+                // value={item?.product}
+                placeholder="Nome do produto"
+                keyboardType="default"
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <TextInput
+                  style={{
+                    height: 60,
+                    width: "45%",
+                    marginBottom: "5%",
+                    borderWidth: 3,
+                    borderColor: theme.colors.primary,
+                    padding: 10,
+                    borderRadius: 10,
+                    fontSize: 20,
+                    shadowOffset: { width: 0, height: 1 },
+                  }}
+                  keyboardType={"numeric"}
+                  // onChangeText={(value) => {
+                  //   console.log("Deu: ", parseInt(value));
+                  //   setAmount(value);
+                  // }}
+                  // value={item?.amount}
+                  placeholder="Quantidade"
+                  maxLength={10}
+                />
+                <CurrencyInput
+                  style={{
+                    height: 60,
+                    width: "50%",
+                    marginBottom: "5%",
+                    borderWidth: 3,
+                    borderColor: theme.colors.primary,
+                    padding: 10,
+                    borderRadius: 10,
+                    fontSize: 20,
+                    shadowOffset: { width: 0, height: 1 },
+                  }}
+                  placeholder="Preço"
+                  // value={item?.price}
+                  value={0}
+                  // onChangeValue={(value) => setPrice(value)}
+                  prefix="R$ "
+                  delimiter="."
+                  separator=","
+                  precision={2}
+                  minValue={0}
+                />
+              </View>
+              <View style={{ width: "100%", borderColor: "red" }}>
+                <TouchableOpacity
+                  style={styles.dropDownStyle}
+                  activeOpacity={0.8}
+                  onPress={() => setShowOption(!showOption)}
+                >
+                  <Text
+                    fontFamily={Poppins_400Regular}
+                    fontSize={20}
+                    color={"#adadac"}
+                  >
+                    {selectedCategory ? selectedCategory : `Categoria`}
+                  </Text>
+                  <MaterialIcons
+                    name={!showOption ? "arrow-drop-down" : "arrow-drop-up"}
+                    size={35}
+                    color={"black"}
+                  />
+                </TouchableOpacity>
+              </View>
+              {showOption && (
+                <View
+                  style={{
+                    backgroundColor: theme?.colors?.primary,
+                    padding: 4,
+                    borderRadius: 6,
+                    maxHeight: 150,
+                    width: "100%",
+                  }}
+                >
+                  <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                  >
+                    {categories?.map((category) => {
+                      return (
+                        <TouchableOpacity
+                          key={category?.id}
+                          onPress={() => onSelect(category?.name)}
+                          style={{
+                            backgroundColor: theme.colors.primary,
+                            paddingVertical: 8,
+                            paddingHorizontal: 4,
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-evenly",
+                            alignItems: "center",
+                            marginBottom: 2,
+                            borderBottomColor: "#ffffff",
+                            borderBottomWidth: 3,
+                          }}
+                        >
+                          <Text
+                            fontFamily={Poppins_400Regular}
+                            fontSize={20}
+                            color={"white"}
+                          >
+                            {category?.name}
+                          </Text>
+                          {category?.library === "MaterialIcons" && (
+                            <MaterialIcons
+                              name={category?.icon}
+                              size={30}
+                              color={"#FFF"}
+                            />
+                          )}
+                          {category?.library === "FontAwesome" && (
+                            <FontAwesome
+                              name={category?.icon}
+                              size={30}
+                              color={"#FFF"}
+                            />
+                          )}
+                          {category?.library === "MaterialCommunityIcons" && (
+                            <MaterialCommunityIcons
+                              name={category?.icon}
+                              size={30}
+                              color={"#FFF"}
+                            />
+                          )}
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              )}
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  paddingTop: "0.8rem",
+                }}
+              >
+                <Pressable
+                  onPress={() => navigation.navigate("ListItens")}
+                  style={{
+                    backgroundColor: theme.colors.primary,
+                    // height: '10%',
+                    width: "48%",
+                    borderRadius: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <FontAwesome size={30} color="#000" name="arrow-left" />
+                  <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                    Voltar
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    // addItemToList({
+                    //     product,
+                    //     amount,
+                    //     price,
+                    //     category,
+                    // });
+                    navigation.navigate("ListItens");
+                  }}
+                  style={{
+                    backgroundColor: theme.colors.primary,
+                    // height: '10%',
+                    width: "48%",
+                    borderRadius: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                    Salvar
+                  </Text>
+                  <FontAwesome size={30} color="#000" name="plus" />
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
         <View
           style={{
             width: "100%",
@@ -209,7 +457,8 @@ const ListItens = ({ navigation }) => {
                   width: "100%",
                   shadowOpacity: "0.7",
                 }}
-                onPress={() => navigation?.navigate("ProductsPage")}
+                // onPress={() => navigation?.navigate("ProductsPage")}
+                onPress={() => setModalVisible(true)}
               >
                 <Text
                   fontFamily={Poppins_400Regular}
@@ -225,23 +474,36 @@ const ListItens = ({ navigation }) => {
               return (
                 <Conatiner style={styles.section} key={index}>
                   <Pressable
-                    style={{ width: "65%" }}
+                    style={{
+                      width: "65%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "stretch",
+                      maxWidth: "10rem",
+                    }}
                     onPress={() =>
                       navigation?.navigate("ProductsPage", { item })
                     }
                   >
-                    <Text
-                      fontFamily={Poppins_400Regular}
-                      fontSize={20}
-                      color={"#000"}
-                    >
-                      {item?.product}
-                    </Text>
+                    <View>
+                      <Text
+                        fontFamily={Poppins_400Regular}
+                        fontSize={20}
+                        color={"#000"}
+                      >
+                        {item?.product}
+                      </Text>
+                    </View>
                   </Pressable>
+                  <View style={{ marginRight: "0.4rem" }}>
+                    {item?.priority && (
+                      <FontAwesome name="star" size={25} color={"#FFA500"} />
+                    )}
+                  </View>
                   {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
                   <View
                     style={{
-                      width: "45%",
+                      width: "15%",
                       flex: 1,
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -297,70 +559,6 @@ const ListItens = ({ navigation }) => {
             marginLeft: 10,
           }}
         >
-          {showOption && (
-            <View
-              style={{
-                backgroundColor: theme?.colors?.primary,
-                padding: 4,
-                borderRadius: 6,
-                maxHeight: 150,
-              }}
-            >
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-              >
-                {categories?.map((category) => {
-                  return (
-                    <TouchableOpacity
-                      key={category?.id}
-                      onPress={() => onSelect(category?.name)}
-                      style={{
-                        backgroundColor:
-                          category?.name === selectedCategory
-                            ? theme.colors.primary
-                            : "white",
-                        paddingVertical: 8,
-                        paddingHorizontal: 4,
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-around",
-                        alignItems: "center",
-                        borderRadius: 6,
-                        marginBottom: 2,
-                      }}
-                    >
-                      <Text fontFamily={Poppins_400Regular} fontSize={20}>
-                        {category?.name}
-                      </Text>
-                      {category?.library === "MaterialIcons" && (
-                        <MaterialIcons
-                          name={category?.icon}
-                          size={35}
-                          color={category?.iconColor}
-                        />
-                      )}
-                      {category?.library === "FontAwesome" && (
-                        <FontAwesome
-                          name={category?.icon}
-                          size={35}
-                          color={category?.iconColor}
-                        />
-                      )}
-                      {category?.library === "MaterialCommunityIcons" && (
-                        <MaterialCommunityIcons
-                          name={category?.icon}
-                          size={35}
-                          color={category?.iconColor}
-                        />
-                      )}
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-            </View>
-          )}
-
           <View
             style={{ height: "150", display: "flex", flexDirection: "row" }}
           >
@@ -498,6 +696,24 @@ const styles = StyleSheet.create({
     flex: 1,
     // resizeMode: "contain",
   },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
   made: {
     flexDirection: "row",
     alignItems: "center",
@@ -562,17 +778,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   dropDownStyle: {
-    backgroundColor: theme.colors.primary,
-    width: "77%",
+    borderWidth: 3,
+    borderColor: theme?.colors?.primary,
+    width: "100%",
     padding: 10,
     borderRadius: 10,
     minHeight: 42,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 6,
-    marginLeft: 12,
   },
 });
 
 export default ListItens;
+
+{
+  /* <Pressable
+                    onPress={() => addItemToList()}
+                    style={{
+                      backgroundColor: theme.colors.primary,
+                      height: 55,
+                      width: 55,
+                      borderRadius: 50,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FontAwesome size={30} color="#000" name="plus" />
+                  </Pressable> */
+}
