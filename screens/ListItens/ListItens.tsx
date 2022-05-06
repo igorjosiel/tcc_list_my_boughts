@@ -15,6 +15,8 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+
 import CurrencyInput from "react-native-currency-input";
 
 import { useSetFonts } from "../../hooks/useSetFonts";
@@ -34,42 +36,96 @@ const categories = [
     id: 0,
     name: "Comida",
     icon: "restaurant",
-    iconColor: "red",
     library: "MaterialIcons",
   },
   {
     id: 1,
     name: "Limpeza",
     icon: "cleaning-services",
-    iconColor: "green",
     library: "MaterialIcons",
   },
   {
     id: 2,
     name: "Bebida",
     icon: "local-drink",
-    iconColor: "blue",
     library: "MaterialIcons",
   },
   {
     id: 3,
     name: "Gelados",
     icon: "ice-cream",
-    iconColor: "orange",
     library: "MaterialCommunityIcons",
   },
   {
     id: 4,
     name: "Higiene",
     icon: "clean-hands",
-    iconColor: "#b38b6d",
     library: "MaterialIcons",
   },
   {
     id: 5,
     name: "Vestuário",
     icon: "hanger",
-    iconColor: "brown",
+    library: "MaterialCommunityIcons",
+  },
+  {
+    id: 6,
+    name: "Saúde",
+    icon: "medicinebox",
+    library: "AntDesign",
+  },
+  {
+    id: 7,
+    name: "Música",
+    icon: "music",
+    library: "FontAwesome",
+  },
+  {
+    id: 8,
+    name: "Entretenimento",
+    icon: "television-guide",
+    library: "MaterialCommunityIcons",
+  },
+  {
+    id: 9,
+    name: "Tecnologia",
+    icon: "computer",
+    library: "MaterialIcons",
+  },
+  {
+    id: 10,
+    name: "Jogos",
+    icon: "gamepad",
+    library: "FontAwesome",
+  },
+  {
+    id: 11,
+    name: "Cosméticos",
+    icon: "lipstick",
+    library: "MaterialCommunityIcons",
+  },
+  {
+    id: 12,
+    name: "Festa",
+    icon: "party-popper",
+    library: "MaterialCommunityIcons",
+  },
+  {
+    id: 13,
+    name: "Brinquedo",
+    icon: "puzzle-piece",
+    library: "FontAwesome",
+  },
+  {
+    id: 14,
+    name: "Ferramentas",
+    icon: "build",
+    library: "MaterialIcons",
+  },
+  {
+    id: 15,
+    name: "Construção",
+    icon: "dump-truck",
     library: "MaterialCommunityIcons",
   },
 ];
@@ -344,6 +400,13 @@ const ListItens = ({ navigation }) => {
                           )}
                           {category?.library === "MaterialCommunityIcons" && (
                             <MaterialCommunityIcons
+                              name={category?.icon}
+                              size={30}
+                              color={"#FFF"}
+                            />
+                          )}
+                          {category?.library === "AntDesign" && (
+                            <AntDesign
                               name={category?.icon}
                               size={30}
                               color={"#FFF"}
