@@ -128,6 +128,18 @@ const categories = [
     icon: "dump-truck",
     library: "MaterialCommunityIcons",
   },
+  {
+    id: 16,
+    name: "Plantas",
+    icon: "flower-outline",
+    library: "MaterialCommunityIcons",
+  },
+  {
+    id: 17,
+    name: "Animais",
+    icon: "pets",
+    library: "MaterialIcons",
+  },
 ];
 
 const ListItens = ({ navigation }) => {
@@ -147,19 +159,19 @@ const ListItens = ({ navigation }) => {
     {
       id: 0,
       amount: 2,
-      product: "Testando",
+      product: "Testandodsdsdsdsdsdsdsdsd dadadsdsdsdsdsdsd",
       category: "comida",
       price: 10,
       priority: true,
     },
-    // {
-    //   id: 0,
-    //   amount: 2,
-    //   product: "Teste",
-    //   category: "comida",
-    //   price: 10,
-    //   priority: false,
-    // },
+    {
+      id: 1,
+      amount: 2,
+      product: "Teste",
+      category: "comida",
+      price: 10,
+      priority: false,
+    },
   ]);
   const [item, setItem] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -424,10 +436,11 @@ const ListItens = ({ navigation }) => {
                   justifyContent: "space-between",
                   width: "100%",
                   paddingTop: "0.8rem",
+                  height: "4.5rem",
                 }}
               >
                 <Pressable
-                  onPress={() => navigation.navigate("ListItens")}
+                  onPress={() => setModalVisible(false)}
                   style={{
                     backgroundColor: theme.colors.primary,
                     // height: '10%',
@@ -438,10 +451,14 @@ const ListItens = ({ navigation }) => {
                     justifyContent: "space-around",
                   }}
                 >
-                  <FontAwesome size={30} color="#000" name="arrow-left" />
                   <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
-                    Voltar
+                    Cancelar
                   </Text>
+                  {/* <MaterialCommunityIcons
+                    size={25}
+                    color="#FFF"
+                    name="cancel"
+                  /> */}
                 </Pressable>
                 <Pressable
                   onPress={() => {
@@ -466,7 +483,7 @@ const ListItens = ({ navigation }) => {
                   <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
                     Salvar
                   </Text>
-                  <FontAwesome size={30} color="#000" name="plus" />
+                  {/* <FontAwesome size={25} color="#fff" name="check" /> */}
                 </Pressable>
               </View>
             </View>
@@ -536,6 +553,13 @@ const ListItens = ({ navigation }) => {
             {listItems?.map((item, index) => {
               return (
                 <Conatiner style={styles.section} key={index}>
+                  <View style={{ marginRight: "0.4rem" }}>
+                    {item?.priority ? (
+                      <FontAwesome name="star" size={25} color={"#FFA500"} />
+                    ) : (
+                      <FontAwesome name="star-o" size={25} color={"#000"} />
+                    )}
+                  </View>
                   <Pressable
                     style={{
                       width: "65%",
@@ -558,15 +582,10 @@ const ListItens = ({ navigation }) => {
                       </Text>
                     </View>
                   </Pressable>
-                  <View style={{ marginRight: "0.4rem" }}>
-                    {item?.priority && (
-                      <FontAwesome name="star" size={25} color={"#FFA500"} />
-                    )}
-                  </View>
                   {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
                   <View
                     style={{
-                      width: "15%",
+                      maxWidth: "7rem",
                       flex: 1,
                       flexDirection: "row",
                       justifyContent: "space-between",
