@@ -27,11 +27,29 @@ interface Category {
   id: number;
   name: string;
   icon: string;
-  iconColor: string;
   library: string;
 }
 
-const categories = [
+interface Priority {
+  id: number,
+  value: string,
+  icon: string,
+}
+
+const priorities: Priority[] = [
+  {
+    id: 0,
+    value: 'SIM',
+    icon: 'star',
+  },
+  {
+    id: 1,
+    value: 'NÂO',
+    icon: 'star-o',
+  }
+]
+
+const categories: Category[] = [
   {
     id: 0,
     name: "Comida",
@@ -173,15 +191,18 @@ const ListItens = ({ navigation }) => {
       priority: false,
     },
   ]);
+
   const [item, setItem] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedPriority, setSelectedPriority] = useState<string>("");
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [showOption, setShowOption] = useState<boolean>(false);
+  const [showCategoryOptions, setShowCategoryOptions] = useState<boolean>(false);
+  const [showPriorityOptions, setShowPriorityOptions] = useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
 
   const onSelect = (category: string) => {
-    setShowOption(false);
+    setShowCategoryOptions(false);
     setSelectedCategory(category);
   };
 
@@ -215,9 +236,9 @@ const ListItens = ({ navigation }) => {
     const newItems: Item[] = listItems?.map((item) =>
       item.id === id
         ? {
-            ...item,
-            amount: item?.amount + 1,
-          }
+          ...item,
+          amount: item?.amount + 1,
+        }
         : item
     );
 
@@ -228,9 +249,9 @@ const ListItens = ({ navigation }) => {
     const newItems: Item[] = listItems?.map((item) =>
       item.id === id
         ? {
-            ...item,
-            amount: item?.amount - 1,
-          }
+          ...item,
+          amount: item?.amount - 1,
+        }
         : item
     );
 
@@ -279,7 +300,8 @@ const ListItens = ({ navigation }) => {
                   borderColor: theme.colors.primary,
                   padding: 10,
                   borderRadius: 10,
-                  fontSize: 20,
+                  fontSize: 18,
+                  fontFamily: Poppins_600SemiBold,
                   shadowOffset: { width: 0, height: 1 },
                 }}
                 // onChangeText={(value) => setProduct(value)}
@@ -302,7 +324,8 @@ const ListItens = ({ navigation }) => {
                     borderColor: theme.colors.primary,
                     padding: 10,
                     borderRadius: 10,
-                    fontSize: 20,
+                    fontSize: 18,
+                    fontFamily: Poppins_600SemiBold,
                     shadowOffset: { width: 0, height: 1 },
                   }}
                   keyboardType={"numeric"}
@@ -323,12 +346,13 @@ const ListItens = ({ navigation }) => {
                     borderColor: theme.colors.primary,
                     padding: 10,
                     borderRadius: 10,
-                    fontSize: 20,
+                    fontSize: 18,
+                    fontFamily: Poppins_600SemiBold,
                     shadowOffset: { width: 0, height: 1 },
                   }}
                   placeholder="Preço"
                   // value={item?.price}
-                  value={0}
+                  value={null}
                   // onChangeValue={(value) => setPrice(value)}
                   prefix="R$ "
                   delimiter="."
@@ -341,23 +365,23 @@ const ListItens = ({ navigation }) => {
                 <TouchableOpacity
                   style={styles.dropDownStyle}
                   activeOpacity={0.8}
-                  onPress={() => setShowOption(!showOption)}
+                  onPress={() => setShowCategoryOptions(!showCategoryOptions)}
                 >
                   <Text
-                    fontFamily={Poppins_400Regular}
-                    fontSize={20}
+                    fontFamily={Poppins_600SemiBold}
+                    fontSize={18}
                     color={"#adadac"}
                   >
                     {selectedCategory ? selectedCategory : `Categoria`}
                   </Text>
                   <MaterialIcons
-                    name={!showOption ? "arrow-drop-down" : "arrow-drop-up"}
+                    name={!showCategoryOptions ? "arrow-drop-down" : "arrow-drop-up"}
                     size={35}
                     color={"black"}
                   />
                 </TouchableOpacity>
               </View>
-              {showOption && (
+              {showCategoryOptions && (
                 <View
                   style={{
                     backgroundColor: theme?.colors?.primary,
@@ -390,8 +414,8 @@ const ListItens = ({ navigation }) => {
                           }}
                         >
                           <Text
-                            fontFamily={Poppins_400Regular}
-                            fontSize={20}
+                            fontFamily={Poppins_600SemiBold}
+                            fontSize={18}
                             color={"white"}
                           >
                             {category?.name}
@@ -430,6 +454,76 @@ const ListItens = ({ navigation }) => {
                   </ScrollView>
                 </View>
               )}
+              <View style={{ width: "100%", borderColor: "red", marginTop: '1rem' }}>
+                <TouchableOpacity
+                  style={styles.dropDownStyle}
+                  activeOpacity={0.8}
+                  onPress={() => setShowPriorityOptions(!showPriorityOptions)}
+                >
+                  <Text
+                    fontFamily={Poppins_600SemiBold}
+                    fontSize={18}
+                    color={"#adadac"}
+                  >
+                    {selectedPriority ? selectedPriority : `Prioridade`}
+                  </Text>
+                  <MaterialIcons
+                    name={!showPriorityOptions ? "arrow-drop-down" : "arrow-drop-up"}
+                    size={35}
+                    color={"black"}
+                  />
+                </TouchableOpacity>
+              </View>
+              {showPriorityOptions && (
+                <View
+                  style={{
+                    backgroundColor: theme?.colors?.primary,
+                    padding: 4,
+                    borderRadius: 6,
+                    maxHeight: 150,
+                    width: "100%",
+                  }}
+                >
+                  <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                  >
+                    {priorities?.map((priority) => {
+                      return (
+                        <TouchableOpacity
+                          key={priority?.id}
+                          onPress={() => onSelect(priority?.value)}
+                          style={{
+                            backgroundColor: theme.colors.primary,
+                            paddingVertical: 8,
+                            paddingHorizontal: 4,
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-evenly",
+                            alignItems: "center",
+                            marginBottom: 2,
+                            borderBottomColor: "#ffffff",
+                            borderBottomWidth: 3,
+                          }}
+                        >
+                          <Text
+                            fontFamily={Poppins_600SemiBold}
+                            fontSize={18}
+                            color={"white"}
+                          >
+                            {priority?.value}
+                          </Text>
+                          <FontAwesome
+                            name={priority?.icon}
+                            size={30}
+                            color={"#FFF"}
+                          />
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              )}
               <View
                 style={{
                   flexDirection: "row",
@@ -442,7 +536,8 @@ const ListItens = ({ navigation }) => {
                 <Pressable
                   onPress={() => setModalVisible(false)}
                   style={{
-                    backgroundColor: theme.colors.primary,
+                    // backgroundColor: theme.colors.primary,
+                    backgroundColor: '#D2691E',
                     // height: '10%',
                     width: "48%",
                     borderRadius: 10,
@@ -471,7 +566,8 @@ const ListItens = ({ navigation }) => {
                     navigation.navigate("ListItens");
                   }}
                   style={{
-                    backgroundColor: theme.colors.primary,
+                    // backgroundColor: theme.colors.primary,
+                    backgroundColor: 'green',
                     // height: '10%',
                     width: "48%",
                     borderRadius: 10,
