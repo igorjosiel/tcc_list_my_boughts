@@ -329,21 +329,36 @@ const ListItens = ({ navigation }) => {
                 placeholder="Nome do produto"
                 keyboardType="default"
               />
-              <View
+              {/* <View
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-between",
                 }}
-              >
+              > */}
+              <View style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: theme?.colors?.primary,
+                    height: 61,
+                    width: '15%',
+                    borderBottomLeftRadius: 10,
+                    borderTopLeftRadius: 10,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <FontAwesome size={30} color={"#FFF"} name="minus" />
+                </TouchableOpacity>
                 <TextInput
                   style={{
                     height: 60,
-                    width: "45%",
+                    width: "70%",
                     marginBottom: "5%",
                     borderWidth: 3,
                     borderColor: theme.colors.primary,
                     padding: 10,
-                    borderRadius: 10,
+                    // borderRadius: 10,
                     fontSize: 18,
                     fontFamily: Poppins_600SemiBold,
                     shadowOffset: { width: 0, height: 1 },
@@ -354,29 +369,44 @@ const ListItens = ({ navigation }) => {
                   placeholder="Quantidade"
                   maxLength={10}
                 />
-                <CurrencyInput
+                <TouchableOpacity
                   style={{
-                    height: 60,
-                    width: "50%",
-                    marginBottom: "5%",
-                    borderWidth: 3,
-                    borderColor: theme.colors.primary,
-                    padding: 10,
-                    borderRadius: 10,
-                    fontSize: 18,
-                    fontFamily: Poppins_600SemiBold,
-                    shadowOffset: { width: 0, height: 1 },
-                  }}
-                  placeholder="Preço"
-                  value={newProduct?.price === 0 ? null : newProduct?.price}
-                  onChangeValue={(value) => setPropertyNewProduct(value, 'price')}
-                  prefix="R$ "
-                  delimiter="."
-                  separator=","
-                  precision={2}
-                  minValue={0}
-                />
+                    backgroundColor: theme?.colors?.primary,
+                    height: 61,
+                    width: '15%',
+                    borderBottomRightRadius: 10,
+                    borderTopRightRadius: 10,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <FontAwesome size={30} color={"#FFF"} name="plus" />
+                </TouchableOpacity>
               </View>
+              <CurrencyInput
+                style={{
+                  height: 60,
+                  width: "100%",
+                  marginBottom: "5%",
+                  borderWidth: 3,
+                  borderColor: theme.colors.primary,
+                  padding: 10,
+                  borderRadius: 10,
+                  fontSize: 18,
+                  fontFamily: Poppins_600SemiBold,
+                  shadowOffset: { width: 0, height: 1 },
+                }}
+                placeholder="Preço"
+                value={newProduct?.price === 0 ? null : newProduct?.price}
+                onChangeValue={(value) => setPropertyNewProduct(value, 'price')}
+                prefix="R$ "
+                delimiter="."
+                separator=","
+                precision={2}
+                minValue={0}
+              />
+              {/* </View> */}
               <View style={{ width: "100%", borderColor: "red" }}>
                 <TouchableOpacity
                   style={styles.dropDownStyle}
