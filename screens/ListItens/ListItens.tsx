@@ -198,7 +198,7 @@ const ListItens = ({ navigation }) => {
   const [item, setItem] = useState<string>("");
   const [newProduct, setNewProduct] = useState<Item>({
     id: 0,
-    amount: 2,
+    amount: 1,
     productName: '',
     category: '',
     price: 0,
@@ -238,8 +238,6 @@ const ListItens = ({ navigation }) => {
     // setSelectedCategory("");
   };
 
-  console.log('List: ', listItems);
-
   const removeItemToList = (id: number) => {
     const listItemsFiltered: Item[] = listItems?.filter(
       (item) => item.id !== id
@@ -250,6 +248,12 @@ const ListItens = ({ navigation }) => {
 
   const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
     setNewProduct({ ...newProduct, [property]: value });
+  }
+
+  const setAmountNewProduct = (value: number) => {
+    if (value === 0) return;
+
+    setNewProduct({ ...newProduct, amount: value });
   }
 
   function increaseItemAmount(id: number) {
@@ -347,7 +351,8 @@ const ListItens = ({ navigation }) => {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}>
+                  }}
+                  onPress={() => setAmountNewProduct(newProduct?.amount - 1)}>
                   <FontAwesome size={30} color={"#FFF"} name="minus" />
                 </TouchableOpacity>
                 <TextInput
@@ -364,8 +369,8 @@ const ListItens = ({ navigation }) => {
                     shadowOffset: { width: 0, height: 1 },
                   }}
                   keyboardType={"numeric"}
-                  onChangeText={(value) => setPropertyNewProduct(value, 'amount')}
-                  // value={newProduct?.amount}
+                  onChangeText={(value) => setAmountNewProduct(parseInt(value))}
+                  value={newProduct?.amount.toString() == "0" ? "" : newProduct?.amount.toString()}
                   placeholder="Quantidade"
                   maxLength={10}
                 />
@@ -380,7 +385,8 @@ const ListItens = ({ navigation }) => {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}>
+                  }}
+                  onPress={() => setAmountNewProduct(newProduct?.amount + 1)}>
                   <FontAwesome size={30} color={"#FFF"} name="plus" />
                 </TouchableOpacity>
               </View>
