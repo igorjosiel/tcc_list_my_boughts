@@ -201,9 +201,14 @@ const ListItens = ({ navigation }) => {
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
 
-  const onSelect = (category: string) => {
+  const onSelectCategory = (category: string) => {
     setShowCategoryOptions(false);
     setSelectedCategory(category);
+  };
+
+  const onSelectPriority = (category: string) => {
+    setShowPriorityOptions(false);
+    setSelectedPriority(category);
   };
 
   const addItemToList = () => {
@@ -399,7 +404,7 @@ const ListItens = ({ navigation }) => {
                       return (
                         <TouchableOpacity
                           key={category?.id}
-                          onPress={() => onSelect(category?.name)}
+                          onPress={() => onSelectCategory(category?.name)}
                           style={{
                             backgroundColor: theme.colors.primary,
                             paddingVertical: 8,
@@ -492,7 +497,7 @@ const ListItens = ({ navigation }) => {
                       return (
                         <TouchableOpacity
                           key={priority?.id}
-                          onPress={() => onSelect(priority?.value)}
+                          onPress={() => onSelectPriority(priority?.value)}
                           style={{
                             backgroundColor: theme.colors.primary,
                             paddingVertical: 8,
