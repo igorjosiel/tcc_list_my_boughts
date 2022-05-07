@@ -32,19 +32,22 @@ interface Category {
 
 interface Priority {
   id: number,
-  value: string,
+  name: string,
+  value: boolean,
   icon: string,
 }
 
 const priorities: Priority[] = [
   {
     id: 0,
-    value: 'SIM',
+    name: 'SIM',
+    value: true,
     icon: 'star',
   },
   {
     id: 1,
-    value: 'NÂO',
+    name: 'NÂO',
+    value: false,
     icon: 'star-o',
   }
 ]
@@ -167,32 +170,40 @@ const ListItens = ({ navigation }) => {
   interface Item {
     id: number;
     amount: number;
-    product: string;
+    productName: string;
     category: string;
     price: number;
     priority: boolean;
   }
 
   const [listItems, setListItems] = useState<Item[]>([
-    {
-      id: 0,
-      amount: 2,
-      product: "Testandodsdsdsdsdsdsdsdsd dadadsdsdsdsdsdsd",
-      category: "comida",
-      price: 10,
-      priority: true,
-    },
-    {
-      id: 1,
-      amount: 2,
-      product: "Teste",
-      category: "comida",
-      price: 10,
-      priority: false,
-    },
+    // {
+    //   id: 0,
+    //   amount: 2,
+    //   productName: "Testandodsdsdsdsdsdsdsdsd dadadsdsdsdsdsdsd",
+    //   category: "comida",
+    //   price: 10,
+    //   priority: true,
+    // },
+    // {
+    //   id: 1,
+    //   amount: 2,
+    //   productName: "Teste",
+    //   category: "comida",
+    //   price: 10,
+    //   priority: false,
+    // },
   ]);
 
   const [item, setItem] = useState<string>("");
+  const [newProduct, setNewProduct] = useState<Item>({
+    id: 0,
+    amount: 2,
+    productName: '',
+    category: '',
+    price: 0,
+    priority: false,
+  });
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<string>("");
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -212,22 +223,22 @@ const ListItens = ({ navigation }) => {
   };
 
   const addItemToList = () => {
-    if (!item || !selectedCategory) return;
+    if (!newProduct?.productName || !newProduct?.category) return;
 
     const newItem = {
+      ...newProduct,
       id: idGenerator,
-      amount: 1,
-      product: item,
-      category: "",
-      price: 0.0,
     };
 
-    // setTotalValue(oldState => oldState + (item?.price * parseInt(item?.amount)));
+    setTotalValue(oldState => oldState + (newProduct?.price * newProduct?.amount));
     setListItems((oldState) => [...oldState, newItem]);
     setIdGenerator((oldState) => oldState + 1);
-    setItem("");
-    setSelectedCategory("");
+    setNewProduct({ ...newProduct, productName: '', price: 0 });
+    // setItem("");
+    // setSelectedCategory("");
   };
+
+  console.log('List: ', listItems);
 
   const removeItemToList = (id: number) => {
     const listItemsFiltered: Item[] = listItems?.filter(
@@ -236,6 +247,10 @@ const ListItens = ({ navigation }) => {
 
     setListItems(listItemsFiltered);
   };
+
+  const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
+    setNewProduct({ ...newProduct, [property]: value });
+  }
 
   function increaseItemAmount(id: number) {
     const newItems: Item[] = listItems?.map((item) =>
@@ -309,8 +324,8 @@ const ListItens = ({ navigation }) => {
                   fontFamily: Poppins_600SemiBold,
                   shadowOffset: { width: 0, height: 1 },
                 }}
-                // onChangeText={(value) => setProduct(value)}
-                // value={item?.product}
+                onChangeText={(value) => setPropertyNewProduct(value, 'productName')}
+                value={newProduct?.productName}
                 placeholder="Nome do produto"
                 keyboardType="default"
               />
@@ -334,11 +349,8 @@ const ListItens = ({ navigation }) => {
                     shadowOffset: { width: 0, height: 1 },
                   }}
                   keyboardType={"numeric"}
-                  // onChangeText={(value) => {
-                  //   console.log("Deu: ", parseInt(value));
-                  //   setAmount(value);
-                  // }}
-                  // value={item?.amount}
+                  onChangeText={(value) => setPropertyNewProduct(value, 'amount')}
+                  // value={newProduct?.amount}
                   placeholder="Quantidade"
                   maxLength={10}
                 />
@@ -356,9 +368,8 @@ const ListItens = ({ navigation }) => {
                     shadowOffset: { width: 0, height: 1 },
                   }}
                   placeholder="Preço"
-                  // value={item?.price}
-                  value={null}
-                  // onChangeValue={(value) => setPrice(value)}
+                  value={newProduct?.price === 0 ? null : newProduct?.price}
+                  onChangeValue={(value) => setPropertyNewProduct(value, 'price')}
                   prefix="R$ "
                   delimiter="."
                   separator=","
@@ -404,7 +415,10 @@ const ListItens = ({ navigation }) => {
                       return (
                         <TouchableOpacity
                           key={category?.id}
-                          onPress={() => onSelectCategory(category?.name)}
+                          onPress={() => {
+                            onSelectCategory(category?.name);
+                            setPropertyNewProduct(category?.name, 'category');
+                          }}
                           style={{
                             backgroundColor: theme.colors.primary,
                             paddingVertical: 8,
@@ -497,7 +511,10 @@ const ListItens = ({ navigation }) => {
                       return (
                         <TouchableOpacity
                           key={priority?.id}
-                          onPress={() => onSelectPriority(priority?.value)}
+                          onPress={() => {
+                            onSelectPriority(priority?.name);
+                            setPropertyNewProduct(priority?.value, 'priority');
+                          }}
                           style={{
                             backgroundColor: theme.colors.primary,
                             paddingVertical: 8,
@@ -516,7 +533,7 @@ const ListItens = ({ navigation }) => {
                             fontSize={18}
                             color={"white"}
                           >
-                            {priority?.value}
+                            {priority?.name}
                           </Text>
                           <FontAwesome
                             name={priority?.icon}
@@ -554,21 +571,11 @@ const ListItens = ({ navigation }) => {
                   <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
                     Cancelar
                   </Text>
-                  {/* <MaterialCommunityIcons
-                    size={25}
-                    color="#FFF"
-                    name="cancel"
-                  /> */}
                 </Pressable>
                 <Pressable
                   onPress={() => {
-                    // addItemToList({
-                    //     product,
-                    //     amount,
-                    //     price,
-                    //     category,
-                    // });
-                    navigation.navigate("ListItens");
+                    addItemToList();
+                    setModalVisible(false);
                   }}
                   style={{
                     // backgroundColor: theme.colors.primary,
@@ -584,7 +591,6 @@ const ListItens = ({ navigation }) => {
                   <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
                     Salvar
                   </Text>
-                  {/* <FontAwesome size={25} color="#fff" name="check" /> */}
                 </Pressable>
               </View>
             </View>
@@ -636,7 +642,7 @@ const ListItens = ({ navigation }) => {
               <Pressable
                 style={{
                   width: "100%",
-                  shadowOpacity: "0.7",
+                  // shadowOpacity: "0.7",
                 }}
                 // onPress={() => navigation?.navigate("ProductsPage")}
                 onPress={() => setModalVisible(true)}
@@ -679,7 +685,7 @@ const ListItens = ({ navigation }) => {
                         fontSize={20}
                         color={"#000"}
                       >
-                        {item?.product}
+                        {item?.productName}
                       </Text>
                     </View>
                   </Pressable>
@@ -696,7 +702,7 @@ const ListItens = ({ navigation }) => {
                     {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
                     <Pressable
                       onPress={
-                        item?.amount === 1
+                        parseInt(item?.amount) === 1
                           ? () => removeItemToList(item?.id)
                           : () => decreaseItemAmount(item?.id)
                       }
