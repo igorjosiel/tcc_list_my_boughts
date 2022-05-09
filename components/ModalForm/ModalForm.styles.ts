@@ -1,10 +1,12 @@
 import styled from "styled-components/native";
 
+import theme from "../../global/styles/theme";
+
 const CenteredView = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    margin-top: 22,
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 22;
 `;
 
 const ModalView = styled.View`
@@ -21,9 +23,9 @@ const ModalView = styled.View`
 `;
 
 const ModalTitle = styled.View`
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5%;
 `;
 
 export { CenteredView, ModalView, ModalTitle };
