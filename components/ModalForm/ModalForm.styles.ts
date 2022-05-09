@@ -1,7 +1,5 @@
 import styled from "styled-components/native";
 
-import theme from "../../global/styles/theme";
-
 const CenteredView = styled.View`
   flex: 1;
   justify-content: center;
@@ -28,4 +26,9 @@ const ModalTitle = styled.View`
   margin-bottom: 5%;
 `;
 
-export { CenteredView, ModalView, ModalTitle };
+const AmountContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export { CenteredView, ModalView, ModalTitle, AmountContainer };

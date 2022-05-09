@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Modal } from "react-native";
 
-import { CenteredView, ModalView, ModalTitle } from "./ModalForm.styles";
+import {
+  CenteredView,
+  ModalView,
+  ModalTitle,
+  AmountContainer,
+} from "./ModalForm.styles";
 import Text from "../Text/Text";
 import TextInput from "../Input/TextInput/TextInput";
 
@@ -31,6 +36,12 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     setNewProduct({ ...newProduct, [property]: value });
   };
 
+  const setAmountNewProduct = (value: number) => {
+    if (value === 0) return;
+
+    setNewProduct({ ...newProduct, amount: value });
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -47,6 +58,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           </ModalTitle>
           <TextInput
             fontFamily={Poppins_600SemiBold}
+            width={"100%"}
             onChangeText={(value) =>
               setPropertyNewProduct(value, "productName")
             }
@@ -54,6 +66,21 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             placeholder="Nome do produto"
             keyboardType="default"
           />
+          <AmountContainer>
+            <TextInput
+              fontFamily={Poppins_600SemiBold}
+              width={"70%"}
+              keyboardType={"numeric"}
+              onChangeText={(value) => setAmountNewProduct(parseInt(value))}
+              value={
+                newProduct?.amount.toString() == "0"
+                  ? ""
+                  : newProduct?.amount.toString()
+              }
+              placeholder="Quantidade"
+              maxLength={10}
+            />
+          </AmountContainer>
         </ModalView>
       </CenteredView>
     </Modal>
