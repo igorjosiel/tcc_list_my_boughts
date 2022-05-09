@@ -23,180 +23,19 @@ import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
 import compras from "../../assets/cart.jpg";
-interface Category {
-  id: number;
-  name: string;
-  icon: string;
-  library: string;
-}
 
-interface Priority {
-  id: number,
-  name: string,
-  value: boolean,
-  icon: string,
-}
-
-const priorities: Priority[] = [
-  {
-    id: 0,
-    name: 'SIM',
-    value: true,
-    icon: 'star',
-  },
-  {
-    id: 1,
-    name: 'NÂO',
-    value: false,
-    icon: 'star-o',
-  }
-]
-
-const categories: Category[] = [
-  {
-    id: 0,
-    name: "Comida",
-    icon: "restaurant",
-    library: "MaterialIcons",
-  },
-  {
-    id: 1,
-    name: "Limpeza",
-    icon: "cleaning-services",
-    library: "MaterialIcons",
-  },
-  {
-    id: 2,
-    name: "Bebida",
-    icon: "local-drink",
-    library: "MaterialIcons",
-  },
-  {
-    id: 3,
-    name: "Gelados",
-    icon: "ice-cream",
-    library: "MaterialCommunityIcons",
-  },
-  {
-    id: 4,
-    name: "Higiene",
-    icon: "clean-hands",
-    library: "MaterialIcons",
-  },
-  {
-    id: 5,
-    name: "Vestuário",
-    icon: "hanger",
-    library: "MaterialCommunityIcons",
-  },
-  {
-    id: 6,
-    name: "Saúde",
-    icon: "medicinebox",
-    library: "AntDesign",
-  },
-  {
-    id: 7,
-    name: "Música",
-    icon: "music",
-    library: "FontAwesome",
-  },
-  {
-    id: 8,
-    name: "Entretenimento",
-    icon: "television-guide",
-    library: "MaterialCommunityIcons",
-  },
-  {
-    id: 9,
-    name: "Tecnologia",
-    icon: "computer",
-    library: "MaterialIcons",
-  },
-  {
-    id: 10,
-    name: "Jogos",
-    icon: "gamepad",
-    library: "FontAwesome",
-  },
-  {
-    id: 11,
-    name: "Cosméticos",
-    icon: "lipstick",
-    library: "MaterialCommunityIcons",
-  },
-  {
-    id: 12,
-    name: "Festa",
-    icon: "party-popper",
-    library: "MaterialCommunityIcons",
-  },
-  {
-    id: 13,
-    name: "Brinquedo",
-    icon: "puzzle-piece",
-    library: "FontAwesome",
-  },
-  {
-    id: 14,
-    name: "Ferramentas",
-    icon: "build",
-    library: "MaterialIcons",
-  },
-  {
-    id: 15,
-    name: "Construção",
-    icon: "dump-truck",
-    library: "MaterialCommunityIcons",
-  },
-  {
-    id: 16,
-    name: "Plantas",
-    icon: "flower-outline",
-    library: "MaterialCommunityIcons",
-  },
-  {
-    id: 17,
-    name: "Animais",
-    icon: "pets",
-    library: "MaterialIcons",
-  },
-];
+import { categories, priorities } from "../../utils/constants";
+import { Product } from "../../utils/interfaces";
+import Header from "../../components/Header/Header";
+import ModalForm from "../../components/ModalForm/ModalForm";
 
 const ListItens = ({ navigation }) => {
-  const Poppins_400Regular = useSetFonts("Poppins_600SemiBold");
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
-  interface Item {
-    id: number;
-    amount: number;
-    productName: string;
-    category: string;
-    price: number;
-    priority: boolean;
-  }
-
-  const [listItems, setListItems] = useState<Item[]>([
-    // {
-    //   id: 0,
-    //   amount: 2,
-    //   productName: "Testandodsdsdsdsdsdsdsdsd dadadsdsdsdsdsdsd",
-    //   category: "comida",
-    //   price: 10,
-    //   priority: true,
-    // },
-    // {
-    //   id: 1,
-    //   amount: 2,
-    //   productName: "Teste",
-    //   category: "comida",
-    //   price: 10,
-    //   priority: false,
-    // },
-  ]);
+  const [listProducts, setListProducts] = useState<Product[]>([]);
 
   const [item, setItem] = useState<string>("");
-  const [newProduct, setNewProduct] = useState<Item>({
+  const [newProduct, setNewProduct] = useState<Product>({
     id: 0,
     amount: 1,
     productName: '',
@@ -231,7 +70,7 @@ const ListItens = ({ navigation }) => {
     };
 
     setTotalValue(oldState => oldState + (newProduct?.price * newProduct?.amount));
-    setListItems((oldState) => [...oldState, newItem]);
+    setListProducts((oldState) => [...oldState, newItem]);
     setIdGenerator((oldState) => oldState + 1);
     setNewProduct({ ...newProduct, productName: '', price: 0 });
     // setItem("");
@@ -239,11 +78,11 @@ const ListItens = ({ navigation }) => {
   };
 
   const removeItemToList = (id: number) => {
-    const listItemsFiltered: Item[] = listItems?.filter(
+    const listProductsFiltered: Product[] = listProducts?.filter(
       (item) => item.id !== id
     );
 
-    setListItems(listItemsFiltered);
+    setListProducts(listProductsFiltered);
   };
 
   const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
@@ -257,7 +96,7 @@ const ListItens = ({ navigation }) => {
   }
 
   function increaseItemAmount(id: number) {
-    const newItems: Item[] = listItems?.map((item) =>
+    const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
           ...item,
@@ -266,11 +105,11 @@ const ListItens = ({ navigation }) => {
         : item
     );
 
-    setListItems(newItems);
+    setListProducts(newItems);
   }
 
   function decreaseItemAmount(id: number) {
-    const newItems: Item[] = listItems?.map((item) =>
+    const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
           ...item,
@@ -279,7 +118,7 @@ const ListItens = ({ navigation }) => {
         : item
     );
 
-    setListItems(newItems);
+    setListProducts(newItems);
   }
 
   function editItemName(value: string) {
@@ -289,7 +128,12 @@ const ListItens = ({ navigation }) => {
   return (
     <>
       <ImageBackground source={compras} style={styles.image}>
-        <Modal
+
+        <ModalForm isModalOpen={modalVisible} closeModal={() => {
+          setModalVisible(!modalVisible);
+        }} />
+
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -333,12 +177,12 @@ const ListItens = ({ navigation }) => {
                 placeholder="Nome do produto"
                 keyboardType="default"
               />
-              {/* <View
+              <View
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-between",
                 }}
-              > */}
+              >
               <View style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
                 <TouchableOpacity
                   style={{
@@ -412,7 +256,6 @@ const ListItens = ({ navigation }) => {
                 precision={2}
                 minValue={0}
               />
-              {/* </View> */}
               <View style={{ width: "100%", borderColor: "red" }}>
                 <TouchableOpacity
                   style={styles.dropDownStyle}
@@ -631,39 +474,9 @@ const ListItens = ({ navigation }) => {
               </View>
             </View>
           </View>
-        </Modal>
+        </Modal> */}
 
-        <View
-          style={{
-            width: "100%",
-            height: "10%",
-            backgroundColor: theme.colors.primary,
-            maxHeight: "3.5rem",
-            marginLeft: "auto",
-            marginRight: "auto",
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
-            Lista de Compras
-          </Text>
-          <Pressable
-            onPress={() => addItemToList()}
-            style={{
-              backgroundColor: theme.colors.primary,
-              height: 55,
-              width: 55,
-              borderRadius: 50,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <FontAwesome size={40} color="#fff" name="shopping-cart" />
-          </Pressable>
-        </View>
+        <Header />
 
         <View
           style={{
@@ -684,7 +497,7 @@ const ListItens = ({ navigation }) => {
                 onPress={() => setModalVisible(true)}
               >
                 <Text
-                  fontFamily={Poppins_400Regular}
+                  fontFamily={Poppins_600SemiBold}
                   fontSize={20}
                   style={{ textAlign: "center" }}
                 >
@@ -693,11 +506,11 @@ const ListItens = ({ navigation }) => {
               </Pressable>
               {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
             </Conatiner>
-            {listItems?.map((item, index) => {
+            {listProducts?.map((product, index) => {
               return (
                 <Conatiner style={styles.section} key={index}>
                   <View style={{ marginRight: "0.4rem" }}>
-                    {item?.priority ? (
+                    {product?.priority ? (
                       <FontAwesome name="star" size={25} color={"#FFA500"} />
                     ) : (
                       <FontAwesome name="star-o" size={25} color={"#000"} />
@@ -711,17 +524,17 @@ const ListItens = ({ navigation }) => {
                       justifyContent: "stretch",
                       maxWidth: "10rem",
                     }}
-                    onPress={() =>
-                      navigation?.navigate("ProductsPage", { item })
-                    }
+                  // onPress={() =>
+                  //   navigation?.navigate("ProductsPage", { item })
+                  // }
                   >
                     <View>
                       <Text
-                        fontFamily={Poppins_400Regular}
+                        fontFamily={Poppins_600SemiBold}
                         fontSize={20}
                         color={"#000"}
                       >
-                        {item?.productName}
+                        {product?.productName}
                       </Text>
                     </View>
                   </Pressable>
@@ -738,9 +551,9 @@ const ListItens = ({ navigation }) => {
                     {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
                     <Pressable
                       onPress={
-                        parseInt(item?.amount) === 1
-                          ? () => removeItemToList(item?.id)
-                          : () => decreaseItemAmount(item?.id)
+                        product?.amount === 1
+                          ? () => removeItemToList(product?.id)
+                          : () => decreaseItemAmount(product?.id)
                       }
                       style={{
                         width: 25,
@@ -756,11 +569,11 @@ const ListItens = ({ navigation }) => {
                       fontSize={20}
                       color={"#000"}
                     >
-                      {item.amount}
+                      {product?.amount}
                     </Text>
                     {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
                     <Pressable
-                      onPress={() => increaseItemAmount(item?.id)}
+                      onPress={() => increaseItemAmount(product?.id)}
                       style={{
                         width: 25,
                         borderRadius: 50,
@@ -858,7 +671,7 @@ const ListItens = ({ navigation }) => {
             activeOpacity={0.8}
             onPress={() => setShowOption(!showOption)}
           >
-            <Text fontFamily={Poppins_400Regular} fontSize={20}>
+            <Text fontFamily={Poppins_600SemiBold} fontSize={20}>
               {selectedCategory ? selectedCategory : `Categoria`}
             </Text>
             <MaterialIcons

@@ -3,5 +3,4 @@ import theme from "../../global/styles/theme";
 
 export const Conatiner = styled.View`
     
-    // background-color: ${() => theme?.colors?.primary};
 `;
