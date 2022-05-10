@@ -38,16 +38,18 @@ const ListItens = ({ navigation }) => {
   const [newProduct, setNewProduct] = useState<Product>({
     id: 0,
     amount: 1,
-    productName: '',
-    category: '',
+    productName: "",
+    category: "",
     price: 0,
     priority: false,
   });
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<string>("");
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [showCategoryOptions, setShowCategoryOptions] = useState<boolean>(false);
-  const [showPriorityOptions, setShowPriorityOptions] = useState<boolean>(false);
+  const [showCategoryOptions, setShowCategoryOptions] =
+    useState<boolean>(false);
+  const [showPriorityOptions, setShowPriorityOptions] =
+    useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
 
@@ -69,10 +71,12 @@ const ListItens = ({ navigation }) => {
       id: idGenerator,
     };
 
-    setTotalValue(oldState => oldState + (newProduct?.price * newProduct?.amount));
+    setTotalValue(
+      (oldState) => oldState + newProduct?.price * newProduct?.amount
+    );
     setListProducts((oldState) => [...oldState, newItem]);
     setIdGenerator((oldState) => oldState + 1);
-    setNewProduct({ ...newProduct, productName: '', price: 0 });
+    setNewProduct({ ...newProduct, productName: "", price: 0 });
     // setItem("");
     // setSelectedCategory("");
   };
@@ -85,23 +89,23 @@ const ListItens = ({ navigation }) => {
     setListProducts(listProductsFiltered);
   };
 
-  const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
-    setNewProduct({ ...newProduct, [property]: value });
-  }
+  // const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
+  //   setNewProduct({ ...newProduct, [property]: value });
+  // }
 
   const setAmountNewProduct = (value: number) => {
     if (value === 0) return;
 
     setNewProduct({ ...newProduct, amount: value });
-  }
+  };
 
   function increaseItemAmount(id: number) {
     const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
-          ...item,
-          amount: item?.amount + 1,
-        }
+            ...item,
+            amount: item?.amount + 1,
+          }
         : item
     );
 
@@ -112,9 +116,9 @@ const ListItens = ({ navigation }) => {
     const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
-          ...item,
-          amount: item?.amount - 1,
-        }
+            ...item,
+            amount: item?.amount - 1,
+          }
         : item
     );
 
@@ -128,10 +132,12 @@ const ListItens = ({ navigation }) => {
   return (
     <>
       <ImageBackground source={compras} style={styles.image}>
-
-        <ModalForm isModalOpen={modalVisible} closeModal={() => {
-          setModalVisible(!modalVisible);
-        }} />
+        <ModalForm
+          isModalOpen={modalVisible}
+          closeModal={() => {
+            setModalVisible(!modalVisible);
+          }}
+        />
 
         {/* <Modal
           animationType="slide"
@@ -524,9 +530,9 @@ const ListItens = ({ navigation }) => {
                       justifyContent: "stretch",
                       maxWidth: "10rem",
                     }}
-                  // onPress={() =>
-                  //   navigation?.navigate("ProductsPage", { item })
-                  // }
+                    // onPress={() =>
+                    //   navigation?.navigate("ProductsPage", { item })
+                    // }
                   >
                     <View>
                       <Text
