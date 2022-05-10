@@ -1,21 +1,33 @@
 import { useState } from "react";
 import { Modal } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import {
   CenteredView,
   ModalView,
   ModalTitle,
   AmountContainer,
+  CategoryContainer,
+  ScrollViewContainer,
 } from "./ModalForm.styles";
+
 import Text from "../Text/Text";
 import TextInput from "../Input/TextInput/TextInput";
+import MoneyInput from "../Input/MoneyInput/MoneyInput";
+import Button from "../Button/Button";
+import Scroll from "../ScrollView/ScrollView";
 
 import { ModalFormProps } from "./ModalForm.types";
 import { Product } from "../../utils/interfaces";
 
+import theme from "../../global/styles/theme";
 import { useSetFonts } from "../../hooks/useSetFonts";
+import { categories } from "../../utils/constants";
 
 const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [showCategoryOptions, setShowCategoryOptions] =
+    useState<boolean>(false);
   const [newProduct, setNewProduct] = useState<Product>({
     id: 0,
     amount: 1,
@@ -58,6 +70,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           </ModalTitle>
           <TextInput
             fontFamily={Poppins_600SemiBold}
+            borderRadius={"10px"}
             width={"100%"}
             onChangeText={(value) =>
               setPropertyNewProduct(value, "productName")
@@ -67,20 +80,87 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             keyboardType="default"
           />
           <AmountContainer>
+            <Button
+              backgroundColor={theme?.colors?.primary}
+              height={"60px"}
+              width={"15%"}
+              borderBottomLeftRadius={"10"}
+              borderTopLeftRadius={"10"}
+              display={"flex"}
+              flexDirection={"row"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              onPress={() => setAmountNewProduct(newProduct?.amount - 1)}
+            >
+              <FontAwesome size={30} color={"#FFF"} name="minus" />
+            </Button>
             <TextInput
               fontFamily={Poppins_600SemiBold}
+              borderRadius={"0"}
               width={"70%"}
               keyboardType={"numeric"}
               onChangeText={(value) => setAmountNewProduct(parseInt(value))}
               value={
-                newProduct?.amount.toString() == "0"
+                newProduct?.amount?.toString() == "0"
                   ? ""
-                  : newProduct?.amount.toString()
+                  : newProduct?.amount?.toString()
               }
               placeholder="Quantidade"
               maxLength={10}
             />
+            <Button
+              backgroundColor={theme?.colors?.primary}
+              height={"60px"}
+              width={"15%"}
+              borderBottomRightRadius={"10"}
+              borderTopRightRadius={"10"}
+              display={"flex"}
+              flexDirection={"row"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              onPress={() => setAmountNewProduct(newProduct?.amount + 1)}
+            >
+              <FontAwesome size={30} color={"#FFF"} name="plus" />
+            </Button>
           </AmountContainer>
+          <MoneyInput
+            fontFamily={Poppins_600SemiBold}
+            placeholder="Preço"
+            value={newProduct?.price === 0 ? null : newProduct?.price}
+            onChangeValue={(value) => setPropertyNewProduct(value, "price")}
+            prefix="R$ "
+            delimiter="."
+            separator=","
+            precision={2}
+            minValue={0}
+          />
+          <CategoryContainer>
+            <Button
+              borderWidth={3}
+              borderColor={theme?.colors?.primary}
+              borderRadius={"10px"}
+              width={"100%"}
+              height={"60px"}
+              minHeight={"42px"}
+              padding={"10px"}
+              flexDirection={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Text
+                fontFamily={Poppins_600SemiBold}
+                fontSize={20}
+                color={"#adadac"}
+              >
+                {selectedCategory ? selectedCategory : `Categoria`}
+              </Text>
+            </Button>
+          </CategoryContainer>
+          {showCategoryOptions && (
+            <ScrollViewContainer>
+              <Scroll data={categories}></Scroll>
+            </ScrollViewContainer>
+          )}
         </ModalView>
       </CenteredView>
     </Modal>

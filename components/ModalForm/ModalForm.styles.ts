@@ -1,5 +1,7 @@
 import styled from "styled-components/native";
 
+import theme from "../../global/styles/theme";
+
 const CenteredView = styled.View`
   flex: 1;
   justify-content: center;
@@ -31,4 +33,23 @@ const AmountContainer = styled.View`
   justify-content: space-between;
 `;
 
-export { CenteredView, ModalView, ModalTitle, AmountContainer };
+const CategoryContainer = styled.View`
+  width: 100%;
+`;
+
+const ScrollViewContainer = styled.View`
+  background-color: ${theme?.colors?.primary};
+  padding: 4px;
+  border-radius: 6px;
+  max-height: 150px;
+  width: 100%;
+`;
+
+export {
+  CenteredView,
+  ModalView,
+  ModalTitle,
+  AmountContainer,
+  CategoryContainer,
+  ScrollViewContainer,
+};
