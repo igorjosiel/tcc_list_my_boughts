@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import StyledTextInput from "./TextInput.styles";
 
 import TextInputProps from "./TextInput.types";
