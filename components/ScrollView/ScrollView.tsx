@@ -12,7 +12,7 @@ import Text from "../Text/Text";
 import Button from "../Button/Button";
 
 const Scroll = (props: ScrollViewProps) => {
-  const { data, onSelected, setPropertyNewProduct } = props;
+  const { data, scrollName, onSelected, setPropertyNewProduct } = props;
 
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
@@ -27,7 +27,7 @@ const Scroll = (props: ScrollViewProps) => {
             key={eachData?.id}
             onPress={() => {
               onSelected(eachData?.name);
-              setPropertyNewProduct(eachData?.name, "category");
+              setPropertyNewProduct(eachData?.name, scrollName);
             }}
             backgroundColor={theme.colors.primary}
             display={"flex"}
