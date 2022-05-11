@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Conatiner } from "./ListItens.styles";
 import {
   StyleSheet,
@@ -6,25 +6,15 @@ import {
   View,
   ScrollView,
   ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Modal,
-  Button,
 } from "react-native";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import AntDesign from "react-native-vector-icons/AntDesign";
-
-import CurrencyInput from "react-native-currency-input";
 
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
 import compras from "../../assets/cart.jpg";
 
-import { categories, priorities } from "../../utils/constants";
 import { Product } from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
@@ -33,8 +23,6 @@ const ListItens = ({ navigation }) => {
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   const [listProducts, setListProducts] = useState<Product[]>([]);
-
-  const [item, setItem] = useState<string>("");
   const [newProduct, setNewProduct] = useState<Product>({
     id: 0,
     amount: 1,
@@ -43,27 +31,11 @@ const ListItens = ({ navigation }) => {
     price: 0,
     priority: false,
   });
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedPriority, setSelectedPriority] = useState<string>("");
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [showCategoryOptions, setShowCategoryOptions] =
-    useState<boolean>(false);
-  const [showPriorityOptions, setShowPriorityOptions] =
-    useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
 
-  const onSelectCategory = (category: string) => {
-    setShowCategoryOptions(false);
-    setSelectedCategory(category);
-  };
-
-  const onSelectPriority = (category: string) => {
-    setShowPriorityOptions(false);
-    setSelectedPriority(category);
-  };
-
-  const addItemToList = () => {
+  const addItemToList = (newProduct: Product) => {
     if (!newProduct?.productName || !newProduct?.category) return;
 
     const newItem = {
@@ -77,8 +49,6 @@ const ListItens = ({ navigation }) => {
     setListProducts((oldState) => [...oldState, newItem]);
     setIdGenerator((oldState) => oldState + 1);
     setNewProduct({ ...newProduct, productName: "", price: 0 });
-    // setItem("");
-    // setSelectedCategory("");
   };
 
   const removeItemToList = (id: number) => {
@@ -88,6 +58,11 @@ const ListItens = ({ navigation }) => {
 
     setListProducts(listProductsFiltered);
   };
+
+  const onSaveNewProduct = (newProduct: Product) => {
+    addItemToList(newProduct);
+    setModalVisible(false);
+  }
 
   // const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
   //   setNewProduct({ ...newProduct, [property]: value });
@@ -103,9 +78,9 @@ const ListItens = ({ navigation }) => {
     const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
-            ...item,
-            amount: item?.amount + 1,
-          }
+          ...item,
+          amount: item?.amount + 1,
+        }
         : item
     );
 
@@ -116,17 +91,13 @@ const ListItens = ({ navigation }) => {
     const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
-            ...item,
-            amount: item?.amount - 1,
-          }
+          ...item,
+          amount: item?.amount - 1,
+        }
         : item
     );
 
     setListProducts(newItems);
-  }
-
-  function editItemName(value: string) {
-    setItem(value);
   }
 
   return (
@@ -137,350 +108,8 @@ const ListItens = ({ navigation }) => {
           closeModal={() => {
             setModalVisible(!modalVisible);
           }}
+          onSaveNewProduct={onSaveNewProduct}
         />
-
-        {/* <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "5%",
-                  // marginTop: "5%",
-                }}
-              >
-                <Text
-                  fontFamily={Poppins_600SemiBold}
-                  fontSize={22}
-                  color={"#000"}
-                >
-                  Informações do Produto
-                </Text>
-              </View>
-              <TextInput
-                style={{
-                  height: 60,
-                  width: "100%",
-                  marginBottom: "5%",
-                  borderWidth: 3,
-                  borderColor: theme.colors.primary,
-                  padding: 10,
-                  borderRadius: 10,
-                  fontSize: 18,
-                  fontFamily: Poppins_600SemiBold,
-                  shadowOffset: { width: 0, height: 1 },
-                }}
-                onChangeText={(value) => setPropertyNewProduct(value, 'productName')}
-                value={newProduct?.productName}
-                placeholder="Nome do produto"
-                keyboardType="default"
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-              <View style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: theme?.colors?.primary,
-                    height: 61,
-                    width: '15%',
-                    borderBottomLeftRadius: 10,
-                    borderTopLeftRadius: 10,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  onPress={() => setAmountNewProduct(newProduct?.amount - 1)}>
-                  <FontAwesome size={30} color={"#FFF"} name="minus" />
-                </TouchableOpacity>
-                <TextInput
-                  style={{
-                    height: 60,
-                    width: "70%",
-                    marginBottom: "5%",
-                    borderWidth: 3,
-                    borderColor: theme.colors.primary,
-                    padding: 10,
-                    // borderRadius: 10,
-                    fontSize: 18,
-                    fontFamily: Poppins_600SemiBold,
-                    shadowOffset: { width: 0, height: 1 },
-                  }}
-                  keyboardType={"numeric"}
-                  onChangeText={(value) => setAmountNewProduct(parseInt(value))}
-                  value={newProduct?.amount.toString() == "0" ? "" : newProduct?.amount.toString()}
-                  placeholder="Quantidade"
-                  maxLength={10}
-                />
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: theme?.colors?.primary,
-                    height: 61,
-                    width: '15%',
-                    borderBottomRightRadius: 10,
-                    borderTopRightRadius: 10,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  onPress={() => setAmountNewProduct(newProduct?.amount + 1)}>
-                  <FontAwesome size={30} color={"#FFF"} name="plus" />
-                </TouchableOpacity>
-              </View>
-              <CurrencyInput
-                style={{
-                  height: 60,
-                  width: "100%",
-                  marginBottom: "5%",
-                  borderWidth: 3,
-                  borderColor: theme.colors.primary,
-                  padding: 10,
-                  borderRadius: 10,
-                  fontSize: 18,
-                  fontFamily: Poppins_600SemiBold,
-                  shadowOffset: { width: 0, height: 1 },
-                }}
-                placeholder="Preço"
-                value={newProduct?.price === 0 ? null : newProduct?.price}
-                onChangeValue={(value) => setPropertyNewProduct(value, 'price')}
-                prefix="R$ "
-                delimiter="."
-                separator=","
-                precision={2}
-                minValue={0}
-              />
-              <View style={{ width: "100%", borderColor: "red" }}>
-                <TouchableOpacity
-                  style={styles.dropDownStyle}
-                  activeOpacity={0.8}
-                  onPress={() => setShowCategoryOptions(!showCategoryOptions)}
-                >
-                  <Text
-                    fontFamily={Poppins_600SemiBold}
-                    fontSize={18}
-                    color={"#adadac"}
-                  >
-                    {selectedCategory ? selectedCategory : `Categoria`}
-                  </Text>
-                  <MaterialIcons
-                    name={!showCategoryOptions ? "arrow-drop-down" : "arrow-drop-up"}
-                    size={35}
-                    color={"black"}
-                  />
-                </TouchableOpacity>
-              </View>
-              {showCategoryOptions && (
-                <View
-                  style={{
-                    backgroundColor: theme?.colors?.primary,
-                    padding: 4,
-                    borderRadius: 6,
-                    maxHeight: 150,
-                    width: "100%",
-                  }}
-                >
-                  <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps="handled"
-                  >
-                    {categories?.map((category) => {
-                      return (
-                        <TouchableOpacity
-                          key={category?.id}
-                          onPress={() => {
-                            onSelectCategory(category?.name);
-                            setPropertyNewProduct(category?.name, 'category');
-                          }}
-                          style={{
-                            backgroundColor: theme.colors.primary,
-                            paddingVertical: 8,
-                            paddingHorizontal: 4,
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            marginBottom: 2,
-                            borderBottomColor: "#ffffff",
-                            borderBottomWidth: 3,
-                          }}
-                        >
-                          <Text
-                            fontFamily={Poppins_600SemiBold}
-                            fontSize={18}
-                            color={"white"}
-                          >
-                            {category?.name}
-                          </Text>
-                          {category?.library === "MaterialIcons" && (
-                            <MaterialIcons
-                              name={category?.icon}
-                              size={30}
-                              color={"#FFF"}
-                            />
-                          )}
-                          {category?.library === "FontAwesome" && (
-                            <FontAwesome
-                              name={category?.icon}
-                              size={30}
-                              color={"#FFF"}
-                            />
-                          )}
-                          {category?.library === "MaterialCommunityIcons" && (
-                            <MaterialCommunityIcons
-                              name={category?.icon}
-                              size={30}
-                              color={"#FFF"}
-                            />
-                          )}
-                          {category?.library === "AntDesign" && (
-                            <AntDesign
-                              name={category?.icon}
-                              size={30}
-                              color={"#FFF"}
-                            />
-                          )}
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </ScrollView>
-                </View>
-              )}
-              <View style={{ width: "100%", borderColor: "red", marginTop: '1rem' }}>
-                <TouchableOpacity
-                  style={styles.dropDownStyle}
-                  activeOpacity={0.8}
-                  onPress={() => setShowPriorityOptions(!showPriorityOptions)}
-                >
-                  <Text
-                    fontFamily={Poppins_600SemiBold}
-                    fontSize={18}
-                    color={"#adadac"}
-                  >
-                    {selectedPriority ? selectedPriority : `Prioridade`}
-                  </Text>
-                  <MaterialIcons
-                    name={!showPriorityOptions ? "arrow-drop-down" : "arrow-drop-up"}
-                    size={35}
-                    color={"black"}
-                  />
-                </TouchableOpacity>
-              </View>
-              {showPriorityOptions && (
-                <View
-                  style={{
-                    backgroundColor: theme?.colors?.primary,
-                    padding: 4,
-                    borderRadius: 6,
-                    maxHeight: 150,
-                    width: "100%",
-                  }}
-                >
-                  <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps="handled"
-                  >
-                    {priorities?.map((priority) => {
-                      return (
-                        <TouchableOpacity
-                          key={priority?.id}
-                          onPress={() => {
-                            onSelectPriority(priority?.name);
-                            setPropertyNewProduct(priority?.value, 'priority');
-                          }}
-                          style={{
-                            backgroundColor: theme.colors.primary,
-                            paddingVertical: 8,
-                            paddingHorizontal: 4,
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            marginBottom: 2,
-                            borderBottomColor: "#ffffff",
-                            borderBottomWidth: 3,
-                          }}
-                        >
-                          <Text
-                            fontFamily={Poppins_600SemiBold}
-                            fontSize={18}
-                            color={"white"}
-                          >
-                            {priority?.name}
-                          </Text>
-                          <FontAwesome
-                            name={priority?.icon}
-                            size={30}
-                            color={"#FFF"}
-                          />
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </ScrollView>
-                </View>
-              )}
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  width: "100%",
-                  paddingTop: "0.8rem",
-                  height: "4.5rem",
-                }}
-              >
-                <Pressable
-                  onPress={() => setModalVisible(false)}
-                  style={{
-                    // backgroundColor: theme.colors.primary,
-                    backgroundColor: '#D2691E',
-                    // height: '10%',
-                    width: "48%",
-                    borderRadius: 10,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
-                    Cancelar
-                  </Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    addItemToList();
-                    setModalVisible(false);
-                  }}
-                  style={{
-                    // backgroundColor: theme.colors.primary,
-                    backgroundColor: 'green',
-                    // height: '10%',
-                    width: "48%",
-                    borderRadius: 10,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
-                    Salvar
-                  </Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        </Modal> */}
 
         <Header />
 
@@ -530,9 +159,9 @@ const ListItens = ({ navigation }) => {
                       justifyContent: "stretch",
                       maxWidth: "10rem",
                     }}
-                    // onPress={() =>
-                    //   navigation?.navigate("ProductsPage", { item })
-                    // }
+                  // onPress={() =>
+                  //   navigation?.navigate("ProductsPage", { item })
+                  // }
                   >
                     <View>
                       <Text
@@ -632,7 +261,7 @@ const ListItens = ({ navigation }) => {
                 />
               </Pressable>
               <Pressable
-                onPress={() => addItemToList()}
+                // onPress={() => addItemToList()}
                 style={{
                   backgroundColor: theme.colors.primary,
                   height: 55,
