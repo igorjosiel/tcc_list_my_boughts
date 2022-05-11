@@ -23,14 +23,6 @@ const ListItens = ({ navigation }) => {
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   const [listProducts, setListProducts] = useState<Product[]>([]);
-  const [newProduct, setNewProduct] = useState<Product>({
-    id: 0,
-    amount: 1,
-    productName: "",
-    category: "",
-    price: 0,
-    priority: false,
-  });
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
@@ -48,7 +40,6 @@ const ListItens = ({ navigation }) => {
     );
     setListProducts((oldState) => [...oldState, newItem]);
     setIdGenerator((oldState) => oldState + 1);
-    setNewProduct({ ...newProduct, productName: "", price: 0 });
   };
 
   const removeItemToList = (id: number) => {
@@ -63,16 +54,6 @@ const ListItens = ({ navigation }) => {
     addItemToList(newProduct);
     setModalVisible(false);
   }
-
-  // const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
-  //   setNewProduct({ ...newProduct, [property]: value });
-  // }
-
-  const setAmountNewProduct = (value: number) => {
-    if (value === 0) return;
-
-    setNewProduct({ ...newProduct, amount: value });
-  };
 
   function increaseItemAmount(id: number) {
     const newItems: Product[] = listProducts?.map((item) =>
@@ -145,7 +126,7 @@ const ListItens = ({ navigation }) => {
               return (
                 <Conatiner style={styles.section} key={index}>
                   <View style={{ marginRight: "0.4rem" }}>
-                    {product?.priority ? (
+                    {product?.priority === 'SIM' ? (
                       <FontAwesome name="star" size={25} color={"#FFA500"} />
                     ) : (
                       <FontAwesome name="star-o" size={25} color={"#000"} />
