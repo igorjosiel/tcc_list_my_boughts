@@ -37,12 +37,24 @@ const CategoryContainer = styled.View`
   width: 100%;
 `;
 
+const PriorityContainer = styled(CategoryContainer)`
+  margin-top: 1rem;
+`;
+
 const ScrollViewContainer = styled.View`
   background-color: ${theme?.colors?.primary};
   padding: 4px;
   border-radius: 6px;
   max-height: 150px;
   width: 100%;
+`;
+
+const ButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 0.8rem;
+  height: 4.5rem;
 `;
 
 export {
@@ -52,4 +64,6 @@ export {
   AmountContainer,
   CategoryContainer,
   ScrollViewContainer,
+  PriorityContainer,
+  ButtonsContainer,
 };
