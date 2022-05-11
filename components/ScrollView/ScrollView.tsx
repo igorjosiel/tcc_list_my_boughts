@@ -26,8 +26,8 @@ const Scroll = (props: ScrollViewProps) => {
           <Button
             key={eachData?.id}
             onPress={() => {
-              onSelected(eachData?.name);
-              setPropertyNewProduct(eachData?.name, scrollName);
+              onSelected(eachData?.value);
+              setPropertyNewProduct(eachData?.value, scrollName);
             }}
             backgroundColor={theme.colors.primary}
             display={"flex"}

@@ -40,7 +40,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     productName: "",
     category: "",
     price: 0,
-    priority: false,
+    priority: "",
   });
 
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
