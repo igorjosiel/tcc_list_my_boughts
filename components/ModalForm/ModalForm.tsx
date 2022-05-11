@@ -9,6 +9,8 @@ import {
   ModalTitle,
   AmountContainer,
   CategoryContainer,
+  PriorityContainer,
+  ButtonsContainer,
   ScrollViewContainer,
 } from "./ModalForm.styles";
 
@@ -23,11 +25,14 @@ import { Product } from "../../utils/interfaces";
 
 import theme from "../../global/styles/theme";
 import { useSetFonts } from "../../hooks/useSetFonts";
-import { categories } from "../../utils/constants";
+import { categories, priorities } from "../../utils/constants";
 
 const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedPriority, setSelectedPriority] = useState<string>("");
   const [showCategoryOptions, setShowCategoryOptions] =
+    useState<boolean>(false);
+  const [showPriorityOptions, setShowPriorityOptions] =
     useState<boolean>(false);
   const [newProduct, setNewProduct] = useState<Product>({
     id: 0,
@@ -40,7 +45,22 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
 
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
-  const { isModalOpen, closeModal } = props;
+  const { isModalOpen, closeModal, onSaveNewProduct } = props;
+
+  const buttons = [
+    {
+      id: 0,
+      name: 'Cancelar',
+      backgroundColor: '#D2691E',
+      action: closeModal,
+    },
+    {
+      id: 1,
+      name: 'Salvar',
+      backgroundColor: 'green',
+      action: () => onSaveNewProduct(newProduct),
+    },
+  ]
 
   const setAmountNewProduct = (value: number) => {
     if (value === 0) return;
@@ -51,6 +71,11 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
   const onSelectCategory = (category: string) => {
     setShowCategoryOptions(false);
     setSelectedCategory(category);
+  };
+
+  const onSelectPriority = (priority: string) => {
+    setShowPriorityOptions(false);
+    setSelectedPriority(priority);
   };
 
   const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
@@ -170,11 +195,71 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             <ScrollViewContainer>
               <Scroll
                 data={categories}
+                scrollName={'category'}
                 onSelected={onSelectCategory}
                 setPropertyNewProduct={setPropertyNewProduct}
               />
             </ScrollViewContainer>
           )}
+          <PriorityContainer>
+            <Button
+              borderWidth={3}
+              borderColor={theme?.colors?.primary}
+              borderRadius={"10px"}
+              width={"100%"}
+              height={"60px"}
+              minHeight={"42px"}
+              padding={"10px"}
+              flexDirection={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              activeOpacity={0.8}
+              onPress={() => setShowPriorityOptions(!showPriorityOptions)}
+            >
+              <Text
+                fontFamily={Poppins_600SemiBold}
+                fontSize={20}
+                color={"#adadac"}
+              >
+                {selectedPriority ? selectedPriority : `Prioridade`}
+              </Text>
+              <MaterialIcons
+                name={!showPriorityOptions ? "arrow-drop-down" : "arrow-drop-up"}
+                size={35}
+                color={"black"}
+              />
+            </Button>
+          </PriorityContainer>
+          {showPriorityOptions && (
+            <ScrollViewContainer>
+              <Scroll
+                data={priorities}
+                scrollName={'priority'}
+                onSelected={onSelectPriority}
+                setPropertyNewProduct={setPropertyNewProduct}
+              />
+            </ScrollViewContainer>
+          )}
+          <ButtonsContainer>
+            {buttons?.map((button) => {
+              return (
+                <Button
+                  key={button?.id}
+                  onPress={button?.action}
+                  backgroundColor={button?.backgroundColor}
+                  width={"48%"}
+                  borderRadius={'10px'}
+                  flexDirection={"row"}
+                  alignItems={"center"}
+                  justifyContent={"space-around"}
+                >
+                  <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                    {button?.name}
+                  </Text>
+                </Button>
+              );
+            })}
+          </ButtonsContainer>
         </ModalView>
       </CenteredView>
     </Modal>
