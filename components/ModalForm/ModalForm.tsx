@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 import {
   CenteredView,
@@ -41,18 +42,20 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
 
   const { isModalOpen, closeModal } = props;
 
-  const setPropertyNewProduct = (
-    value: string | number | boolean | null,
-    property: string
-  ) => {
-    setNewProduct({ ...newProduct, [property]: value });
-  };
-
   const setAmountNewProduct = (value: number) => {
     if (value === 0) return;
 
     setNewProduct({ ...newProduct, amount: value });
   };
+
+  const onSelectCategory = (category: string) => {
+    setShowCategoryOptions(false);
+    setSelectedCategory(category);
+  };
+
+  const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
+    setNewProduct({ ...newProduct, [property]: value });
+  }
 
   return (
     <Modal
@@ -146,6 +149,8 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               flexDirection={"row"}
               justifyContent={"space-between"}
               alignItems={"center"}
+              activeOpacity={0.8}
+              onPress={() => setShowCategoryOptions(!showCategoryOptions)}
             >
               <Text
                 fontFamily={Poppins_600SemiBold}
@@ -154,11 +159,20 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               >
                 {selectedCategory ? selectedCategory : `Categoria`}
               </Text>
+              <MaterialIcons
+                name={!showCategoryOptions ? "arrow-drop-down" : "arrow-drop-up"}
+                size={35}
+                color={"black"}
+              />
             </Button>
           </CategoryContainer>
           {showCategoryOptions && (
             <ScrollViewContainer>
-              <Scroll data={categories}></Scroll>
+              <Scroll
+                data={categories}
+                onSelected={onSelectCategory}
+                setPropertyNewProduct={setPropertyNewProduct}
+              />
             </ScrollViewContainer>
           )}
         </ModalView>
