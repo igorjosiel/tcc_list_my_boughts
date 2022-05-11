@@ -10,6 +10,7 @@ export interface Priority {
     name: string,
     value: boolean,
     icon: string,
+    library: string;
 }
 
 export interface Product {

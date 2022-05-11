@@ -117,11 +117,13 @@ export const priorities: Priority[] = [
         name: 'SIM',
         value: true,
         icon: 'star',
+        library: 'FontAwesome',
     },
     {
         id: 1,
         name: 'NÂO',
         value: false,
         icon: 'star-o',
+        library: 'FontAwesome',
     }
 ];
