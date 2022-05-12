@@ -56,14 +56,26 @@ const ListItens = ({ navigation }) => {
   };
 
   function increaseItemAmount(id: number) {
-    const newItems: Product[] = listProducts?.map((item) =>
-      item.id === id
-        ? {
-            ...item,
-            amount: item?.amount + 1,
-          }
-        : item
-    );
+    const newItems: Product[] = listProducts?.map((item) => {
+      if (item?.id === id) {
+        
+
+        return {
+          ...item,
+          amount: item?.amount + 1,
+        };
+      } else return { ...item };
+    });
+
+    // item.id === id
+    //     ? () => {
+    //       {
+    //         ...item,
+    //         amount: item?.amount + 1,
+    //       }
+
+    //     }
+    //     : item
 
     setListProducts(newItems);
   }
