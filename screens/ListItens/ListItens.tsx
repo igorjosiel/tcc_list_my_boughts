@@ -53,28 +53,38 @@ const ListItens = ({ navigation }) => {
   const onSaveNewProduct = (newProduct: Product) => {
     addItemToList(newProduct);
     setModalVisible(false);
-  }
+  };
 
   function increaseItemAmount(id: number) {
     const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
-          ...item,
-          amount: item?.amount + 1,
-        }
+            ...item,
+            amount: item?.amount + 1,
+          }
         : item
     );
 
     setListProducts(newItems);
   }
 
+  function clearLis() {
+    setListProducts([]);
+    setTotalValue(0);
+  }
+
+  function formatMoneyValue(moneyValue: string) {
+    const convertMoneyValue = moneyValue?.toString();
+    return convertMoneyValue?.replaceAll(".", ",");
+  }
+
   function decreaseItemAmount(id: number) {
     const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
-          ...item,
-          amount: item?.amount - 1,
-        }
+            ...item,
+            amount: item?.amount - 1,
+          }
         : item
     );
 
@@ -126,7 +136,7 @@ const ListItens = ({ navigation }) => {
               return (
                 <Conatiner style={styles.section} key={index}>
                   <View style={{ marginRight: "0.4rem" }}>
-                    {product?.priority === 'SIM' ? (
+                    {product?.priority === "SIM" ? (
                       <FontAwesome name="star" size={25} color={"#FFA500"} />
                     ) : (
                       <FontAwesome name="star-o" size={25} color={"#000"} />
@@ -140,9 +150,9 @@ const ListItens = ({ navigation }) => {
                       justifyContent: "stretch",
                       maxWidth: "10rem",
                     }}
-                  // onPress={() =>
-                  //   navigation?.navigate("ProductsPage", { item })
-                  // }
+                    // onPress={() =>
+                    //   navigation?.navigate("ProductsPage", { item })
+                    // }
                   >
                     <View>
                       <Text
@@ -225,7 +235,7 @@ const ListItens = ({ navigation }) => {
               }}
             >
               <Pressable
-                onPress={() => addItemToList()}
+                onPress={() => clearLis()}
                 style={{
                   backgroundColor: theme.colors.primary,
                   height: 55,
@@ -270,7 +280,7 @@ const ListItens = ({ navigation }) => {
               }}
             >
               <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
-                R$ {totalValue}
+                R$ {formatMoneyValue(totalValue)}
               </Text>
             </View>
           </View>
