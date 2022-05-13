@@ -56,7 +56,14 @@ const ListItens = ({ navigation }) => {
     setTotalValue(
       (oldState) => oldState + newProduct?.price * newProduct?.amount
     );
-    setListProducts((oldState) => [...oldState, newItem]);
+    setListProducts((oldState) => {
+      let newState = [...oldState, newItem];
+      newState?.sort((firstElement, secondElement) => {
+        return firstElement?.productName?.localeCompare(secondElement?.productName);
+      });
+
+      return newState;
+    });
     setIdGenerator((oldState) => oldState + 1);
   };
 
@@ -119,7 +126,7 @@ const ListItens = ({ navigation }) => {
     setTotalValue(0);
   }
 
-  function formatMoneyValue(moneyValue: string) {
+  function formatMoneyValue(moneyValue: number) {
     const convertMoneyValue = moneyValue?.toString();
     return convertMoneyValue?.replaceAll(".", ",");
   }
