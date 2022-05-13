@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -28,6 +28,8 @@ import { useSetFonts } from "../../hooks/useSetFonts";
 import { categories, priorities } from "../../utils/constants";
 
 const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
+  const { isModalOpen, action, productWillBeChanged, closeModal, onSaveNewProduct } = props;
+
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<string>("");
   const [showCategoryOptions, setShowCategoryOptions] =
@@ -43,22 +45,49 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     priority: "",
   });
 
+  useEffect(() => {
+    if (isModalOpen && action === "alteration") {
+      setNewProduct({
+        id: productWillBeChanged?.id,
+        productName: productWillBeChanged?.productName,
+        amount: productWillBeChanged?.amount,
+        category: productWillBeChanged?.category,
+        price: productWillBeChanged?.price,
+        priority: productWillBeChanged?.priority,
+      });
+    }
+  }, [isModalOpen]);
+
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
-  const { isModalOpen, closeModal, onSaveNewProduct } = props;
+  const resetProductData = () => {
+    setNewProduct({
+      ...newProduct,
+      id: 0,
+      productName: "",
+      amount: 0,
+      price: 0,
+    });
+  }
 
   const buttons = [
     {
       id: 0,
       name: 'Cancelar',
       backgroundColor: '#D2691E',
-      action: closeModal,
+      action: () => {
+        closeModal();
+        resetProductData();
+      }
     },
     {
       id: 1,
       name: 'Salvar',
       backgroundColor: 'green',
-      action: () => onSaveNewProduct(newProduct),
+      action: () => {
+        onSaveNewProduct(newProduct);
+        resetProductData();
+      }
     },
   ]
 
@@ -128,11 +157,9 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               width={"70%"}
               keyboardType={"numeric"}
               onChangeText={(value) => setAmountNewProduct(parseInt(value))}
-              value={
-                newProduct?.amount?.toString() == "0"
-                  ? ""
-                  : newProduct?.amount?.toString()
-              }
+              value={newProduct?.amount?.toString() == "0"
+                ? ""
+                : newProduct?.amount?.toString()}
               placeholder="Quantidade"
               maxLength={10}
             />

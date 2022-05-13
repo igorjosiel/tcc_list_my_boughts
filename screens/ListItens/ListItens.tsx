@@ -23,8 +23,17 @@ const ListItens = ({ navigation }) => {
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   const [listProducts, setListProducts] = useState<Product[]>([]);
+  const [productWillBeChanged, setProductWillBeChanged] = useState<Product>({
+    id: 0,
+    amount: 0,
+    productName: "",
+    category: "",
+    price: 0.0,
+    priority: "",
+  });
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
+  const [action, setAction] = useState("");
   const [totalValue, setTotalValue] = useState<number>(0);
 
   const addItemToList = (newProduct: Product) => {
@@ -102,11 +111,19 @@ const ListItens = ({ navigation }) => {
     setListProducts(newItems);
   }
 
+  function openModalToChangeProduct(product: Product) {
+    setProductWillBeChanged(product);
+    setAction("alteration");
+    setModalVisible(true);
+  }
+
   return (
     <>
       <ImageBackground source={compras} style={styles.image}>
         <ModalForm
           isModalOpen={modalVisible}
+          productWillBeChanged={productWillBeChanged}
+          action={action}
           closeModal={() => {
             setModalVisible(!modalVisible);
           }}
@@ -131,7 +148,7 @@ const ListItens = ({ navigation }) => {
                   // shadowOpacity: "0.7",
                 }}
                 // onPress={() => navigation?.navigate("ProductsPage")}
-                onPress={() => setModalVisible(true)}
+                onPress={() => { setAction("creation"); setModalVisible(true); }}
               >
                 <Text
                   fontFamily={Poppins_600SemiBold}
@@ -147,7 +164,7 @@ const ListItens = ({ navigation }) => {
               return (
                 <Conatiner style={styles.section} key={index}>
                   <View style={{ marginRight: "0.4rem" }}>
-                    {product?.priority === "SIM" ? (
+                    {product?.priority === "Sim" ? (
                       <FontAwesome name="star" size={25} color={"#FFA500"} />
                     ) : (
                       <FontAwesome name="star-o" size={25} color={"#000"} />
@@ -161,9 +178,7 @@ const ListItens = ({ navigation }) => {
                       justifyContent: "stretch",
                       maxWidth: "10rem",
                     }}
-                  // onPress={() =>
-                  //   navigation?.navigate("ProductsPage", { item })
-                  // }
+                    onPress={() => openModalToChangeProduct(product)}
                   >
                     <View>
                       <Text
