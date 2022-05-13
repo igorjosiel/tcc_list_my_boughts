@@ -21,6 +21,22 @@ import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
 
+interface Sorting {
+  sortingName: string;
+  sortingNumber: number;
+}
+
+const sortingKinds: Sorting[] = [
+  {
+    sortingName: "A-Z",
+    sortingNumber: 0,
+  },
+  {
+    sortingName: "Z-A",
+    sortingNumber: 1,
+  },
+];
+
 const ListItens = ({ navigation }) => {
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
@@ -39,11 +55,54 @@ const ListItens = ({ navigation }) => {
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [action, setAction] = useState("");
   const [totalValue, setTotalValue] = useState<number>(0);
+  const [sortOfOrdering, setSortOfOrdering] = useState<Sorting>(sortingKinds[0]);
 
   useEffect(() => {
     const searchedProducts = listProducts?.filter((product) => product?.productName?.includes(productSearch));
     setListSearchedProducts(searchedProducts);
   }, [productSearch]);
+
+  useEffect(() => {
+    if (sortOfOrdering?.sortingNumber === 0) {
+      setListProducts((oldState) => {
+        let newState = [...oldState];
+        newState?.sort((firstElement, secondElement) => {
+          return firstElement?.productName?.localeCompare(secondElement?.productName);
+        });
+
+        return newState;
+      });
+    }
+
+    if (sortOfOrdering?.sortingNumber === 1) {
+      setListProducts((oldState) => {
+        let newState = [...oldState];
+        newState?.sort((firstElement, secondElement) => {
+          return secondElement?.productName?.localeCompare(firstElement?.productName);
+        });
+
+        return newState;
+      });
+    }
+  }, [sortOfOrdering]);
+
+  const changeSorting = () => {
+    if (sortOfOrdering?.sortingNumber === sortingKinds?.length - 1) {
+      setSortOfOrdering({
+        ...sortOfOrdering,
+        sortingName: sortingKinds[0]?.sortingName,
+        sortingNumber: sortingKinds[0]?.sortingNumber,
+      });
+
+      return;
+    }
+
+    setSortOfOrdering({
+      ...sortOfOrdering,
+      sortingName: sortingKinds[sortOfOrdering?.sortingNumber + 1]?.sortingName,
+      sortingNumber: sortingKinds[sortOfOrdering?.sortingNumber + 1]?.sortingNumber,
+    });
+  }
 
   const addItemToList = (newProduct: Product) => {
     if (!newProduct?.productName || !newProduct?.category) return;
@@ -179,11 +238,11 @@ const ListItens = ({ navigation }) => {
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '1rem', marginRight: '1rem', marginLeft: '1rem' }}>
           <TextInput
             fontFamily={Poppins_600SemiBold}
-            width={'80%'}
+            width={'65%'}
             borderRadius={'10px'}
             value={productSearch}
             onChangeText={(value) => setProductSearch(value)}
-            placeholder={"Pesquise por um produto"}
+            placeholder={"Pesquisar produto"}
           ></TextInput>
           <Pressable
             onPress={() => setProductSearch("")}
@@ -197,6 +256,22 @@ const ListItens = ({ navigation }) => {
             }}
           >
             <Entypo size={35} color="#fff" name="erase" />
+          </Pressable>
+          <Pressable
+            onPress={() => changeSorting()}
+            style={{
+              backgroundColor: theme.colors.primary,
+              height: 55,
+              width: 55,
+              borderRadius: 50,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {sortOfOrdering?.sortingNumber === 0 ?
+              <FontAwesome size={35} color="#fff" name="sort-alpha-asc" /> :
+              <FontAwesome size={35} color="#fff" name="sort-alpha-desc" />
+            }
           </Pressable>
         </View>
         <ScrollView>
