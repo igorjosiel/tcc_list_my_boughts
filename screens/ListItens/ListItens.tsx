@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ContainerProductsList, ContainerNewProduct, Conatiner } from "./ListItens.styles";
+import {
+  ContainerProductsList,
+  ContainerNewProduct,
+  Conatiner,
+  ContainerProductsListHeader,
+} from "./ListItens.styles";
 import {
   StyleSheet,
   Pressable,
@@ -231,15 +236,8 @@ const ListItens = ({ navigation }) => {
 
       <Header />
 
-      <View
-        style={{
-          height: "82%",
-          // padding: '5%',
-          paddingTop: 0,
-          // backgroundColor: theme.colors.secondary
-        }}
-      >
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '1rem', marginRight: '1rem', marginLeft: '1rem' }}>
+      <ContainerProductsList>
+        <ContainerProductsListHeader>
           <TextInput
             fontFamily={Poppins_600SemiBold}
             width={'65%'}
@@ -248,36 +246,32 @@ const ListItens = ({ navigation }) => {
             onChangeText={(value) => setProductSearch(value)}
             placeholder={"Pesquisar produto"}
           ></TextInput>
-          <Pressable
+          <Button
+            backgroundColor={theme.colors.primary}
+            height={'55px'}
+            width={'55px'}
+            borderRadius={'50px'}
+            alignItems={"center"}
+            justifyContent={"center"}
             onPress={() => setProductSearch("")}
-            style={{
-              backgroundColor: theme.colors.primary,
-              height: 55,
-              width: 55,
-              borderRadius: 50,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
           >
             <Entypo size={35} color="#fff" name="erase" />
-          </Pressable>
-          <Pressable
+          </Button>
+          <Button
+            backgroundColor={theme.colors.primary}
+            height={'55px'}
+            width={'55px'}
+            borderRadius={'50px'}
+            alignItems={"center"}
+            justifyContent={"center"}
             onPress={() => changeSorting()}
-            style={{
-              backgroundColor: theme.colors.primary,
-              height: 55,
-              width: 55,
-              borderRadius: 50,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
           >
             {sortOfOrdering?.sortingNumber === 0 ?
               <FontAwesome size={35} color="#fff" name="sort-alpha-asc" /> :
               <FontAwesome size={35} color="#fff" name="sort-alpha-desc" />
             }
-          </Pressable>
-        </View>
+          </Button>
+        </ContainerProductsListHeader>
         <ScrollView>
           <ContainerNewProduct>
             <Button
@@ -455,7 +449,7 @@ const ListItens = ({ navigation }) => {
             })
           }
         </ScrollView>
-      </View>
+      </ContainerProductsList>
       <View
         style={{
           height: "8%",

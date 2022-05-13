@@ -10,6 +10,15 @@ export const ContainerProductsList = styled.View`
     padding-top: 0;
 `;
 
+export const ContainerProductsListHeader = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+`;
+
 export const ContainerNewProduct = styled.View`
     flex-direction: row;
     background-color: ${theme?.colors?.primary};
