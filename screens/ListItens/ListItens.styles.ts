@@ -31,3 +31,21 @@ export const ContainerNewProduct = styled.View`
     padding: 1rem;
     border-radius: 10px;
 `;
+
+export const ContainerProductData = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: #FFF;
+    color: black;
+    margin-top: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 15px;
+    border-radius: 10px;
+`;
+
+export const ContainerStar = styled.View`
+    margin-right: 0.4rem;
+`;

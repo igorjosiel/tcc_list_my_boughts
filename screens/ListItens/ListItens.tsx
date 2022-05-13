@@ -4,6 +4,8 @@ import {
   ContainerNewProduct,
   Conatiner,
   ContainerProductsListHeader,
+  ContainerProductData,
+  ContainerStar,
 } from "./ListItens.styles";
 import {
   StyleSheet,
@@ -289,14 +291,14 @@ const ListItens = ({ navigation }) => {
           </ContainerNewProduct>
           {!productSearch ? listProducts?.map((product, index) => {
             return (
-              <Conatiner style={styles.section} key={index}>
-                <View style={{ marginRight: "0.4rem" }}>
+              <ContainerProductData key={index}>
+                <ContainerStar>
                   {product?.priority === "Sim" ? (
                     <FontAwesome name="star" size={25} color={"#FFA500"} />
                   ) : (
                     <FontAwesome name="star-o" size={25} color={"#000"} />
                   )}
-                </View>
+                </ContainerStar>
                 <Pressable
                   style={{
                     width: "65%",
@@ -364,19 +366,19 @@ const ListItens = ({ navigation }) => {
                     <FontAwesome size={30} color="#FFF" name="plus" />
                   </Pressable>
                 </View>
-              </Conatiner>
+              </ContainerProductData>
             );
           }) :
             listSearchedProducts?.map((product, index) => {
               return (
-                <Conatiner style={styles.section} key={index}>
-                  <View style={{ marginRight: "0.4rem" }}>
+                <ContainerProductData key={index}>
+                  <ContainerStar>
                     {product?.priority === "Sim" ? (
                       <FontAwesome name="star" size={25} color={"#FFA500"} />
                     ) : (
                       <FontAwesome name="star-o" size={25} color={"#000"} />
                     )}
-                  </View>
+                  </ContainerStar>
                   <Pressable
                     style={{
                       width: "65%",
@@ -444,7 +446,7 @@ const ListItens = ({ navigation }) => {
                       <FontAwesome size={30} color="#FFF" name="plus" />
                     </Pressable>
                   </View>
-                </Conatiner>
+                </ContainerProductData>
               );
             })
           }
