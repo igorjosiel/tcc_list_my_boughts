@@ -170,7 +170,7 @@ const ListItens = ({ navigation }) => {
             // backgroundColor: theme.colors.secondary
           }}
         >
-          <View style={{ width: '90%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '1rem', marginRight: '1rem', marginLeft: '1rem' }}>
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '1rem', marginRight: '1rem', marginLeft: '1rem' }}>
             <TextInput
               fontFamily={Poppins_600SemiBold}
               width={'80%'}
