@@ -218,6 +218,7 @@ const ListItens = ({ navigation }) => {
                       flex: 1,
                       flexDirection: "row",
                       justifyContent: "space-between",
+                      backgroundColor: theme?.colors?.primary,
                       borderRadius: 5,
                     }}
                   >
@@ -235,12 +236,12 @@ const ListItens = ({ navigation }) => {
                         justifyContent: "center",
                       }}
                     >
-                      <FontAwesome size={30} color="#000" name="minus" />
+                      <FontAwesome size={30} color="#FFF" name="minus" />
                     </Pressable>
                     <Text
                       fontFamily={Poppins_600SemiBold}
                       fontSize={20}
-                      color={"#000"}
+                      color={"#FFF"}
                     >
                       {product?.amount}
                     </Text>
@@ -254,7 +255,7 @@ const ListItens = ({ navigation }) => {
                         justifyContent: "center",
                       }}
                     >
-                      <FontAwesome size={30} color="#000" name="plus" />
+                      <FontAwesome size={30} color="#FFF" name="plus" />
                     </Pressable>
                   </View>
                 </Conatiner>
