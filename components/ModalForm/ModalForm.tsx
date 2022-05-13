@@ -28,7 +28,14 @@ import { useSetFonts } from "../../hooks/useSetFonts";
 import { categories, priorities } from "../../utils/constants";
 
 const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
-  const { isModalOpen, action, productWillBeChanged, closeModal, onSaveNewProduct } = props;
+  const {
+    isModalOpen,
+    action,
+    productWillBeChanged,
+    closeModal,
+    onSaveNewProduct,
+    onChangeProduct,
+  } = props;
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedPriority, setSelectedPriority] = useState<string>("");
@@ -85,7 +92,8 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
       name: 'Salvar',
       backgroundColor: 'green',
       action: () => {
-        onSaveNewProduct(newProduct);
+        if (action === "creation") onSaveNewProduct(newProduct);
+        if (action === "alteration") onChangeProduct(newProduct);
         resetProductData();
       }
     },

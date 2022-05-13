@@ -51,6 +51,21 @@ const ListItens = ({ navigation }) => {
     setIdGenerator((oldState) => oldState + 1);
   };
 
+  const changeItemFromList = (changedProduct: Product) => {
+    const { id } = changedProduct;
+
+    const newListProducts = listProducts?.map((product) => {
+      if (product?.id === id) {
+        return {
+          ...changedProduct,
+        };
+      }
+      else return { ...product };
+    });
+
+    setListProducts(newListProducts);
+  }
+
   const removeItemToList = (product: Product) => {
     const { id, price } = product;
     const listProductsFiltered: Product[] = listProducts?.filter(
@@ -69,6 +84,11 @@ const ListItens = ({ navigation }) => {
     addItemToList(newProduct);
     setModalVisible(false);
   };
+
+  const onChangeProduct = (changedProduct: Product) => {
+    changeItemFromList(changedProduct);
+    setModalVisible(false);
+  }
 
   function increaseItemAmount(id: number) {
     const newItems: Product[] = listProducts?.map((item) => {
@@ -124,10 +144,11 @@ const ListItens = ({ navigation }) => {
           isModalOpen={modalVisible}
           productWillBeChanged={productWillBeChanged}
           action={action}
+          onSaveNewProduct={onSaveNewProduct}
+          onChangeProduct={onChangeProduct}
           closeModal={() => {
             setModalVisible(!modalVisible);
           }}
-          onSaveNewProduct={onSaveNewProduct}
         />
 
         <Header />

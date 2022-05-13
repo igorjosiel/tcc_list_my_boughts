@@ -9,6 +9,7 @@ export interface ModalFormProps extends ModalProps {
     productWillBeChanged: Product;
     closeModal: () => void;
     onSaveNewProduct: (newProduct: Product) => void;
+    onChangeProduct: (changedProduct: Product) => void;
     children?: ReactNode;
 };
 
