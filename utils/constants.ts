@@ -132,15 +132,15 @@ export const categories: Category[] = [
 export const priorities: Priority[] = [
     {
         id: 0,
-        name: 'SIM',
-        value: 'SIM',
+        name: 'Sim',
+        value: 'Sim',
         icon: 'star',
         library: 'FontAwesome',
     },
     {
         id: 1,
-        name: 'NÂO',
-        value: 'NÂO',
+        name: 'Não',
+        value: 'Não',
         icon: 'star-o',
         library: 'FontAwesome',
     },
