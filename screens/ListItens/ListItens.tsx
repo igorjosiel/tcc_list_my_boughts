@@ -190,7 +190,7 @@ const ListItens = ({ navigation }) => {
                 justifyContent: "center",
               }}
             >
-              <Entypo size={40} color="#fff" name="erase" />
+              <Entypo size={35} color="#fff" name="erase" />
             </Pressable>
           </View>
           <ScrollView>
