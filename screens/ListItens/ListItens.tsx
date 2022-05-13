@@ -58,7 +58,7 @@ const ListItens = ({ navigation }) => {
   function increaseItemAmount(id: number) {
     const newItems: Product[] = listProducts?.map((item) => {
       if (item?.id === id) {
-        
+        setTotalValue((oldState) => oldState + item?.price);
 
         return {
           ...item,
@@ -66,16 +66,6 @@ const ListItens = ({ navigation }) => {
         };
       } else return { ...item };
     });
-
-    // item.id === id
-    //     ? () => {
-    //       {
-    //         ...item,
-    //         amount: item?.amount + 1,
-    //       }
-
-    //     }
-    //     : item
 
     setListProducts(newItems);
   }
@@ -94,9 +84,9 @@ const ListItens = ({ navigation }) => {
     const newItems: Product[] = listProducts?.map((item) =>
       item.id === id
         ? {
-            ...item,
-            amount: item?.amount - 1,
-          }
+          ...item,
+          amount: item?.amount - 1,
+        }
         : item
     );
 
@@ -162,9 +152,9 @@ const ListItens = ({ navigation }) => {
                       justifyContent: "stretch",
                       maxWidth: "10rem",
                     }}
-                    // onPress={() =>
-                    //   navigation?.navigate("ProductsPage", { item })
-                    // }
+                  // onPress={() =>
+                  //   navigation?.navigate("ProductsPage", { item })
+                  // }
                   >
                     <View>
                       <Text

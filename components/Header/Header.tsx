@@ -15,7 +15,7 @@ const Header: React.FC = () => {
             width={"100%"}
             height={"10%"}
             backgroundColor={theme.colors.primary}
-            maxHeight={"3.5rem"}
+            maxHeight={"60px"}
             marginLeft={"auto"}
             marginRight={"auto"}
             flex={1}
