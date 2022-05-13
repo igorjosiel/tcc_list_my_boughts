@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Conatiner } from "./ListItens.styles";
 import {
   StyleSheet,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Entypo from "react-native-vector-icons/Entypo";
 
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
@@ -18,11 +19,14 @@ import compras from "../../assets/cart.jpg";
 import { Product } from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
+import TextInput from "../../components/Input/TextInput/TextInput.styles";
 
 const ListItens = ({ navigation }) => {
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   const [listProducts, setListProducts] = useState<Product[]>([]);
+  const [productSearch, setProductSearch] = useState<string>("");
+  const [listSearchedProducts, setListSearchedProducts] = useState<Product[]>([]);
   const [productWillBeChanged, setProductWillBeChanged] = useState<Product>({
     id: 0,
     amount: 0,
@@ -35,6 +39,11 @@ const ListItens = ({ navigation }) => {
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [action, setAction] = useState("");
   const [totalValue, setTotalValue] = useState<number>(0);
+
+  useEffect(() => {
+    const searchedProducts = listProducts?.filter((product) => product?.productName?.includes(productSearch));
+    setListSearchedProducts(searchedProducts);
+  }, [productSearch]);
 
   const addItemToList = (newProduct: Product) => {
     if (!newProduct?.productName || !newProduct?.category) return;
@@ -161,6 +170,29 @@ const ListItens = ({ navigation }) => {
             // backgroundColor: theme.colors.secondary
           }}
         >
+          <View style={{ width: '90%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '1rem', marginRight: '1rem', marginLeft: '1rem' }}>
+            <TextInput
+              fontFamily={Poppins_600SemiBold}
+              width={'80%'}
+              borderRadius={'10px'}
+              value={productSearch}
+              onChangeText={(value) => setProductSearch(value)}
+              placeholder={"Pesquise por um produto"}
+            ></TextInput>
+            <Pressable
+              onPress={() => setProductSearch("")}
+              style={{
+                backgroundColor: theme.colors.primary,
+                height: 55,
+                width: 55,
+                borderRadius: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Entypo size={40} color="#fff" name="erase" />
+            </Pressable>
+          </View>
           <ScrollView>
             <Conatiner style={styles.sectionNewItem}>
               <Pressable
@@ -181,7 +213,7 @@ const ListItens = ({ navigation }) => {
               </Pressable>
               {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
             </Conatiner>
-            {listProducts?.map((product, index) => {
+            {!productSearch ? listProducts?.map((product, index) => {
               return (
                 <Conatiner style={styles.section} key={index}>
                   <View style={{ marginRight: "0.4rem" }}>
@@ -260,7 +292,88 @@ const ListItens = ({ navigation }) => {
                   </View>
                 </Conatiner>
               );
-            })}
+            }) :
+              listSearchedProducts?.map((product, index) => {
+                return (
+                  <Conatiner style={styles.section} key={index}>
+                    <View style={{ marginRight: "0.4rem" }}>
+                      {product?.priority === "Sim" ? (
+                        <FontAwesome name="star" size={25} color={"#FFA500"} />
+                      ) : (
+                        <FontAwesome name="star-o" size={25} color={"#000"} />
+                      )}
+                    </View>
+                    <Pressable
+                      style={{
+                        width: "65%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "stretch",
+                        maxWidth: "10rem",
+                      }}
+                      onPress={() => openModalToChangeProduct(product)}
+                    >
+                      <View>
+                        <Text
+                          fontFamily={Poppins_600SemiBold}
+                          fontSize={20}
+                          color={"#000"}
+                        >
+                          {product?.productName}
+                        </Text>
+                      </View>
+                    </Pressable>
+                    {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
+                    <View
+                      style={{
+                        maxWidth: "7rem",
+                        flex: 1,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        backgroundColor: theme?.colors?.primary,
+                        borderRadius: 5,
+                      }}
+                    >
+                      {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
+                      <Pressable
+                        onPress={
+                          product?.amount === 1
+                            ? () => removeItemToList(product)
+                            : () => decreaseItemAmount(product?.id)
+                        }
+                        style={{
+                          width: 25,
+                          borderRadius: 50,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <FontAwesome size={30} color="#FFF" name="minus" />
+                      </Pressable>
+                      <Text
+                        fontFamily={Poppins_600SemiBold}
+                        fontSize={20}
+                        color={"#FFF"}
+                      >
+                        {product?.amount}
+                      </Text>
+                      {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
+                      <Pressable
+                        onPress={() => increaseItemAmount(product?.id)}
+                        style={{
+                          width: 25,
+                          borderRadius: 50,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <FontAwesome size={30} color="#FFF" name="plus" />
+                      </Pressable>
+                    </View>
+                  </Conatiner>
+                );
+              })
+            }
           </ScrollView>
         </View>
         <View
