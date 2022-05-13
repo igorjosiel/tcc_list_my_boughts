@@ -81,13 +81,16 @@ const ListItens = ({ navigation }) => {
   }
 
   function decreaseItemAmount(id: number) {
-    const newItems: Product[] = listProducts?.map((item) =>
-      item.id === id
-        ? {
+    const newItems: Product[] = listProducts?.map((item) => {
+      if (item?.id === id) {
+        setTotalValue((oldState) => oldState - item?.price);
+
+        return {
           ...item,
           amount: item?.amount - 1,
         }
-        : item
+      } else return { ...item };
+    }
     );
 
     setListProducts(newItems);
