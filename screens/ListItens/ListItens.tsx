@@ -148,72 +148,151 @@ const ListItens = ({ navigation }) => {
 
   return (
     <>
-      <ImageBackground source={compras} style={styles.image}>
-        <ModalForm
-          isModalOpen={modalVisible}
-          productWillBeChanged={productWillBeChanged}
-          action={action}
-          onSaveNewProduct={onSaveNewProduct}
-          onChangeProduct={onChangeProduct}
-          closeModal={() => {
-            setModalVisible(!modalVisible);
-          }}
-        />
+      <ModalForm
+        isModalOpen={modalVisible}
+        productWillBeChanged={productWillBeChanged}
+        action={action}
+        onSaveNewProduct={onSaveNewProduct}
+        onChangeProduct={onChangeProduct}
+        closeModal={() => {
+          setModalVisible(!modalVisible);
+        }}
+      />
 
-        <Header />
+      <Header />
 
-        <View
-          style={{
-            height: "82%",
-            // padding: '5%',
-            paddingTop: 0,
-            // backgroundColor: theme.colors.secondary
-          }}
-        >
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '1rem', marginRight: '1rem', marginLeft: '1rem' }}>
-            <TextInput
-              fontFamily={Poppins_600SemiBold}
-              width={'80%'}
-              borderRadius={'10px'}
-              value={productSearch}
-              onChangeText={(value) => setProductSearch(value)}
-              placeholder={"Pesquise por um produto"}
-            ></TextInput>
+      <View
+        style={{
+          height: "82%",
+          // padding: '5%',
+          paddingTop: 0,
+          // backgroundColor: theme.colors.secondary
+        }}
+      >
+        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '1rem', marginRight: '1rem', marginLeft: '1rem' }}>
+          <TextInput
+            fontFamily={Poppins_600SemiBold}
+            width={'80%'}
+            borderRadius={'10px'}
+            value={productSearch}
+            onChangeText={(value) => setProductSearch(value)}
+            placeholder={"Pesquise por um produto"}
+          ></TextInput>
+          <Pressable
+            onPress={() => setProductSearch("")}
+            style={{
+              backgroundColor: theme.colors.primary,
+              height: 55,
+              width: 55,
+              borderRadius: 50,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Entypo size={35} color="#fff" name="erase" />
+          </Pressable>
+        </View>
+        <ScrollView>
+          <Conatiner style={styles.sectionNewItem}>
             <Pressable
-              onPress={() => setProductSearch("")}
               style={{
-                backgroundColor: theme.colors.primary,
-                height: 55,
-                width: 55,
-                borderRadius: 50,
-                alignItems: "center",
-                justifyContent: "center",
+                width: "100%",
+                // shadowOpacity: "0.7",
               }}
+              // onPress={() => navigation?.navigate("ProductsPage")}
+              onPress={() => { setAction("creation"); setModalVisible(true); }}
             >
-              <Entypo size={35} color="#fff" name="erase" />
-            </Pressable>
-          </View>
-          <ScrollView>
-            <Conatiner style={styles.sectionNewItem}>
-              <Pressable
-                style={{
-                  width: "100%",
-                  // shadowOpacity: "0.7",
-                }}
-                // onPress={() => navigation?.navigate("ProductsPage")}
-                onPress={() => { setAction("creation"); setModalVisible(true); }}
+              <Text
+                fontFamily={Poppins_600SemiBold}
+                fontSize={20}
+                style={{ textAlign: "center" }}
               >
-                <Text
-                  fontFamily={Poppins_600SemiBold}
-                  fontSize={20}
-                  style={{ textAlign: "center" }}
+                Novo Item
+              </Text>
+            </Pressable>
+            {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
+          </Conatiner>
+          {!productSearch ? listProducts?.map((product, index) => {
+            return (
+              <Conatiner style={styles.section} key={index}>
+                <View style={{ marginRight: "0.4rem" }}>
+                  {product?.priority === "Sim" ? (
+                    <FontAwesome name="star" size={25} color={"#FFA500"} />
+                  ) : (
+                    <FontAwesome name="star-o" size={25} color={"#000"} />
+                  )}
+                </View>
+                <Pressable
+                  style={{
+                    width: "65%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "stretch",
+                    maxWidth: "10rem",
+                  }}
+                  onPress={() => openModalToChangeProduct(product)}
                 >
-                  Novo Item
-                </Text>
-              </Pressable>
-              {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
-            </Conatiner>
-            {!productSearch ? listProducts?.map((product, index) => {
+                  <View>
+                    <Text
+                      fontFamily={Poppins_600SemiBold}
+                      fontSize={20}
+                      color={"#000"}
+                    >
+                      {product?.productName}
+                    </Text>
+                  </View>
+                </Pressable>
+                {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
+                <View
+                  style={{
+                    maxWidth: "7rem",
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    backgroundColor: theme?.colors?.primary,
+                    borderRadius: 5,
+                  }}
+                >
+                  {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
+                  <Pressable
+                    onPress={
+                      product?.amount === 1
+                        ? () => removeItemToList(product)
+                        : () => decreaseItemAmount(product?.id)
+                    }
+                    style={{
+                      width: 25,
+                      borderRadius: 50,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FontAwesome size={30} color="#FFF" name="minus" />
+                  </Pressable>
+                  <Text
+                    fontFamily={Poppins_600SemiBold}
+                    fontSize={20}
+                    color={"#FFF"}
+                  >
+                    {product?.amount}
+                  </Text>
+                  {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
+                  <Pressable
+                    onPress={() => increaseItemAmount(product?.id)}
+                    style={{
+                      width: 25,
+                      borderRadius: 50,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FontAwesome size={30} color="#FFF" name="plus" />
+                  </Pressable>
+                </View>
+              </Conatiner>
+            );
+          }) :
+            listSearchedProducts?.map((product, index) => {
               return (
                 <Conatiner style={styles.section} key={index}>
                   <View style={{ marginRight: "0.4rem" }}>
@@ -292,161 +371,81 @@ const ListItens = ({ navigation }) => {
                   </View>
                 </Conatiner>
               );
-            }) :
-              listSearchedProducts?.map((product, index) => {
-                return (
-                  <Conatiner style={styles.section} key={index}>
-                    <View style={{ marginRight: "0.4rem" }}>
-                      {product?.priority === "Sim" ? (
-                        <FontAwesome name="star" size={25} color={"#FFA500"} />
-                      ) : (
-                        <FontAwesome name="star-o" size={25} color={"#000"} />
-                      )}
-                    </View>
-                    <Pressable
-                      style={{
-                        width: "65%",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "stretch",
-                        maxWidth: "10rem",
-                      }}
-                      onPress={() => openModalToChangeProduct(product)}
-                    >
-                      <View>
-                        <Text
-                          fontFamily={Poppins_600SemiBold}
-                          fontSize={20}
-                          color={"#000"}
-                        >
-                          {product?.productName}
-                        </Text>
-                      </View>
-                    </Pressable>
-                    {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
-                    <View
-                      style={{
-                        maxWidth: "7rem",
-                        flex: 1,
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        backgroundColor: theme?.colors?.primary,
-                        borderRadius: 5,
-                      }}
-                    >
-                      {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
-                      <Pressable
-                        onPress={
-                          product?.amount === 1
-                            ? () => removeItemToList(product)
-                            : () => decreaseItemAmount(product?.id)
-                        }
-                        style={{
-                          width: 25,
-                          borderRadius: 50,
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <FontAwesome size={30} color="#FFF" name="minus" />
-                      </Pressable>
-                      <Text
-                        fontFamily={Poppins_600SemiBold}
-                        fontSize={20}
-                        color={"#FFF"}
-                      >
-                        {product?.amount}
-                      </Text>
-                      {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
-                      <Pressable
-                        onPress={() => increaseItemAmount(product?.id)}
-                        style={{
-                          width: 25,
-                          borderRadius: 50,
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <FontAwesome size={30} color="#FFF" name="plus" />
-                      </Pressable>
-                    </View>
-                  </Conatiner>
-                );
-              })
-            }
-          </ScrollView>
-        </View>
+            })
+          }
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          height: "8%",
+          paddingTop: "3%",
+          marginRight: 20,
+          marginLeft: 10,
+        }}
+      >
         <View
-          style={{
-            height: "8%",
-            paddingTop: "3%",
-            marginRight: 20,
-            marginLeft: 10,
-          }}
+          style={{ height: "150", display: "flex", flexDirection: "row" }}
         >
           <View
-            style={{ height: "150", display: "flex", flexDirection: "row" }}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "40%",
+              justifyContent: "space-around",
+            }}
           >
-            <View
+            <Pressable
+              onPress={() => clearLis()}
               style={{
-                display: "flex",
-                flexDirection: "row",
-                width: "40%",
-                justifyContent: "space-around",
-              }}
-            >
-              <Pressable
-                onPress={() => clearLis()}
-                style={{
-                  backgroundColor: theme.colors.primary,
-                  height: 55,
-                  width: 55,
-                  borderRadius: 50,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <MaterialCommunityIcons
-                  size={40}
-                  color="#fff"
-                  name="trash-can"
-                />
-              </Pressable>
-              <Pressable
-                // onPress={() => addItemToList()}
-                style={{
-                  backgroundColor: theme.colors.primary,
-                  height: 55,
-                  width: 55,
-                  borderRadius: 50,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <FontAwesome size={40} color="#fff" name="check" />
-              </Pressable>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme?.colors?.primary,
-                width: "60%",
-                height: "150",
-                borderRadius: 10,
-                display: "flex",
-                flexDirection: "row",
+                backgroundColor: theme.colors.primary,
+                height: 55,
+                width: 55,
+                borderRadius: 50,
                 alignItems: "center",
-                justifyContent: "flex-end",
-                paddingRight: "3%",
-                paddingLeft: "3%",
+                justifyContent: "center",
               }}
             >
-              <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
-                R$ {formatMoneyValue(totalValue)}
-              </Text>
-            </View>
+              <MaterialCommunityIcons
+                size={40}
+                color="#fff"
+                name="trash-can"
+              />
+            </Pressable>
+            <Pressable
+              // onPress={() => addItemToList()}
+              style={{
+                backgroundColor: theme.colors.primary,
+                height: 55,
+                width: 55,
+                borderRadius: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <FontAwesome size={40} color="#fff" name="check" />
+            </Pressable>
           </View>
+          <View
+            style={{
+              backgroundColor: theme?.colors?.primary,
+              width: "60%",
+              height: "150",
+              borderRadius: 10,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              paddingRight: "3%",
+              paddingLeft: "3%",
+            }}
+          >
+            <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
+              R$ {formatMoneyValue(totalValue)}
+            </Text>
+          </View>
+        </View>
 
-          {/* <View
+        {/* <View
           style={{
             display: "flex",
             flexDirection: "row",
@@ -481,7 +480,7 @@ const ListItens = ({ navigation }) => {
             <FontAwesome size={30} color="#000" name="plus" />
           </Pressable>
         </View> */}
-          {/* <View
+        {/* <View
           style={{
             alignItems: "center",
             flexDirection: "row",
@@ -495,7 +494,7 @@ const ListItens = ({ navigation }) => {
             placeholder="Digite aqui o protudo"
             keyboardType="default"
           /> */}
-          {/* <View style={{
+        {/* <View style={{
                         backgroundColor: theme?.colors?.primary,
                         width: '40%',
                         height: '80%',
@@ -509,9 +508,8 @@ const ListItens = ({ navigation }) => {
                     }}>
                         <Text fontFamily={Poppins_600SemiBold} fontSize={25}>R$ {totalValue}</Text>
                     </View> */}
-          {/* </View> */}
-        </View>
-      </ImageBackground>
+        {/* </View> */}
+      </View>
     </>
   );
 };
