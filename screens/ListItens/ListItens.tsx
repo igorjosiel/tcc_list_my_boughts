@@ -42,9 +42,15 @@ const ListItens = ({ navigation }) => {
     setIdGenerator((oldState) => oldState + 1);
   };
 
-  const removeItemToList = (id: number) => {
+  const removeItemToList = (product: Product) => {
+    const { id, price } = product;
     const listProductsFiltered: Product[] = listProducts?.filter(
-      (item) => item.id !== id
+      (item) => {
+        if (item.id !== id) {
+          return { ...item };
+        }
+        else setTotalValue((oldState) => oldState - price);
+      }
     );
 
     setListProducts(listProductsFiltered);
@@ -183,7 +189,7 @@ const ListItens = ({ navigation }) => {
                     <Pressable
                       onPress={
                         product?.amount === 1
-                          ? () => removeItemToList(product?.id)
+                          ? () => removeItemToList(product)
                           : () => decreaseItemAmount(product?.id)
                       }
                       style={{
