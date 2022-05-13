@@ -62,7 +62,7 @@ const ListItens = ({ navigation }) => {
     setListSearchedProducts(searchedProducts);
   }, [productSearch]);
 
-  useEffect(() => {
+  const sortProducts = () => {
     if (sortOfOrdering?.sortingNumber === 0) {
       setListProducts((oldState) => {
         let newState = [...oldState];
@@ -84,6 +84,10 @@ const ListItens = ({ navigation }) => {
         return newState;
       });
     }
+  }
+
+  useEffect(() => {
+    sortProducts();
   }, [sortOfOrdering]);
 
   const changeSorting = () => {
@@ -115,15 +119,9 @@ const ListItens = ({ navigation }) => {
     setTotalValue(
       (oldState) => oldState + newProduct?.price * newProduct?.amount
     );
-    setListProducts((oldState) => {
-      let newState = [...oldState, newItem];
-      newState?.sort((firstElement, secondElement) => {
-        return firstElement?.productName?.localeCompare(secondElement?.productName);
-      });
-
-      return newState;
-    });
+    setListProducts((oldState) => [...oldState, newItem]);
     setIdGenerator((oldState) => oldState + 1);
+    sortProducts();
   };
 
   const changeItemFromList = (changedProduct: Product) => {
