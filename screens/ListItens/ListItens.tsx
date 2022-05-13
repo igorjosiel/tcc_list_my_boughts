@@ -299,14 +299,12 @@ const ListItens = ({ navigation }) => {
                     <FontAwesome name="star-o" size={25} color={"#000"} />
                   )}
                 </ContainerStar>
-                <Pressable
-                  style={{
-                    width: "65%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "stretch",
-                    maxWidth: "10rem",
-                  }}
+                <Button
+                  width={"65%"}
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent={"stretch"}
+                  maxWidth={"10rem"}
                   onPress={() => openModalToChangeProduct(product)}
                 >
                   <View>
@@ -318,8 +316,7 @@ const ListItens = ({ navigation }) => {
                       {product?.productName}
                     </Text>
                   </View>
-                </Pressable>
-                {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
+                </Button>
                 <View
                   style={{
                     maxWidth: "7rem",
@@ -330,7 +327,6 @@ const ListItens = ({ navigation }) => {
                     borderRadius: 5,
                   }}
                 >
-                  {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
                   <Pressable
                     onPress={
                       product?.amount === 1
@@ -353,7 +349,6 @@ const ListItens = ({ navigation }) => {
                   >
                     {product?.amount}
                   </Text>
-                  {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
                   <Pressable
                     onPress={() => increaseItemAmount(product?.id)}
                     style={{
@@ -379,14 +374,12 @@ const ListItens = ({ navigation }) => {
                       <FontAwesome name="star-o" size={25} color={"#000"} />
                     )}
                   </ContainerStar>
-                  <Pressable
-                    style={{
-                      width: "65%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "stretch",
-                      maxWidth: "10rem",
-                    }}
+                  <Button
+                    width={"65%"}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={"stretch"}
+                    maxWidth={"10rem"}
                     onPress={() => openModalToChangeProduct(product)}
                   >
                     <View>
@@ -398,8 +391,7 @@ const ListItens = ({ navigation }) => {
                         {product?.productName}
                       </Text>
                     </View>
-                  </Pressable>
-                  {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
+                  </Button>
                   <View
                     style={{
                       maxWidth: "7rem",
