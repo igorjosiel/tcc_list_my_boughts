@@ -58,3 +58,34 @@ export const ContainerActions = styled.View`
     background-color: ${theme?.colors?.primary};
     border-radius: 5px;
 `;
+
+export const ContainerFooter = styled.View`
+    height: 8%;
+    padding-top: 3%;
+    margin-right: 20px;
+    margin-left: 10px;
+`;
+
+export const ContainerActionsFooter = styled.View`
+    display: flex;
+    flex-direction: row;
+`;
+
+export const ContainerButtonsActions = styled.View`
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    justify-content: space-around;
+`;
+
+export const ContainerTotalValue = styled.View`
+    background-color: ${theme?.colors?.primary}
+    width: 60%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 3%;
+    padding-left: 3%;
+`;

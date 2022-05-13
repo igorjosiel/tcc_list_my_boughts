@@ -7,13 +7,14 @@ import {
   ContainerProductData,
   ContainerStar,
   ContainerActions,
+  ContainerFooter,
+  ContainerActionsFooter,
+  ContainerButtonsActions,
+  ContainerTotalValue,
 } from "./ListItens.styles";
 import {
-  StyleSheet,
-  Pressable,
   View,
   ScrollView,
-  ImageBackground,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -22,14 +23,12 @@ import Entypo from "react-native-vector-icons/Entypo";
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
-import compras from "../../assets/cart.jpg";
 
 import { Product } from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
 import Button from "../../components/Button/Button";
-
 interface Sorting {
   sortingName: string;
   sortingNumber: number;
@@ -417,76 +416,42 @@ const ListItens = ({ navigation }) => {
           }
         </ScrollView>
       </ContainerProductsList>
-      <View
-        style={{
-          height: "8%",
-          paddingTop: "3%",
-          marginRight: 20,
-          marginLeft: 10,
-        }}
-      >
-        <View
-          style={{ height: "150", display: "flex", flexDirection: "row" }}
-        >
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "40%",
-              justifyContent: "space-around",
-            }}
-          >
-            <Pressable
+      <ContainerFooter>
+        <ContainerActionsFooter>
+          <ContainerButtonsActions>
+            <Button
+              backgroundColor={theme.colors.primary}
+              height={"55px"}
+              width={"55px"}
+              borderRadius={"50px"}
+              alignItems={"center"}
+              justifyContent={"center"}
               onPress={() => clearLis()}
-              style={{
-                backgroundColor: theme.colors.primary,
-                height: 55,
-                width: 55,
-                borderRadius: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
             >
               <MaterialCommunityIcons
                 size={40}
                 color="#fff"
                 name="trash-can"
               />
-            </Pressable>
-            <Pressable
-              // onPress={() => addItemToList()}
-              style={{
-                backgroundColor: theme.colors.primary,
-                height: 55,
-                width: 55,
-                borderRadius: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+            </Button>
+            <Button
+              backgroundColor={theme.colors.primary}
+              height={"55px"}
+              width={"55px"}
+              borderRadius={"50px"}
+              alignItems={"center"}
+              justifyContent={"center"}
             >
               <FontAwesome size={40} color="#fff" name="check" />
-            </Pressable>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme?.colors?.primary,
-              width: "60%",
-              height: "150",
-              borderRadius: 10,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              paddingRight: "3%",
-              paddingLeft: "3%",
-            }}
-          >
+            </Button>
+          </ContainerButtonsActions>
+          <ContainerTotalValue>
             <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
               R$ {formatMoneyValue(totalValue)}
             </Text>
-          </View>
-        </View>
-      </View>
+          </ContainerTotalValue>
+        </ContainerActionsFooter>
+      </ContainerFooter>
     </>
   );
 };
