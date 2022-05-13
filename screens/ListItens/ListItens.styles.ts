@@ -49,3 +49,12 @@ export const ContainerProductData = styled.View`
 export const ContainerStar = styled.View`
     margin-right: 0.4rem;
 `;
+
+export const ContainerActions = styled.View`
+    max-width: 7rem;
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: ${theme?.colors?.primary};
+    border-radius: 5px;
+`;

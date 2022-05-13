@@ -6,6 +6,7 @@ import {
   ContainerProductsListHeader,
   ContainerProductData,
   ContainerStar,
+  ContainerActions,
 } from "./ListItens.styles";
 import {
   StyleSheet,
@@ -317,31 +318,20 @@ const ListItens = ({ navigation }) => {
                     </Text>
                   </View>
                 </Button>
-                <View
-                  style={{
-                    maxWidth: "7rem",
-                    flex: 1,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    backgroundColor: theme?.colors?.primary,
-                    borderRadius: 5,
-                  }}
-                >
-                  <Pressable
+                <ContainerActions>
+                  <Button
+                    width={"25"}
+                    borderRadius={"50px"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
                     onPress={
                       product?.amount === 1
                         ? () => removeItemToList(product)
                         : () => decreaseItemAmount(product?.id)
                     }
-                    style={{
-                      width: 25,
-                      borderRadius: 50,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
                   >
                     <FontAwesome size={30} color="#FFF" name="minus" />
-                  </Pressable>
+                  </Button>
                   <Text
                     fontFamily={Poppins_600SemiBold}
                     fontSize={20}
@@ -349,18 +339,16 @@ const ListItens = ({ navigation }) => {
                   >
                     {product?.amount}
                   </Text>
-                  <Pressable
+                  <Button
+                    width={"25"}
+                    borderRadius={"50px"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
                     onPress={() => increaseItemAmount(product?.id)}
-                    style={{
-                      width: 25,
-                      borderRadius: 50,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
                   >
                     <FontAwesome size={30} color="#FFF" name="plus" />
-                  </Pressable>
-                </View>
+                  </Button>
+                </ContainerActions>
               </ContainerProductData>
             );
           }) :
@@ -392,32 +380,20 @@ const ListItens = ({ navigation }) => {
                       </Text>
                     </View>
                   </Button>
-                  <View
-                    style={{
-                      maxWidth: "7rem",
-                      flex: 1,
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      backgroundColor: theme?.colors?.primary,
-                      borderRadius: 5,
-                    }}
-                  >
-                    {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="minus" /> */}
-                    <Pressable
+                  <ContainerActions>
+                    <Button
+                      width={"25px"}
+                      borderRadius={"50px"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
                       onPress={
                         product?.amount === 1
                           ? () => removeItemToList(product)
                           : () => decreaseItemAmount(product?.id)
                       }
-                      style={{
-                        width: 25,
-                        borderRadius: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
                     >
                       <FontAwesome size={30} color="#FFF" name="minus" />
-                    </Pressable>
+                    </Button>
                     <Text
                       fontFamily={Poppins_600SemiBold}
                       fontSize={20}
@@ -425,19 +401,16 @@ const ListItens = ({ navigation }) => {
                     >
                       {product?.amount}
                     </Text>
-                    {/* <Icon size={28} style={{ color: theme.colors.primary, marginBottom: 'auto', marginTop: 'auto' }} name="plus" onPress={increaseItemAmount}/> */}
-                    <Pressable
+                    <Button
+                      width={"25px"}
+                      borderRadius={"50px"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
                       onPress={() => increaseItemAmount(product?.id)}
-                      style={{
-                        width: 25,
-                        borderRadius: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
                     >
                       <FontAwesome size={30} color="#FFF" name="plus" />
-                    </Pressable>
-                  </View>
+                    </Button>
+                  </ContainerActions>
                 </ContainerProductData>
               );
             })
