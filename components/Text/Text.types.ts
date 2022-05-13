@@ -5,5 +5,6 @@ export interface TextProps extends Props {
   fontFamily: string;
   fontSize: number;
   color?: string;
+  textAlign?: string;
   children: ReactNode | string | number;
 }

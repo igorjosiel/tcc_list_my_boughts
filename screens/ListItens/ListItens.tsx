@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Conatiner } from "./ListItens.styles";
+import { ContainerProductsList, ContainerNewProduct, Conatiner } from "./ListItens.styles";
 import {
   StyleSheet,
   Pressable,
@@ -20,6 +20,7 @@ import { Product } from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
+import Button from "../../components/Button/Button";
 
 interface Sorting {
   sortingName: string;
@@ -210,6 +211,11 @@ const ListItens = ({ navigation }) => {
     setModalVisible(true);
   }
 
+  function openModalToCreateNewProduct() {
+    setAction("creation");
+    setModalVisible(true);
+  }
+
   return (
     <>
       <ModalForm
@@ -273,25 +279,20 @@ const ListItens = ({ navigation }) => {
           </Pressable>
         </View>
         <ScrollView>
-          <Conatiner style={styles.sectionNewItem}>
-            <Pressable
-              style={{
-                width: "100%",
-                // shadowOpacity: "0.7",
-              }}
-              // onPress={() => navigation?.navigate("ProductsPage")}
-              onPress={() => { setAction("creation"); setModalVisible(true); }}
+          <ContainerNewProduct>
+            <Button
+              width={"100%"}
+              onPress={openModalToCreateNewProduct}
             >
               <Text
                 fontFamily={Poppins_600SemiBold}
                 fontSize={20}
-                style={{ textAlign: "center" }}
+                textAlign={"center"}
               >
                 Novo Item
               </Text>
-            </Pressable>
-            {/* <Checkbox value={item?.checked} onValueChange={() => changeItemOfList(item?.id)} /> */}
-          </Conatiner>
+            </Button>
+          </ContainerNewProduct>
           {!productSearch ? listProducts?.map((product, index) => {
             return (
               <Conatiner style={styles.section} key={index}>
