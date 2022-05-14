@@ -35,6 +35,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     closeModal,
     onSaveNewProduct,
     onChangeProduct,
+    onRemoveProduct,
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -241,7 +242,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderWidth={3}
               borderColor={theme?.colors?.primary}
               borderRadius={"10px"}
-              width={"100%"}
+              width={action === "creation" ? "100%" : "48%"}
               height={"60px"}
               minHeight={"42px"}
               padding={"10px"}
@@ -264,9 +265,26 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 color={"black"}
               />
             </Button>
+            {action === "alteration" &&
+              <Button
+                onPress={() => onRemoveProduct(newProduct)}
+                backgroundColor={"red"}
+                width={"48%"}
+                borderRadius={'10px'}
+                flexDirection={"row"}
+                alignItems={"center"}
+                justifyContent={"space-around"}
+              >
+                <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                  Remover
+                </Text>
+              </Button>}
           </PriorityContainer>
           {showPriorityOptions && (
-            <ScrollViewContainer>
+            <ScrollViewContainer
+              width={action === "creation" ? "100%" : "48%"}
+              marginRight={action === "alteration" ? "auto" : "0px"}
+            >
               <Scroll
                 data={priorities}
                 scrollName={'priority'}

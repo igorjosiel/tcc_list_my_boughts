@@ -29,3 +29,8 @@ export interface Button {
     backgroundColor: string,
     action: () => void;
 }
+
+export interface Sorting {
+    sortingName: string;
+    sortingNumber: number;
+}

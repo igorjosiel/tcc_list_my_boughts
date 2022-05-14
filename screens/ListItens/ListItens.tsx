@@ -23,17 +23,12 @@ import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
 
-import { Product, Button as ButtonProps } from "../../utils/interfaces";
+import { Product, Button as ButtonProps, Sorting } from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
 import Button from "../../components/Button/Button";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
-
-interface Sorting {
-  sortingName: string;
-  sortingNumber: number;
-}
 
 const sortingKinds: Sorting[] = [
   {
@@ -169,6 +164,7 @@ const ListItens = () => {
 
   const removeItemToList = (product: Product) => {
     const { id, price } = product;
+
     const listProductsFiltered: Product[] = listProducts?.filter(
       (item) => {
         if (item.id !== id) {
@@ -188,6 +184,11 @@ const ListItens = () => {
 
   const onChangeProduct = (changedProduct: Product) => {
     changeItemFromList(changedProduct);
+    setIsModalFormVisible(false);
+  }
+
+  const onRemoveProduct = (removedProduct: Product) => {
+    removeItemToList(removedProduct);
     setIsModalFormVisible(false);
   }
 
@@ -251,6 +252,7 @@ const ListItens = () => {
         action={action}
         onSaveNewProduct={onSaveNewProduct}
         onChangeProduct={onChangeProduct}
+        onRemoveProduct={onRemoveProduct}
         closeModal={() => {
           setIsModalFormVisible(!isModalFormVisible);
         }}

@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 
 import theme from "../../global/styles/theme";
+import { ScrollViewContainerProps } from "./ModalForm.types";
 
 const CenteredView = styled.View`
   flex: 1;
@@ -39,14 +40,18 @@ const CategoryContainer = styled.View`
 
 const PriorityContainer = styled(CategoryContainer)`
   margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
-const ScrollViewContainer = styled.View`
+const ScrollViewContainer = styled.View<ScrollViewContainerProps>`
   background-color: ${theme?.colors?.primary};
   padding: 4px;
   border-radius: 6px;
   max-height: 150px;
-  width: 100%;
+  width: ${(props) => props?.width ? props?.width : "100%"};
+  margin-right: ${(props) => props?.marginRight};
 `;
 
 const ButtonsContainer = styled.View`
