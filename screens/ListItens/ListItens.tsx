@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   ContainerProductsList,
   ContainerNewProduct,
-  Conatiner,
   ContainerProductsListHeader,
   ContainerProductData,
   ContainerStar,
@@ -45,7 +44,7 @@ const sortingKinds: Sorting[] = [
   },
 ];
 
-const ListItens = ({ navigation }) => {
+const ListItens = () => {
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   const [listProducts, setListProducts] = useState<Product[]>([]);
