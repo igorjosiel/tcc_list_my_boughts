@@ -342,6 +342,14 @@ const ListItens = () => {
                   ) : (
                     <FontAwesome name="star-o" size={25} color={"#000"} />
                   )}
+                  <Text
+                    fontFamily={Poppins_600SemiBold}
+                    fontSize={17}
+                    color={"#000"}
+                    textAlign={"center"}
+                  >
+                    R$ {formatMoney(product?.price)}
+                  </Text>
                 </ContainerStar>
                 <Button
                   width={"65%"}
@@ -349,6 +357,7 @@ const ListItens = () => {
                   flexDirection={"column"}
                   justifyContent={"stretch"}
                   maxWidth={"10rem"}
+                  textAlign={"center"}
                   onPress={() => openModalToChangeProduct(product)}
                 >
                   <View>
@@ -361,7 +370,6 @@ const ListItens = () => {
                     </Text>
                   </View>
                 </Button>
-                R$ {formatMoney(product?.price)}
                 <ContainerActions>
                   <Button
                     width={"25"}
@@ -405,6 +413,14 @@ const ListItens = () => {
                     ) : (
                       <FontAwesome name="star-o" size={25} color={"#000"} />
                     )}
+                    <Text
+                      fontFamily={Poppins_600SemiBold}
+                      fontSize={17}
+                      color={"#000"}
+                      textAlign={"center"}
+                    >
+                      R$ {formatMoney(product?.price)}
+                    </Text>
                   </ContainerStar>
                   <Button
                     width={"65%"}
@@ -412,6 +428,7 @@ const ListItens = () => {
                     flexDirection={"column"}
                     justifyContent={"stretch"}
                     maxWidth={"10rem"}
+                    textAlign={"center"}
                     onPress={() => openModalToChangeProduct(product)}
                   >
                     <View>

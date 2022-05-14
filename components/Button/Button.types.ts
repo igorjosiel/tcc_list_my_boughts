@@ -23,5 +23,6 @@ export default interface ButtonProps extends TouchableOpacityProps {
   flexDirection?: string;
   justifyContent?: string;
   alignItems?: string;
+  textAlign?: string;
   children: ReactNode;
 }

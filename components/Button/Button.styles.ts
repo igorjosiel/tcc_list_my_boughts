@@ -25,6 +25,7 @@ const StyledButton = styled.TouchableOpacity<ButtonProps>`
   margin-bottom: ${(props) => props?.marginBottom};
   margin-left: ${(props) => props?.marginLeft};
   margin-right: ${(props) => props?.marginRight};
+  text-align: ${(props) => props?.textAlign};
 `;
 
 export default StyledButton;

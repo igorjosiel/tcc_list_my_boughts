@@ -45,6 +45,10 @@ export const ContainerProductData = styled.View`
 
 export const ContainerStar = styled.View`
     margin-right: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const ContainerActions = styled.View`
