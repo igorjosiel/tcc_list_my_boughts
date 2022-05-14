@@ -22,3 +22,10 @@ export interface Product {
     price: number;
     priority: string;
 }
+
+export interface Button {
+    id: number,
+    name: string,
+    backgroundColor: string,
+    action: () => void;
+}

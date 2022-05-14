@@ -23,11 +23,13 @@ import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
 
-import { Product } from "../../utils/interfaces";
+import { Product, Button as ButtonProps } from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
 import Button from "../../components/Button/Button";
+import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
+
 interface Sorting {
   sortingName: string;
   sortingNumber: number;
@@ -58,7 +60,8 @@ const ListItens = () => {
     price: 0.0,
     priority: "",
   });
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [isModalFormVisible, setIsModalFormVisible] = useState<boolean>(false);
+  const [isModalConfirmationVisible, setIsModalConfirmationVisible] = useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [action, setAction] = useState("");
   const [totalValue, setTotalValue] = useState<number>(0);
@@ -92,6 +95,24 @@ const ListItens = () => {
       });
     }
   }
+
+  const buttons: ButtonProps[] = [
+    {
+      id: 0,
+      name: 'Cancelar',
+      backgroundColor: '#D2691E',
+      action: () => setIsModalConfirmationVisible(false),
+    },
+    {
+      id: 1,
+      name: 'Remover',
+      backgroundColor: 'red',
+      action: () => {
+        clearProductsList();
+        setIsModalConfirmationVisible(false);
+      }
+    },
+  ];
 
   useEffect(() => {
     sortProducts();
@@ -162,12 +183,12 @@ const ListItens = () => {
 
   const onSaveNewProduct = (newProduct: Product) => {
     addItemToList(newProduct);
-    setModalVisible(false);
+    setIsModalFormVisible(false);
   };
 
   const onChangeProduct = (changedProduct: Product) => {
     changeItemFromList(changedProduct);
-    setModalVisible(false);
+    setIsModalFormVisible(false);
   }
 
   function increaseItemAmount(id: number) {
@@ -185,7 +206,7 @@ const ListItens = () => {
     setListProducts(newItems);
   }
 
-  function clearLis() {
+  function clearProductsList() {
     setListProducts([]);
     setTotalValue(0);
   }
@@ -214,26 +235,52 @@ const ListItens = () => {
   function openModalToChangeProduct(product: Product) {
     setProductWillBeChanged(product);
     setAction("alteration");
-    setModalVisible(true);
+    setIsModalFormVisible(true);
   }
 
   function openModalToCreateNewProduct() {
     setAction("creation");
-    setModalVisible(true);
+    setIsModalFormVisible(true);
   }
 
   return (
     <>
       <ModalForm
-        isModalOpen={modalVisible}
+        isModalOpen={isModalFormVisible}
         productWillBeChanged={productWillBeChanged}
         action={action}
         onSaveNewProduct={onSaveNewProduct}
         onChangeProduct={onChangeProduct}
         closeModal={() => {
-          setModalVisible(!modalVisible);
+          setIsModalFormVisible(!isModalFormVisible);
         }}
       />
+
+      <ModalConfirmation
+        isModalOpen={isModalConfirmationVisible}
+        closeModal={() => setIsModalConfirmationVisible(false)}
+        fontFamily={Poppins_600SemiBold}
+        message={"Tem certeza de que deseja remover a lista?"}
+      >
+        {buttons?.map((button) => {
+          return (
+            <Button
+              key={button?.id}
+              onPress={button?.action}
+              backgroundColor={button?.backgroundColor}
+              width={"48%"}
+              borderRadius={'10px'}
+              flexDirection={"row"}
+              alignItems={"center"}
+              justifyContent={"space-around"}
+            >
+              <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                {button?.name}
+              </Text>
+            </Button>
+          );
+        })}
+      </ModalConfirmation>
 
       <Header />
 
@@ -426,7 +473,7 @@ const ListItens = () => {
               borderRadius={"50px"}
               alignItems={"center"}
               justifyContent={"center"}
-              onPress={() => clearLis()}
+              onPress={() => setIsModalConfirmationVisible(true)}
             >
               <MaterialCommunityIcons
                 size={40}

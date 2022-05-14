@@ -21,7 +21,7 @@ import Button from "../Button/Button";
 import Scroll from "../ScrollView/ScrollView";
 
 import { ModalFormProps } from "./ModalForm.types";
-import { Product } from "../../utils/interfaces";
+import { Product, Button as ButtonProps } from "../../utils/interfaces";
 
 import theme from "../../global/styles/theme";
 import { useSetFonts } from "../../hooks/useSetFonts";
@@ -77,7 +77,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     });
   }
 
-  const buttons = [
+  const buttons: ButtonProps[] = [
     {
       id: 0,
       name: 'Cancelar',
@@ -97,7 +97,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
         resetProductData();
       }
     },
-  ]
+  ];
 
   const setAmountNewProduct = (value: number) => {
     if (value === 0) return;
