@@ -171,14 +171,15 @@ const ListItens = () => {
   }
 
   const removeItemToList = (product: Product) => {
-    const { id, price } = product;
+    const { id, price, amount } = product;
+    const valueWillBeRemoved = price * amount;
 
     const listProductsFiltered: Product[] = listProducts?.filter(
       (item) => {
         if (item.id !== id) {
           return { ...item };
         }
-        else setTotalValue((oldState) => oldState - price);
+        else setTotalValue((oldState) => oldState - valueWillBeRemoved);
       }
     );
 
