@@ -49,7 +49,7 @@ export const ContainerStar = styled.View`
 
 export const ContainerActions = styled.View`
     max-width: 7rem;
-    height: 80%;
+    height: 70%;
     flex: 1;
     flex-direction: row;
     justify-content: space-between;

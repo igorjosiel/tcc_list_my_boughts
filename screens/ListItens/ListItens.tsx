@@ -22,6 +22,7 @@ import Entypo from "react-native-vector-icons/Entypo";
 import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
+import formatMoney from "../../utils/formatMoney";
 
 import { Product, Button as ButtonProps, Sorting } from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
@@ -212,11 +213,6 @@ const ListItens = () => {
     setTotalValue(0);
   }
 
-  function formatMoneyValue(moneyValue: number) {
-    const convertMoneyValue = moneyValue?.toString();
-    return convertMoneyValue?.replaceAll(".", ",");
-  }
-
   function decreaseItemAmount(id: number) {
     const newItems: Product[] = listProducts?.map((item) => {
       if (item?.id === id) {
@@ -322,21 +318,21 @@ const ListItens = () => {
             }
           </Button>
         </ContainerProductsListHeader>
-        <ScrollView>
-          <ContainerNewProduct>
-            <Button
-              width={"100%"}
-              onPress={openModalToCreateNewProduct}
+        <ContainerNewProduct>
+          <Button
+            width={"100%"}
+            onPress={openModalToCreateNewProduct}
+          >
+            <Text
+              fontFamily={Poppins_600SemiBold}
+              fontSize={25}
+              textAlign={"center"}
             >
-              <Text
-                fontFamily={Poppins_600SemiBold}
-                fontSize={25}
-                textAlign={"center"}
-              >
-                Novo Item
-              </Text>
-            </Button>
-          </ContainerNewProduct>
+              Novo Item
+            </Text>
+          </Button>
+        </ContainerNewProduct>
+        <ScrollView>
           {!productSearch ? listProducts?.map((product, index) => {
             return (
               <ContainerProductData key={index}>
@@ -365,6 +361,7 @@ const ListItens = () => {
                     </Text>
                   </View>
                 </Button>
+                R$ {formatMoney(product?.price)}
                 <ContainerActions>
                   <Button
                     width={"25"}
@@ -400,7 +397,6 @@ const ListItens = () => {
             );
           }) :
             listSearchedProducts?.map((product, index) => {
-              console.log('Deu: ', product)
               return (
                 <ContainerProductData key={index}>
                   <ContainerStar>
@@ -496,7 +492,7 @@ const ListItens = () => {
           </ContainerButtonsActions>
           <ContainerTotalValue>
             <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
-              R$ {formatMoneyValue(totalValue)}
+              R$ {formatMoney(totalValue)}
             </Text>
           </ContainerTotalValue>
         </ContainerActionsFooter>
