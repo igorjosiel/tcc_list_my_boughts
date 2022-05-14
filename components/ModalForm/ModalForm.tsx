@@ -267,7 +267,10 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             </Button>
             {action === "alteration" &&
               <Button
-                onPress={() => onRemoveProduct(newProduct)}
+                onPress={() => {
+                  onRemoveProduct(newProduct);
+                  resetProductData();
+                }}
                 backgroundColor={"red"}
                 width={"48%"}
                 borderRadius={'10px'}
