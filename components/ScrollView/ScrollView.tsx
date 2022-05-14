@@ -33,9 +33,10 @@ const Scroll = (props: ScrollViewProps) => {
             backgroundColor={theme.colors.primary}
             display={"flex"}
             flexDirection={"row"}
-            justifyContent={"space-evenly"}
+            justifyContent={"space-between"}
             alignItems={"center"}
             marginBottom={"2px"}
+            padding={"0 2rem"}
             borderBottomColor={"#ffffff"}
             borderBottomWidth={"3px"}
           >
