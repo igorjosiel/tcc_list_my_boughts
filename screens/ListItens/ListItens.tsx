@@ -153,6 +153,12 @@ const ListItens = () => {
 
     const newListProducts = listProducts?.map((product) => {
       if (product?.id === id) {
+        const removeOldValue = product?.amount * product?.price;
+        setTotalValue((oldState) => oldState - removeOldValue);
+
+        const addNewValue = changedProduct?.amount * changedProduct?.price;
+        setTotalValue((oldState) => oldState + addNewValue);
+
         return {
           ...changedProduct,
         };
@@ -161,6 +167,7 @@ const ListItens = () => {
     });
 
     setListProducts(newListProducts);
+    sortProducts();
   }
 
   const removeItemToList = (product: Product) => {
