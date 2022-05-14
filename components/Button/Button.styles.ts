@@ -23,6 +23,8 @@ const StyledButton = styled.TouchableOpacity<ButtonProps>`
   border-bottom-width: ${(props) => props?.borderBottomWidth};
   padding: ${(props) => (props?.padding ? props?.padding : "0px")};
   margin-bottom: ${(props) => props?.marginBottom};
+  margin-left: ${(props) => props?.marginLeft};
+  margin-right: ${(props) => props?.marginRight};
 `;
 
 export default StyledButton;

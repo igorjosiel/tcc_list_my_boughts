@@ -19,6 +19,7 @@ import TextInput from "../Input/TextInput/TextInput";
 import MoneyInput from "../Input/MoneyInput/MoneyInput";
 import Button from "../Button/Button";
 import Scroll from "../ScrollView/ScrollView";
+import ModalConfirmation from "../ModalConfirmation/ModalConfirmation";
 
 import { ModalFormProps } from "./ModalForm.types";
 import { Product, Button as ButtonProps } from "../../utils/interfaces";
@@ -52,6 +53,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     price: 0,
     priority: "",
   });
+  const [isModalConfirmationVisible, setIsModalConfirmationVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (isModalOpen && action === "alteration") {
@@ -93,6 +95,11 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
       name: 'Salvar',
       backgroundColor: 'green',
       action: () => {
+        if (!newProduct?.productName || !newProduct?.category) {
+          setIsModalConfirmationVisible(true);
+          return;
+        }
+
         if (action === "creation") onSaveNewProduct(newProduct);
         if (action === "alteration") onChangeProduct(newProduct);
         resetProductData();
@@ -318,6 +325,29 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           </ButtonsContainer>
         </ModalView>
       </CenteredView>
+
+      <ModalConfirmation
+        isModalOpen={isModalConfirmationVisible}
+        closeModal={() => setIsModalConfirmationVisible(false)}
+        fontFamily={Poppins_600SemiBold}
+        message={"Por favor, preencha os campos obrigatórios, que são Nome e Categoria!"}
+      >
+        <Button
+          backgroundColor={"green"}
+          width={"40%"}
+          marginLeft={"auto"}
+          marginRight={"auto"}
+          borderRadius={'10px'}
+          flexDirection={"row"}
+          alignItems={"center"}
+          justifyContent={"space-around"}
+          onPress={() => setIsModalConfirmationVisible(false)}
+        >
+          <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+            Ok
+          </Text>
+        </Button>
+      </ModalConfirmation>
     </Modal>
   );
 };

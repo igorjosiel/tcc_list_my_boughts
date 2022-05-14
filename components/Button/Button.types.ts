@@ -17,6 +17,8 @@ export default interface ButtonProps extends TouchableOpacityProps {
   borderBottomWidth?: string;
   padding?: string;
   marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
   display?: string;
   flexDirection?: string;
   justifyContent?: string;
