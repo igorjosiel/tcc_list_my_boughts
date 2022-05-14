@@ -56,7 +56,7 @@ export const ContainerActions = styled.View`
     height: 70%;
     flex: 1;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: ${theme?.colors?.primary};
     border-radius: 5px;
