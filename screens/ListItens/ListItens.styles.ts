@@ -24,11 +24,11 @@ export const ContainerNewProduct = styled.View`
     background-color: ${theme?.colors?.primary};
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10;
-    margin-top: 10;
+    margin-bottom: 5px;
+    margin-top: 5px;
     margin-left: 5%;
     margin-right: 5%;
-    padding: 1rem;
+    padding: 0.7rem;
     border-radius: 10px;
 `;
 

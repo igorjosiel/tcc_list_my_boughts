@@ -282,7 +282,7 @@ const ListItens = ({ navigation }) => {
             >
               <Text
                 fontFamily={Poppins_600SemiBold}
-                fontSize={20}
+                fontSize={25}
                 textAlign={"center"}
               >
                 Novo Item
@@ -352,6 +352,7 @@ const ListItens = ({ navigation }) => {
             );
           }) :
             listSearchedProducts?.map((product, index) => {
+              console.log('Deu: ', product)
               return (
                 <ContainerProductData key={index}>
                   <ContainerStar>
