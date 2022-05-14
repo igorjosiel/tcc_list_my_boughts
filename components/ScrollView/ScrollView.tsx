@@ -29,6 +29,7 @@ const Scroll = (props: ScrollViewProps) => {
               onSelected(eachData?.value);
               setPropertyNewProduct(eachData?.value, scrollName);
             }}
+            height={"3rem"}
             backgroundColor={theme.colors.primary}
             display={"flex"}
             flexDirection={"row"}
