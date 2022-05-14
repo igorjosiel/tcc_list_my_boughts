@@ -164,7 +164,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderRadius={"0"}
               width={"70%"}
               keyboardType={"numeric"}
-              onChangeText={(value) => setAmountNewProduct(parseInt(value))}
+              onChangeText={(value) => value && setAmountNewProduct(parseInt(value))}
               value={newProduct?.amount?.toString() == "0"
                 ? ""
                 : newProduct?.amount?.toString()}
