@@ -42,7 +42,8 @@ export const ContainerProductData = styled.View`
     margin-top: 10px;
     margin-left: 5%;
     margin-right: 5%;
-    padding: 15px;
+    padding: 0px 15px;
+    height: 3.8rem;
     border-radius: 10px;
 `;
 
@@ -52,9 +53,11 @@ export const ContainerStar = styled.View`
 
 export const ContainerActions = styled.View`
     max-width: 7rem;
+    height: 80%;
     flex: 1;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: ${theme?.colors?.primary};
     border-radius: 5px;
 `;
