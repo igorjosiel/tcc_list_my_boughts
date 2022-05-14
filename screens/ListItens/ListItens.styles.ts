@@ -1,10 +1,6 @@
 import styled from "styled-components/native";
 import theme from "../../global/styles/theme";
 
-export const Conatiner = styled.View`
-
-`;
-
 export const ContainerProductsList = styled.View`
     height: 82%;
     padding-top: 0;
