@@ -341,7 +341,7 @@ const ListItens = () => {
           >
             <Text
               fontFamily={Poppins_600SemiBold}
-              fontSize={23}
+              fontSize={24}
               textAlign={"center"}
             >
               Novo Item
