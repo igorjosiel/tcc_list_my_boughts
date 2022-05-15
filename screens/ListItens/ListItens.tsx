@@ -373,7 +373,7 @@ const ListItens = () => {
                   height={"30px"}
                   display={"flex"}
                   flexDirection={"column"}
-                  justifyContent={"stretch"}
+                  justifyContent={"center"}
                   backgroundColor={"#FFF"}
                   textAlign={"center"}
                   onPress={() => openModalToChangeProduct(product)}
@@ -447,7 +447,6 @@ const ListItens = () => {
                     height={"30px"}
                     display={"flex"}
                     flexDirection={"column"}
-                    justifyContent={"stretch"}
                     backgroundColor={"#FFF"}
                     textAlign={"center"}
                     onPress={() => openModalToChangeProduct(product)}

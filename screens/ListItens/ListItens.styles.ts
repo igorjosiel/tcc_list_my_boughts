@@ -38,12 +38,12 @@ export const ContainerProductData = styled.View`
     margin-left: 5%;
     margin-right: 5%;
     padding: 0px 15px;
-    height: 3.8rem;
+    height: 55px;
     border-radius: 10px;
 `;
 
 export const ContainerStar = styled.View`
-    margin-right: 0.4rem;
+    margin-right: 6px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,7 +51,7 @@ export const ContainerStar = styled.View`
 `;
 
 export const ContainerActions = styled.View`
-    max-width: 7rem;
+    max-width: 90px;
     height: 70%;
     flex: 1;
     flex-direction: row;
