@@ -3,7 +3,6 @@ import { TouchableOpacityProps } from "react-native";
 export default interface ButtonProps extends TouchableOpacityProps {
   backgroundColor?: string;
   height?: string;
-  minHeight?: string;
   width?: string;
   maxWidth?: string;
   borderBottomLeftRadius?: string;

@@ -216,7 +216,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderBottomWidth={"3"}
               width={"100%"}
               height={"60px"}
-              minHeight={"42px"}
               padding={"10px"}
               flexDirection={"row"}
               justifyContent={"space-between"}
@@ -257,7 +256,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderBottomWidth={"3"}
               width={action === "creation" ? "100%" : "48%"}
               height={"60px"}
-              minHeight={"42px"}
               padding={"10px"}
               flexDirection={"row"}
               justifyContent={"space-between"}

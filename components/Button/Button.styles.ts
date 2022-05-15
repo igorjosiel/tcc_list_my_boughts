@@ -5,7 +5,6 @@ import ButtonProps from "./Button.types";
 const StyledButton = styled.TouchableOpacity<ButtonProps>`
   background-color: ${(props) => props?.backgroundColor};
   height: ${(props) => props?.height};
-  min-height: ${(props) => props?.minHeight};
   width: ${(props) => props?.width};
   max-width: ${(props) => props?.maxWidth};
   border-bottom-left-radius: ${(props) => props?.borderBottomLeftRadius ? props?.borderBottomLeftRadius : 10};
