@@ -13,8 +13,8 @@ const StyledButton = styled.TouchableOpacity<ButtonProps>`
   border-top-right-radius: ${(props) => props?.borderTopRightRadius ? props?.borderTopRightRadius : 10};
   display: flex;
   flex-direction: ${(props) => props?.flexDirection ? props?.flexDirection : "column"};
-  justify-content: ${(props) => props?.justifyContent};
-  align-items: ${(props) => props?.alignItems};
+  justify-content: ${(props) => props?.justifyContent ? props?.justifyContent : "space-around"};
+  align-items: ${(props) => props?.alignItems ? props?.alignItems : "center"};
   border-width: ${(props) => props?.borderWidth ? props?.borderWidth : 0};
   border-color: ${(props) => props?.borderColor ? props?.borderColor : "#000"};
   border-radius: ${(props) => props?.borderRadius};
