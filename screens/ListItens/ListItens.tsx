@@ -371,7 +371,6 @@ const ListItens = () => {
                   width={"65%"}
                   flexDirection={"column"}
                   justifyContent={"stretch"}
-                  maxWidth={"10rem"}
                   textAlign={"center"}
                   onPress={() => openModalToChangeProduct(product)}
                 >
@@ -441,7 +440,6 @@ const ListItens = () => {
                     width={"65%"}
                     flexDirection={"column"}
                     justifyContent={"stretch"}
-                    maxWidth={"10rem"}
                     textAlign={"center"}
                     onPress={() => openModalToChangeProduct(product)}
                   >

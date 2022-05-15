@@ -6,7 +6,6 @@ const StyledButton = styled.TouchableOpacity<ButtonProps>`
   background-color: ${(props) => props?.backgroundColor};
   height: ${(props) => props?.height};
   width: ${(props) => props?.width};
-  max-width: ${(props) => props?.maxWidth};
   border-bottom-left-radius: ${(props) => props?.borderBottomLeftRadius ? props?.borderBottomLeftRadius : 10};
   border-bottom-right-radius: ${(props) => props?.borderBottomRightRadius ? props?.borderBottomRightRadius : 10};
   border-top-left-radius: ${(props) => props?.borderTopLeftRadius ? props?.borderTopLeftRadius : 10};
