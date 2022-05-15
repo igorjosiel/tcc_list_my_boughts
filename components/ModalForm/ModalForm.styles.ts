@@ -52,7 +52,7 @@ const ScrollViewContainer = styled.View<ScrollViewContainerProps>`
   border-radius: 6px;
   max-height: 150px;
   width: ${(props) => props?.width ? props?.width : "100%"};
-  margin-right: ${(props) => props?.marginRight};
+  margin-right: ${(props) => props?.marginRight ? props?.marginRight : "0px"};
 `;
 
 const ButtonsContainer = styled.View`
