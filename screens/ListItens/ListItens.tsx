@@ -368,7 +368,7 @@ const ListItens = () => {
                   </Text>
                 </ContainerStar>
                 <Button
-                  width={"65%"}
+                  width={"50%"}
                   flexDirection={"column"}
                   justifyContent={"stretch"}
                   textAlign={"center"}
