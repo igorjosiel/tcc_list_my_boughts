@@ -337,6 +337,7 @@ const ListItens = () => {
         <ContainerNewProduct>
           <Button
             width={"100%"}
+            height={"40px"}
             onPress={openModalToCreateNewProduct}
           >
             <Text
@@ -369,6 +370,8 @@ const ListItens = () => {
                 </ContainerStar>
                 <Button
                   width={"50%"}
+                  height={"30px"}
+                  display={"flex"}
                   flexDirection={"column"}
                   justifyContent={"stretch"}
                   backgroundColor={"#FFF"}
@@ -387,7 +390,8 @@ const ListItens = () => {
                 </Button>
                 <ContainerActions>
                   <Button
-                    width={"25"}
+                    width={"25px"}
+                    height={"100%"}
                     borderRadius={"50px"}
                     alignItems={"center"}
                     justifyContent={"center"}
@@ -407,7 +411,8 @@ const ListItens = () => {
                     {product?.amount}
                   </Text>
                   <Button
-                    width={"25"}
+                    width={"25px"}
+                    height={"100%"}
                     borderRadius={"50px"}
                     alignItems={"center"}
                     justifyContent={"center"}
@@ -438,9 +443,12 @@ const ListItens = () => {
                     </Text>
                   </ContainerStar>
                   <Button
-                    width={"65%"}
+                    width={"50%"}
+                    height={"30px"}
+                    display={"flex"}
                     flexDirection={"column"}
                     justifyContent={"stretch"}
+                    backgroundColor={"#FFF"}
                     textAlign={"center"}
                     onPress={() => openModalToChangeProduct(product)}
                   >
@@ -457,6 +465,7 @@ const ListItens = () => {
                   <ContainerActions>
                     <Button
                       width={"25px"}
+                      height={"100%"}
                       borderRadius={"50px"}
                       alignItems={"center"}
                       justifyContent={"center"}
@@ -477,6 +486,7 @@ const ListItens = () => {
                     </Text>
                     <Button
                       width={"25px"}
+                      height={"100%"}
                       borderRadius={"50px"}
                       alignItems={"center"}
                       justifyContent={"center"}

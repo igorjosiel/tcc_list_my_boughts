@@ -24,7 +24,7 @@ export const ContainerNewProduct = styled.View`
     margin-top: 5px;
     margin-left: 5%;
     margin-right: 5%;
-    padding: 0.7rem;
+    padding: 10px;
     border-radius: 10px;
 `;
 
