@@ -166,11 +166,13 @@ const ListItens = () => {
       else return { ...product };
     });
 
+    const searchedProducts = newListProducts?.filter((product) => product?.productName?.includes(productSearch));
+    setListSearchedProducts(searchedProducts);
     setListProducts(newListProducts);
     sortProducts();
   }
 
-  const removeItemToList = (product: Product) => {
+  const removeItemFromList = (product: Product) => {
     const { id, price, amount } = product;
     const valueWillBeRemoved = price * amount;
 
@@ -199,7 +201,7 @@ const ListItens = () => {
   }
 
   const onRemoveProduct = (removedProduct: Product) => {
-    removeItemToList(removedProduct);
+    removeItemFromList(removedProduct);
     setIsModalFormVisible(false);
   }
 
@@ -404,7 +406,7 @@ const ListItens = () => {
                     justifyContent={"center"}
                     onPress={
                       product?.amount === 1
-                        ? () => removeItemToList(product)
+                        ? () => removeItemFromList(product)
                         : () => decreaseItemAmount(product?.id)
                     }
                   >
@@ -477,7 +479,7 @@ const ListItens = () => {
                       justifyContent={"center"}
                       onPress={
                         product?.amount === 1
-                          ? () => removeItemToList(product)
+                          ? () => removeItemFromList(product)
                           : () => decreaseItemAmount(product?.id)
                       }
                     >
