@@ -43,6 +43,7 @@ const PriorityContainer = styled(CategoryContainer)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 5px;
 `;
 
 const ScrollViewContainer = styled.View<ScrollViewContainerProps>`
