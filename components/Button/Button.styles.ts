@@ -20,8 +20,8 @@ const StyledButton = styled.TouchableOpacity<ButtonProps>`
   border-bottom-color: ${(props) => props?.borderBottomColor ? props?.borderBottomColor : "#000"};
   border-bottom-width: ${(props) => props?.borderBottomWidth ? props?.borderBottomWidth : 0};
   padding: ${(props) => (props?.padding ? props?.padding : "0px")};
-  margin-bottom: ${(props) => props?.marginBottom};
-  margin-left: ${(props) => props?.marginLeft};
+  margin-bottom: ${(props) => props?.marginBottom ? props?.marginBottom : "0px"};
+  margin-left: ${(props) => props?.marginLeft ? props?.marginLeft : "0px"};
   margin-right: ${(props) => props?.marginRight ? props?.marginRight : "0px"};
   text-align: ${(props) => props?.textAlign ? props?.textAlign : "auto"};
 `;
