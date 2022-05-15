@@ -183,6 +183,8 @@ const ListItens = () => {
       }
     );
 
+    const searchedProducts = listProductsFiltered?.filter((product) => product?.productName?.includes(productSearch));
+    setListSearchedProducts(searchedProducts);
     setListProducts(listProductsFiltered);
   };
 
@@ -213,11 +215,14 @@ const ListItens = () => {
       } else return { ...item };
     });
 
+    const searchedProducts = newItems?.filter((product) => product?.productName?.includes(productSearch));
+    setListSearchedProducts(searchedProducts);
     setListProducts(newItems);
   }
 
   function clearProductsList() {
     setListProducts([]);
+    setListSearchedProducts([]);
     setTotalValue(0);
   }
 
@@ -234,6 +239,8 @@ const ListItens = () => {
     }
     );
 
+    const searchedProducts = newItems?.filter((product) => product?.productName?.includes(productSearch));
+    setListSearchedProducts(searchedProducts);
     setListProducts(newItems);
   }
 
@@ -370,7 +377,7 @@ const ListItens = () => {
                 </ContainerStar>
                 <Button
                   width={"50%"}
-                  height={"30px"}
+                  height={"100%"}
                   display={"flex"}
                   flexDirection={"column"}
                   justifyContent={"center"}
@@ -444,7 +451,7 @@ const ListItens = () => {
                   </ContainerStar>
                   <Button
                     width={"50%"}
-                    height={"30px"}
+                    height={"100%"}
                     display={"flex"}
                     flexDirection={"column"}
                     backgroundColor={"#FFF"}
