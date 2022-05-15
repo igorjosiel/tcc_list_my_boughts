@@ -11,7 +11,7 @@ const TextInput = styled.TextInput<TextInputProps>`
   border-color: ${theme?.colors?.primary};
   padding: 10px;
   border-radius: ${(props) => props?.borderRadius};
-  font-size: 1.2rem;
+  font-size: 18px;
   font-family: ${(props) => props?.fontFamily};
   shadow-offset: { width: 0, height: 1 };
 `;
