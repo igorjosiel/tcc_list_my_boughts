@@ -12,9 +12,10 @@ const CenteredView = styled.View`
 
 const ModalView = styled.View`
     margin: 20px;
+    width: 90%;
+    padding: 25px;
     background-color: white;
-    border-radius: 20;
-    padding: 35px;
+    border-radius: 10px;
     align-items: center;
     shadow-color: #000;
     shadow-offset: {
