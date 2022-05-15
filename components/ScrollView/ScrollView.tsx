@@ -37,6 +37,8 @@ const Scroll = (props: ScrollViewProps) => {
             alignItems={"center"}
             marginBottom={"2px"}
             padding={"0 2rem"}
+            borderBottomLeftRadius={"0px"}
+            borderBottomRightRadius={"0px"}
             borderBottomColor={"#ffffff"}
             borderBottomWidth={"3px"}
           >

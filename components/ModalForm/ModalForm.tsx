@@ -157,8 +157,10 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               backgroundColor={theme?.colors?.primary}
               height={"60px"}
               width={"15%"}
-              borderBottomLeftRadius={"10"}
-              borderTopLeftRadius={"10"}
+              borderBottomLeftRadius={"10px"}
+              borderTopLeftRadius={"10px"}
+              borderBottomRightRadius={"0px"}
+              borderTopRightRadius={"0px"}
               display={"flex"}
               flexDirection={"row"}
               justifyContent={"center"}
@@ -183,8 +185,10 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               backgroundColor={theme?.colors?.primary}
               height={"60px"}
               width={"15%"}
-              borderBottomRightRadius={"10"}
-              borderTopRightRadius={"10"}
+              borderTopLeftRadius={"0px"}
+              borderBottomLeftRadius={"0px"}
+              borderBottomRightRadius={"10px"}
+              borderTopRightRadius={"10px"}
               display={"flex"}
               flexDirection={"row"}
               justifyContent={"center"}

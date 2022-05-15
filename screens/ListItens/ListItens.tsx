@@ -305,6 +305,10 @@ const ListItens = () => {
             height={'55px'}
             width={'55px'}
             borderRadius={'50px'}
+            borderBottomLeftRadius={"50px"}
+            borderTopRightRadius={"50px"}
+            borderBottomRightRadius={"50px"}
+            borderTopLeftRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
             onPress={() => setProductSearch("")}
@@ -316,6 +320,10 @@ const ListItens = () => {
             height={'55px'}
             width={'55px'}
             borderRadius={'50px'}
+            borderBottomLeftRadius={"50px"}
+            borderTopRightRadius={"50px"}
+            borderBottomRightRadius={"50px"}
+            borderTopLeftRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
             onPress={() => changeSorting()}
@@ -494,6 +502,10 @@ const ListItens = () => {
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}
+              borderBottomLeftRadius={"50px"}
+              borderTopRightRadius={"50px"}
+              borderBottomRightRadius={"50px"}
+              borderTopLeftRadius={"50px"}
               alignItems={"center"}
               justifyContent={"center"}
               onPress={() => setIsModalConfirmationVisible(true)}
@@ -509,6 +521,10 @@ const ListItens = () => {
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}
+              borderBottomLeftRadius={"50px"}
+              borderTopRightRadius={"50px"}
+              borderBottomRightRadius={"50px"}
+              borderTopLeftRadius={"50px"}
               alignItems={"center"}
               justifyContent={"center"}
             >
