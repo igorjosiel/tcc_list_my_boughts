@@ -19,7 +19,7 @@ const ModalConfirmation = (props: ModalConfirmationProps) => {
                     <ModalTitle>
                         <Text
                             fontFamily={fontFamily}
-                            fontSize={25}
+                            fontSize={22}
                             color={"#000"}
                             textAlign={"center"}
                         >
