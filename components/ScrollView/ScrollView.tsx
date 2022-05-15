@@ -31,7 +31,6 @@ const Scroll = (props: ScrollViewProps) => {
             }}
             height={"3rem"}
             backgroundColor={theme.colors.primary}
-            display={"flex"}
             flexDirection={"row"}
             justifyContent={"space-between"}
             alignItems={"center"}

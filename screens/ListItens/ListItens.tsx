@@ -369,7 +369,6 @@ const ListItens = () => {
                 </ContainerStar>
                 <Button
                   width={"65%"}
-                  display={"flex"}
                   flexDirection={"column"}
                   justifyContent={"stretch"}
                   maxWidth={"10rem"}
@@ -440,7 +439,6 @@ const ListItens = () => {
                   </ContainerStar>
                   <Button
                     width={"65%"}
-                    display={"flex"}
                     flexDirection={"column"}
                     justifyContent={"stretch"}
                     maxWidth={"10rem"}

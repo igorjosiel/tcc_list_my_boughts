@@ -12,7 +12,7 @@ const StyledButton = styled.TouchableOpacity<ButtonProps>`
   border-bottom-right-radius: ${(props) => props?.borderBottomRightRadius ? props?.borderBottomRightRadius : 10};
   border-top-left-radius: ${(props) => props?.borderTopLeftRadius ? props?.borderTopLeftRadius : 10};
   border-top-right-radius: ${(props) => props?.borderTopRightRadius ? props?.borderTopRightRadius : 10};
-  display: ${(props) => props?.display};
+  display: flex;
   flex-direction: ${(props) => props?.flexDirection};
   justify-content: ${(props) => props?.justifyContent};
   align-items: ${(props) => props?.alignItems};

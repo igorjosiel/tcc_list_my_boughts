@@ -161,7 +161,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderTopLeftRadius={"10px"}
               borderBottomRightRadius={"0px"}
               borderTopRightRadius={"0px"}
-              display={"flex"}
               flexDirection={"row"}
               justifyContent={"center"}
               alignItems={"center"}
@@ -189,7 +188,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderBottomLeftRadius={"0px"}
               borderBottomRightRadius={"10px"}
               borderTopRightRadius={"10px"}
-              display={"flex"}
               flexDirection={"row"}
               justifyContent={"center"}
               alignItems={"center"}
