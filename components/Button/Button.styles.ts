@@ -1,9 +1,10 @@
 import styled from "styled-components/native";
 
 import ButtonProps from "./Button.types";
+import theme from "../../global/styles/theme";
 
 const StyledButton = styled.TouchableOpacity<ButtonProps>`
-  background-color: ${(props) => props?.backgroundColor};
+  background-color: ${(props) => props?.backgroundColor ? props?.backgroundColor : theme?.colors?.primary};
   height: ${(props) => props?.height};
   width: ${(props) => props?.width};
   border-bottom-left-radius: ${(props) => props?.borderBottomLeftRadius ? props?.borderBottomLeftRadius : 10};

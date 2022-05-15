@@ -211,6 +211,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             <Button
               borderWidth={3}
               borderColor={theme?.colors?.primary}
+              backgroundColor={"#FFF"}
               borderRadius={"10px"}
               borderBottomColor={theme?.colors?.primary}
               borderBottomWidth={"3"}
@@ -254,6 +255,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderRadius={"10px"}
               borderBottomColor={theme?.colors?.primary}
               borderBottomWidth={"3"}
+              backgroundColor={"#FFF"}
               width={action === "creation" ? "100%" : "48%"}
               height={"60px"}
               padding={"10px"}
