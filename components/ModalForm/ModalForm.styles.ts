@@ -39,7 +39,7 @@ const CategoryContainer = styled.View`
 `;
 
 const PriorityContainer = styled(CategoryContainer)`
-  margin-top: 1rem;
+  margin-top: 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

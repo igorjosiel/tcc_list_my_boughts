@@ -10,9 +10,9 @@ export const ContainerProductsListHeader = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 1rem;
-    margin-right: 1rem;
-    margin-left: 1rem;
+    margin-top: 16px;
+    margin-right: 16px;
+    margin-left: 16px;
 `;
 
 export const ContainerNewProduct = styled.View`
