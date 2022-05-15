@@ -21,7 +21,6 @@ export const ContainerNewProduct = styled.View`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
-    margin-top: 5px;
     margin-left: 5%;
     margin-right: 5%;
     padding: 10px;

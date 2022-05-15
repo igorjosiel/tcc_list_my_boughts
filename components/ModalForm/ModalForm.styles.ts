@@ -59,8 +59,8 @@ const ButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding-top: 0.8rem;
-  height: 4.5rem;
+  padding-top: 14px;
+  height: 75px;
 `;
 
 export {
