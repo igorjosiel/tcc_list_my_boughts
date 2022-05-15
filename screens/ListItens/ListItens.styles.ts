@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import theme from "../../global/styles/theme";
 
 export const ContainerProductsList = styled.View`
-    height: 82%;
+    height: 80%;
     padding-top: 0;
 `;
 
@@ -62,7 +62,7 @@ export const ContainerActions = styled.View`
 `;
 
 export const ContainerFooter = styled.View`
-    height: 8%;
+    height: 10%;
     padding-top: 3%;
     margin-right: 20px;
     margin-left: 10px;
