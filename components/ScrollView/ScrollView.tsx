@@ -18,6 +18,27 @@ const Scroll = (props: ScrollViewProps) => {
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
+      <Button
+        height={"48px"}
+        backgroundColor={theme.colors.primary}
+        flexDirection={"row"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        marginBottom={"2px"}
+        padding={"5px"}
+        borderBottomLeftRadius={"0px"}
+        borderBottomRightRadius={"0px"}
+        borderBottomColor={"#ffffff"}
+        borderBottomWidth={"5px"}
+      >
+        <Text
+          fontFamily={Poppins_600SemiBold}
+          fontSize={20}
+          color={"white"}
+        >
+          {scrollName && scrollName === "category" ? "Categoria" : "Prioridade"}
+        </Text>
+      </Button>
       {data?.map((eachData) => {
         return (
           <Button
