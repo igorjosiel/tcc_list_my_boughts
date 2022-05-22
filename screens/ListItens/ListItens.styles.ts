@@ -1,9 +1,12 @@
 import styled from "styled-components/native";
 import theme from "../../global/styles/theme";
 
-export const ContainerProductsList = styled.View`
+import { ContainerScreenProps } from "./ListItens.types";
+
+export const ContainerProductsList = styled.View<ContainerScreenProps>`
     height: 80%;
     padding-top: 0;
+    filter: ${(props) => props?.applyFilter ? 'blur(40px)' : 'blur(0px)'};
 `;
 
 export const ContainerProductsListHeader = styled.View`
@@ -61,11 +64,12 @@ export const ContainerActions = styled.View`
     border-radius: 5px;
 `;
 
-export const ContainerFooter = styled.View`
+export const ContainerFooter = styled.View<ContainerScreenProps>`
     height: 10%;
     padding-top: 3%;
     margin-right: 20px;
     margin-left: 10px;
+    filter: ${(props) => props?.applyFilter ? 'blur(40px)' : 'blur(0px)'};
 `;
 
 export const ContainerActionsFooter = styled.View`

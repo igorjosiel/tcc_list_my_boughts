@@ -309,7 +309,7 @@ const ListItens = () => {
 
       <Header />
 
-      <ContainerProductsList>
+      <ContainerProductsList applyFilter={isModalFormVisible}>
         <ContainerProductsListHeader>
           <TextInput
             fontFamily={Poppins_600SemiBold}
@@ -519,7 +519,7 @@ const ListItens = () => {
           }
         </ScrollView>
       </ContainerProductsList>
-      <ContainerFooter>
+      <ContainerFooter applyFilter={isModalFormVisible}>
         <ContainerActionsFooter>
           <ContainerButtonsActions>
             <Button
