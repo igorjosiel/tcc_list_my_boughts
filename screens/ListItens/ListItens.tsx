@@ -65,8 +65,17 @@ const ListItens = () => {
   const [sortOfOrdering, setSortOfOrdering] = useState<Sorting>(sortingKinds[0]);
 
   useEffect(() => {
-    const searchedProducts = listProducts?.filter((product) => product?.productName?.includes(productSearch));
-    setListSearchedProducts(searchedProducts);
+    const searchedProductsByName = listProducts?.filter((product) => {
+      return product?.productName?.includes(productSearch);
+    });
+
+    const searchedProductsByPrice = listProducts?.filter((product) => {
+      return product?.price?.toFixed(2)?.toString()?.replace('.', ',')?.includes(productSearch);
+    });
+
+    const joinSearchedProducts = searchedProductsByName?.concat(searchedProductsByPrice);
+
+    setListSearchedProducts(joinSearchedProducts);
   }, [productSearch]);
 
   const sortProducts = () => {
