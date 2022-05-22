@@ -11,6 +11,7 @@ import {
   ContainerActionsFooter,
   ContainerButtonsActions,
   ContainerTotalValue,
+  ContainerData,
 } from "./ListItens.styles";
 import {
   View,
@@ -31,6 +32,7 @@ import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
 import Button from "../../components/Button/Button";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
+import Factory from "../../components/Factory/Factory";
 
 const sortingKinds: Sorting[] = [
   {
@@ -372,80 +374,18 @@ const ListItens = () => {
           {!productSearch ? listProducts?.map((product, index) => {
             return (
               <ContainerProductData key={index}>
-                <ContainerStar>
-                  {product?.priority === "Sim" ? (
-                    <FontAwesome name="star" size={25} color={"#FFA500"} />
-                  ) : (
-                    <FontAwesome name="star-o" size={25} color={"#000"} />
-                  )}
+                <View style={{ borderBottomWidth: '4px', borderBottomColor: theme?.colors?.primary }}>
                   <Text
                     fontFamily={Poppins_600SemiBold}
-                    fontSize={17}
-                    color={"#000"}
+                    fontSize={18}
+                    color={theme?.colors?.primary}
                     textAlign={"center"}
                   >
-                    R$ {formatMoney(product?.price)}
+                    {product?.category}
                   </Text>
-                </ContainerStar>
-                <Button
-                  width={"50%"}
-                  height={"100%"}
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={"center"}
-                  backgroundColor={"#FFF"}
-                  textAlign={"center"}
-                  onPress={() => openModalToChangeProduct(product)}
-                >
-                  <View>
-                    <Text
-                      fontFamily={Poppins_600SemiBold}
-                      fontSize={20}
-                      color={"#000"}
-                    >
-                      {product?.productName}
-                    </Text>
-                  </View>
-                </Button>
-                <ContainerActions>
-                  <Button
-                    width={"25px"}
-                    height={"100%"}
-                    borderRadius={"50px"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    onPress={
-                      product?.amount === 1
-                        ? () => removeItemFromList(product)
-                        : () => decreaseItemAmount(product?.id)
-                    }
-                  >
-                    <FontAwesome size={30} color="#FFF" name="minus" />
-                  </Button>
-                  <Text
-                    fontFamily={Poppins_600SemiBold}
-                    fontSize={20}
-                    color={"#FFF"}
-                  >
-                    {product?.amount}
-                  </Text>
-                  <Button
-                    width={"25px"}
-                    height={"100%"}
-                    borderRadius={"50px"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    onPress={() => increaseItemAmount(product?.id)}
-                  >
-                    <FontAwesome size={30} color="#FFF" name="plus" />
-                  </Button>
-                </ContainerActions>
-              </ContainerProductData>
-            );
-          }) :
-            listSearchedProducts?.map((product, index) => {
-              return (
-                <ContainerProductData key={index}>
+                  {/* <Factory library={eachData?.library} icon={eachData?.icon} /> */}
+                </View>
+                <ContainerData>
                   <ContainerStar>
                     {product?.priority === "Sim" ? (
                       <FontAwesome name="star" size={25} color={"#FFA500"} />
@@ -466,6 +406,7 @@ const ListItens = () => {
                     height={"100%"}
                     display={"flex"}
                     flexDirection={"column"}
+                    justifyContent={"center"}
                     backgroundColor={"#FFF"}
                     textAlign={"center"}
                     onPress={() => openModalToChangeProduct(product)}
@@ -513,6 +454,93 @@ const ListItens = () => {
                       <FontAwesome size={30} color="#FFF" name="plus" />
                     </Button>
                   </ContainerActions>
+                </ContainerData>
+              </ContainerProductData>
+            );
+          }) :
+            listSearchedProducts?.map((product, index) => {
+              return (
+                <ContainerProductData key={index}>
+                  <View style={{ borderBottomWidth: '4px', borderBottomColor: theme?.colors?.primary }}>
+                    <Text
+                      fontFamily={Poppins_600SemiBold}
+                      fontSize={18}
+                      color={theme?.colors?.primary}
+                      textAlign={"center"}
+                    >
+                      {product?.category}
+                    </Text>
+                    {/* <Factory library={eachData?.library} icon={eachData?.icon} /> */}
+                  </View>
+                  <ContainerData>
+                    <ContainerStar>
+                      {product?.priority === "Sim" ? (
+                        <FontAwesome name="star" size={25} color={"#FFA500"} />
+                      ) : (
+                        <FontAwesome name="star-o" size={25} color={"#000"} />
+                      )}
+                      <Text
+                        fontFamily={Poppins_600SemiBold}
+                        fontSize={17}
+                        color={"#000"}
+                        textAlign={"center"}
+                      >
+                        R$ {formatMoney(product?.price)}
+                      </Text>
+                    </ContainerStar>
+                    <Button
+                      width={"50%"}
+                      height={"100%"}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      backgroundColor={"#FFF"}
+                      textAlign={"center"}
+                      onPress={() => openModalToChangeProduct(product)}
+                    >
+                      <View>
+                        <Text
+                          fontFamily={Poppins_600SemiBold}
+                          fontSize={20}
+                          color={"#000"}
+                        >
+                          {product?.productName}
+                        </Text>
+                      </View>
+                    </Button>
+                    <ContainerActions>
+                      <Button
+                        width={"25px"}
+                        height={"100%"}
+                        borderRadius={"50px"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        onPress={
+                          product?.amount === 1
+                            ? () => removeItemFromList(product)
+                            : () => decreaseItemAmount(product?.id)
+                        }
+                      >
+                        <FontAwesome size={30} color="#FFF" name="minus" />
+                      </Button>
+                      <Text
+                        fontFamily={Poppins_600SemiBold}
+                        fontSize={20}
+                        color={"#FFF"}
+                      >
+                        {product?.amount}
+                      </Text>
+                      <Button
+                        width={"25px"}
+                        height={"100%"}
+                        borderRadius={"50px"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        onPress={() => increaseItemAmount(product?.id)}
+                      >
+                        <FontAwesome size={30} color="#FFF" name="plus" />
+                      </Button>
+                    </ContainerActions>
+                  </ContainerData>
                 </ContainerProductData>
               );
             })

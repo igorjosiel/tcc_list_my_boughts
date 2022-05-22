@@ -31,9 +31,6 @@ export const ContainerNewProduct = styled.View`
 `;
 
 export const ContainerProductData = styled.View`
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     margin-bottom: 10px;
     background-color: #FFF;
     color: black;
@@ -41,8 +38,14 @@ export const ContainerProductData = styled.View`
     margin-left: 5%;
     margin-right: 5%;
     padding: 0px 15px;
-    height: 55px;
+    height: 90px;
     border-radius: 10px;
+`;
+
+export const ContainerData = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 `;
 
 export const ContainerStar = styled.View`
