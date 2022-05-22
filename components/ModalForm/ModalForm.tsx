@@ -22,7 +22,7 @@ import Scroll from "../ScrollView/ScrollView";
 import ModalConfirmation from "../ModalConfirmation/ModalConfirmation";
 
 import { ModalFormProps } from "./ModalForm.types";
-import { Product, Button as ButtonProps } from "../../utils/interfaces";
+import { Product } from "../../utils/interfaces";
 
 import theme from "../../global/styles/theme";
 import { useSetFonts } from "../../hooks/useSetFonts";
@@ -78,34 +78,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
       amount: 0,
       price: 0,
     });
-  }
-
-  const buttons: ButtonProps[] = [
-    {
-      id: 0,
-      name: 'Cancelar',
-      backgroundColor: '#D2691E',
-      action: () => {
-        closeModal();
-        resetProductData();
-      }
-    },
-    {
-      id: 1,
-      name: 'Salvar',
-      backgroundColor: 'green',
-      action: () => {
-        if (!newProduct?.productName || !newProduct?.category) {
-          setIsModalConfirmationVisible(true);
-          return;
-        }
-
-        if (action === "creation") onSaveNewProduct(newProduct);
-        if (action === "alteration") onChangeProduct(newProduct);
-        resetProductData();
-      }
-    },
-  ];
+  };
 
   const setAmountNewProduct = (value: number) => {
     if (value === 0) return;
@@ -280,19 +253,24 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             </Button>
             {action === "alteration" &&
               <Button
-                onPress={() => {
-                  onRemoveProduct(newProduct);
-                  resetProductData();
-                }}
-                backgroundColor={"red"}
+                backgroundColor={"green"}
                 width={"48%"}
                 borderRadius={'10px'}
                 flexDirection={"row"}
                 alignItems={"center"}
                 justifyContent={"space-around"}
+                onPress={() => {
+                  if (!newProduct?.productName || !newProduct?.category) {
+                    setIsModalConfirmationVisible(true);
+                    return;
+                  }
+
+                  onChangeProduct(newProduct);
+                  resetProductData();
+                }}
               >
                 <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
-                  Remover
+                  Salvar
                 </Text>
               </Button>}
           </PriorityContainer>
@@ -310,24 +288,61 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             </ScrollViewContainer>
           )}
           <ButtonsContainer>
-            {buttons?.map((button) => {
-              return (
-                <Button
-                  key={button?.id}
-                  onPress={button?.action}
-                  backgroundColor={button?.backgroundColor}
-                  width={"48%"}
-                  borderRadius={'10px'}
-                  flexDirection={"row"}
-                  alignItems={"center"}
-                  justifyContent={"space-around"}
-                >
-                  <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
-                    {button?.name}
-                  </Text>
-                </Button>
-              );
-            })}
+            <Button
+              backgroundColor={'#D2691E'}
+              width={"48%"}
+              borderRadius={'10px'}
+              flexDirection={"row"}
+              alignItems={"center"}
+              justifyContent={"space-around"}
+              onPress={() => {
+                closeModal();
+                resetProductData();
+              }}
+            >
+              <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                Cancelar
+              </Text>
+            </Button>
+            {action === "alteration" ?
+              <Button
+                backgroundColor={'red'}
+                width={"48%"}
+                borderRadius={'10px'}
+                flexDirection={"row"}
+                alignItems={"center"}
+                justifyContent={"space-around"}
+                onPress={() => {
+                  onRemoveProduct(newProduct);
+                  resetProductData();
+                }}
+              >
+                <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                  Remover
+                </Text>
+              </Button> :
+              <Button
+                backgroundColor={'green'}
+                width={"48%"}
+                borderRadius={'10px'}
+                flexDirection={"row"}
+                alignItems={"center"}
+                justifyContent={"space-around"}
+                onPress={() => {
+                  if (!newProduct?.productName || !newProduct?.category) {
+                    setIsModalConfirmationVisible(true);
+                    return;
+                  }
+
+                  onSaveNewProduct(newProduct);
+                  resetProductData();
+                }}
+              >
+                <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                  Salvar
+                </Text>
+              </Button>
+            }
           </ButtonsContainer>
         </ModalView>
       </CenteredView>
