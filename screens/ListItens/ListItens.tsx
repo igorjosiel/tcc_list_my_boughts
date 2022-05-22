@@ -1,14 +1,4 @@
 import React, { useState, useEffect } from "react";
-import SQLite from "react-native-sqlite-storage";
-
-const db = SQLite.openDatabase(
-  {
-    name: "shoppingList",
-    location: "default",
-  },
-  () => { },
-  error => { console?.log(error) }
-);
 
 import {
   ContainerProductsList,
@@ -79,16 +69,6 @@ const ListItens = () => {
     setListSearchedProducts(searchedProducts);
   }, [productSearch]);
 
-  const createTable = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS "
-        + "Products "
-        + "(Id INTEGER PRIMARY KEY, ProductName TEXT, Amount INTEGER, Category TEXT, Price REAL, Priority NUMERIC);"
-      )
-    });
-  }
-
   const sortProducts = () => {
     if (sortOfOrdering?.sortingNumber === 0) {
       setListProducts((oldState) => {
@@ -134,10 +114,6 @@ const ListItens = () => {
   useEffect(() => {
     sortProducts();
   }, [sortOfOrdering]);
-
-  useEffect(() => {
-    createTable();
-  }, []);
 
   const changeSorting = () => {
     if (sortOfOrdering?.sortingNumber === sortingKinds?.length - 1) {
