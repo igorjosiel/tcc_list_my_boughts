@@ -1,8 +1,5 @@
 import { ScrollView } from "react-native";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import Factory from "../Factory/Factory";
 
 import ScrollViewProps from "./ScrollView.types";
 import theme from "../../global/styles/theme";
@@ -48,22 +45,7 @@ const Scroll = (props: ScrollViewProps) => {
             >
               {eachData?.name}
             </Text>
-            {eachData?.library === "MaterialIcons" && (
-              <MaterialIcons name={eachData?.icon} size={30} color={"#FFF"} />
-            )}
-            {eachData?.library === "FontAwesome" && (
-              <FontAwesome name={eachData?.icon} size={30} color={"#FFF"} />
-            )}
-            {eachData?.library === "MaterialCommunityIcons" && (
-              <MaterialCommunityIcons
-                name={eachData?.icon}
-                size={30}
-                color={"#FFF"}
-              />
-            )}
-            {eachData?.library === "AntDesign" && (
-              <AntDesign name={eachData?.icon} size={30} color={"#FFF"} />
-            )}
+            <Factory library={eachData?.library} icon={eachData?.icon} />
           </Button>
         );
       })}
