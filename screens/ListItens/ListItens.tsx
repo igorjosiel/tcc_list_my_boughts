@@ -11,6 +11,7 @@ import {
   ContainerActionsFooter,
   ContainerButtonsActions,
   ContainerTotalValue,
+  ContainerProductsCategory,
   ContainerData,
 } from "./ListItens.styles";
 import {
@@ -71,11 +72,15 @@ const ListItens = () => {
       return product?.productName?.includes(productSearch);
     });
 
+    const searchedProductsByCategory = listProducts?.filter((product) => {
+      return product?.category?.includes(productSearch);
+    });
+
     const searchedProductsByPrice = listProducts?.filter((product) => {
       return product?.price?.toFixed(2)?.toString()?.replace('.', ',')?.includes(productSearch);
     });
 
-    const joinSearchedProducts = searchedProductsByName?.concat(searchedProductsByPrice);
+    const joinSearchedProducts = searchedProductsByName?.concat(searchedProductsByPrice)?.concat(searchedProductsByCategory);
 
     setListSearchedProducts(joinSearchedProducts);
   }, [productSearch]);
@@ -374,7 +379,7 @@ const ListItens = () => {
           {!productSearch ? listProducts?.map((product, index) => {
             return (
               <ContainerProductData key={index}>
-                <View style={{ borderBottomWidth: '4px', borderBottomColor: theme?.colors?.primary }}>
+                <ContainerProductsCategory>
                   <Text
                     fontFamily={Poppins_600SemiBold}
                     fontSize={18}
@@ -384,7 +389,7 @@ const ListItens = () => {
                     {product?.category}
                   </Text>
                   {/* <Factory library={eachData?.library} icon={eachData?.icon} /> */}
-                </View>
+                </ContainerProductsCategory>
                 <ContainerData>
                   <ContainerStar>
                     {product?.priority === "Sim" ? (
@@ -461,7 +466,7 @@ const ListItens = () => {
             listSearchedProducts?.map((product, index) => {
               return (
                 <ContainerProductData key={index}>
-                  <View style={{ borderBottomWidth: '4px', borderBottomColor: theme?.colors?.primary }}>
+                  <ContainerProductsCategory>
                     <Text
                       fontFamily={Poppins_600SemiBold}
                       fontSize={18}
@@ -471,7 +476,7 @@ const ListItens = () => {
                       {product?.category}
                     </Text>
                     {/* <Factory library={eachData?.library} icon={eachData?.icon} /> */}
-                  </View>
+                  </ContainerProductsCategory>
                   <ContainerData>
                     <ContainerStar>
                       {product?.priority === "Sim" ? (

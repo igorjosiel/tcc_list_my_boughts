@@ -6,7 +6,6 @@ import { ContainerScreenProps } from "./ListItens.types";
 export const ContainerProductsList = styled.View<ContainerScreenProps>`
     height: 80%;
     padding-top: 0;
-    filter: ${(props) => props?.applyFilter ? 'blur(40px)' : 'blur(0px)'};
 `;
 
 export const ContainerProductsListHeader = styled.View`
@@ -38,7 +37,7 @@ export const ContainerProductData = styled.View`
     margin-left: 5%;
     margin-right: 5%;
     padding: 0px 15px;
-    height: 90px;
+    height: 105px;
     border-radius: 10px;
 `;
 
@@ -72,7 +71,6 @@ export const ContainerFooter = styled.View<ContainerScreenProps>`
     padding-top: 3%;
     margin-right: 20px;
     margin-left: 10px;
-    filter: ${(props) => props?.applyFilter ? 'blur(40px)' : 'blur(0px)'};
 `;
 
 export const ContainerActionsFooter = styled.View`
@@ -97,4 +95,9 @@ export const ContainerTotalValue = styled.View`
     justify-content: flex-end;
     padding-right: 3%;
     padding-left: 3%;
+`;
+
+export const ContainerProductsCategory = styled.View`
+    border-bottom-width: 4px;
+    border-bottom-color: ${theme?.colors?.primary};
 `;
