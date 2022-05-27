@@ -475,7 +475,6 @@ const ListItens = () => {
                     >
                       {product?.category}
                     </Text>
-                    {/* <Factory library={eachData?.library} icon={eachData?.icon} /> */}
                   </ContainerProductsCategory>
                   <ContainerData>
                     <ContainerStar>
@@ -498,6 +497,7 @@ const ListItens = () => {
                       height={"100%"}
                       display={"flex"}
                       flexDirection={"column"}
+                      justifyContent={"center"}
                       backgroundColor={"#FFF"}
                       textAlign={"center"}
                       onPress={() => openModalToChangeProduct(product)}

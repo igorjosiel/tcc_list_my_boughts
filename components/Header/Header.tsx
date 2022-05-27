@@ -24,7 +24,7 @@ const Header: React.FC = () => {
             justifyContent={"center"}
         >
             <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
-                Lista de Compras
+                CrieLista
             </Text>
             <FontAwesome size={40} color="#fff" name="shopping-cart" />
         </ContainerHeader>
