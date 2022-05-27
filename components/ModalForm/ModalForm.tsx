@@ -329,7 +329,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 alignItems={"center"}
                 justifyContent={"space-around"}
                 onPress={() => {
-                  if (!newProduct?.productName || !newProduct?.category) {
+                  if (!newProduct?.productName) {
                     setIsModalConfirmationVisible(true);
                     return;
                   }
@@ -351,7 +351,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
         isModalOpen={isModalConfirmationVisible}
         closeModal={() => setIsModalConfirmationVisible(false)}
         fontFamily={Poppins_600SemiBold}
-        message={"Por favor, preencha os campos obrigatórios, que são Nome e Categoria!"}
+        message={"Para salvar, preencha o nome do produto!"}
       >
         <Button
           backgroundColor={"green"}
