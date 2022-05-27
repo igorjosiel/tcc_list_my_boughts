@@ -75,7 +75,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
       ...newProduct,
       id: 0,
       productName: "",
-      amount: 0,
+      amount: 1,
       price: 0,
     });
   };

@@ -150,7 +150,7 @@ const ListItens = () => {
   }
 
   const addItemToList = (newProduct: Product) => {
-    if (!newProduct?.productName || !newProduct?.category) return;
+    if (!newProduct?.productName) return;
 
     const newItem = {
       ...newProduct,
