@@ -66,11 +66,15 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
         price: productWillBeChanged?.price,
         priority: productWillBeChanged?.priority,
       });
+
+      setSelectedCategory(productWillBeChanged?.category);
+      setSelectedPriority(productWillBeChanged?.priority);
     }
   }, [isModalOpen]);
 
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
+  console.log('NewProduct: ', newProduct.category);
   const resetProductData = () => {
     setNewProduct({
       ...newProduct,
@@ -216,7 +220,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             <ScrollViewContainer>
               <Scroll
                 data={categories}
-                currentValue={newProduct?.category}
                 scrollName={'category'}
                 onSelected={onSelectCategory}
                 setPropertyNewProduct={setPropertyNewProduct}
@@ -284,7 +287,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             >
               <Scroll
                 data={priorities}
-                currentValue={newProduct?.priority}
                 scrollName={'priority'}
                 onSelected={onSelectPriority}
                 setPropertyNewProduct={setPropertyNewProduct}
