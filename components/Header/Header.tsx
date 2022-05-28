@@ -13,14 +13,13 @@ const Header: React.FC = () => {
     return (
         <ContainerHeader
             width={"100%"}
-            height={"10%"}
+            height={"20%"}
             backgroundColor={theme.colors.primary}
-            maxHeight={"60px"}
             marginLeft={"auto"}
             marginRight={"auto"}
             flex={1}
             flexDirection={"row"}
-            alignItems={"center"}
+            alignItems={"flex-end"}
             justifyContent={"center"}
         >
             <Text fontFamily={Poppins_600SemiBold} fontSize={25}>

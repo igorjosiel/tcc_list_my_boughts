@@ -13,6 +13,7 @@ import {
   ButtonsContainer,
   ScrollViewContainer,
 } from "./ModalForm.styles";
+import { styles } from "../../utils/constants";
 
 import Text from "../Text/Text";
 import TextInput from "../Input/TextInput/TextInput";
@@ -215,6 +216,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             <ScrollViewContainer>
               <Scroll
                 data={categories}
+                currentValue={newProduct?.category}
                 scrollName={'category'}
                 onSelected={onSelectCategory}
                 setPropertyNewProduct={setPropertyNewProduct}
@@ -259,6 +261,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 flexDirection={"row"}
                 alignItems={"center"}
                 justifyContent={"space-around"}
+                style={styles?.shadowPropMainColor}
                 onPress={() => {
                   if (!newProduct?.productName || !newProduct?.category) {
                     setIsModalConfirmationVisible(true);
@@ -281,6 +284,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             >
               <Scroll
                 data={priorities}
+                currentValue={newProduct?.priority}
                 scrollName={'priority'}
                 onSelected={onSelectPriority}
                 setPropertyNewProduct={setPropertyNewProduct}
@@ -295,6 +299,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               flexDirection={"row"}
               alignItems={"center"}
               justifyContent={"space-around"}
+              style={styles?.shadowPropMainColor}
               onPress={() => {
                 closeModal();
                 resetProductData();
@@ -312,6 +317,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 flexDirection={"row"}
                 alignItems={"center"}
                 justifyContent={"space-around"}
+                style={styles?.shadowPropMainColor}
                 onPress={() => {
                   onRemoveProduct(newProduct);
                   resetProductData();
@@ -328,6 +334,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 flexDirection={"row"}
                 alignItems={"center"}
                 justifyContent={"space-around"}
+                style={styles?.shadowPropMainColor}
                 onPress={() => {
                   if (!newProduct?.productName) {
                     setIsModalConfirmationVisible(true);
@@ -362,6 +369,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           flexDirection={"row"}
           alignItems={"center"}
           justifyContent={"space-around"}
+          style={styles?.shadowPropMainColor}
           onPress={() => setIsModalConfirmationVisible(false)}
         >
           <Text fontFamily={Poppins_600SemiBold} fontSize={22}>

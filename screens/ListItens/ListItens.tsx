@@ -31,6 +31,7 @@ import { Product, Button as ButtonProps, Sorting } from "../../utils/interfaces"
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
+import { styles } from "../../utils/constants";
 import Button from "../../components/Button/Button";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
 import Factory from "../../components/Factory/Factory";
@@ -114,16 +115,18 @@ const ListItens = () => {
       id: 0,
       name: 'Cancelar',
       backgroundColor: '#D2691E',
+      style: styles?.shadowPropMainColor,
       action: () => setIsModalConfirmationVisible(false),
     },
     {
       id: 1,
       name: 'Remover',
       backgroundColor: 'red',
+      style: styles?.shadowPropMainColor,
       action: () => {
         clearProductsList();
         setIsModalConfirmationVisible(false);
-      }
+      },
     },
   ];
 
@@ -305,6 +308,7 @@ const ListItens = () => {
               flexDirection={"row"}
               alignItems={"center"}
               justifyContent={"space-around"}
+              style={button?.style}
             >
               <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
                 {button?.name}
@@ -337,6 +341,7 @@ const ListItens = () => {
             borderTopLeftRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
+            style={styles?.shadowPropMainColor}
             onPress={() => setProductSearch("")}
           >
             <Entypo size={35} color="#fff" name="erase" />
@@ -352,6 +357,7 @@ const ListItens = () => {
             borderTopLeftRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
+            style={styles?.shadowPropMainColor}
             onPress={() => changeSorting()}
           >
             {sortOfOrdering?.sortingNumber === 0 ?
@@ -360,7 +366,7 @@ const ListItens = () => {
             }
           </Button>
         </ContainerProductsListHeader>
-        <ContainerNewProduct>
+        <ContainerNewProduct style={styles?.shadowPropMainColor}>
           <Button
             width={"100%"}
             height={"40px"}
@@ -378,7 +384,7 @@ const ListItens = () => {
         <ScrollView>
           {!productSearch ? listProducts?.map((product, index) => {
             return (
-              <ContainerProductData key={index}>
+              <ContainerProductData key={index} style={styles?.shadowPropMainColor} >
                 <ContainerProductsCategory>
                   <Text
                     fontFamily={Poppins_600SemiBold}
@@ -465,7 +471,7 @@ const ListItens = () => {
           }) :
             listSearchedProducts?.map((product, index) => {
               return (
-                <ContainerProductData key={index}>
+                <ContainerProductData key={index} style={styles?.shadowPropMainColor}>
                   <ContainerProductsCategory>
                     <Text
                       fontFamily={Poppins_600SemiBold}
@@ -566,6 +572,7 @@ const ListItens = () => {
               borderTopLeftRadius={"50px"}
               alignItems={"center"}
               justifyContent={"center"}
+              style={styles?.shadowPropMainColor}
               onPress={() => setIsModalConfirmationVisible(true)}
             >
               <MaterialCommunityIcons
@@ -585,6 +592,7 @@ const ListItens = () => {
               borderTopLeftRadius={"50px"}
               alignItems={"center"}
               justifyContent={"center"}
+              style={styles?.shadowPropMainColor}
             >
               <FontAwesome size={40} color="#fff" name="check" />
             </Button>

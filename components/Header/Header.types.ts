@@ -5,7 +5,6 @@ export interface HeaderProps extends ViewProps {
     width: string,
     height: string,
     backgroundColor: string,
-    maxHeight: string,
     marginLeft: string,
     marginRight: string,
     flex: number,

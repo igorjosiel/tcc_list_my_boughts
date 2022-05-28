@@ -1,4 +1,5 @@
 import { Category, Priority } from "./interfaces";
+import { StyleSheet } from "react-native";
 
 export const categories: Category[] = [
     {
@@ -201,3 +202,16 @@ export const priorities: Priority[] = [
         library: 'FontAwesome',
     },
 ];
+
+export const styles = StyleSheet.create({
+    shadowPropMainColor: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 5,
+    },
+});

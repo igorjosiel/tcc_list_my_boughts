@@ -4,8 +4,8 @@ import theme from "../../global/styles/theme";
 import { ContainerScreenProps } from "./ListItens.types";
 
 export const ContainerProductsList = styled.View<ContainerScreenProps>`
-    height: 82%;
-    padding-top: 0;
+    height: 80%;
+    padding-top: 0px;
 `;
 
 export const ContainerProductsListHeader = styled.View`

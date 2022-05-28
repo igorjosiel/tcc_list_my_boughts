@@ -26,6 +26,7 @@ export interface Product {
 export interface Button {
     id: number,
     name: string,
+    style: object,
     backgroundColor: string,
     action: () => void;
 }
