@@ -15,6 +15,7 @@ export default function App() {
           <Stack.Screen
             name='ListItens'
             component={ListItens}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
