@@ -74,7 +74,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
 
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
-  console.log('NewProduct: ', newProduct.category);
   const resetProductData = () => {
     setNewProduct({
       ...newProduct,

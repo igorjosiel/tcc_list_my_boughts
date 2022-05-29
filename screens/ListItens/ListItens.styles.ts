@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import theme from "../../global/styles/theme";
 
+import { ContainerTotalValueProps } from "./ListItens.types";
 import { ContainerScreenProps } from "./ListItens.types";
 
 export const ContainerProductsList = styled.View<ContainerScreenProps>`
@@ -87,8 +88,8 @@ export const ContainerButtonsActions = styled.View`
     justify-content: space-around;
 `;
 
-export const ContainerTotalValue = styled.View`
-    background-color: ${theme?.colors?.primary}
+export const ContainerTotalValue = styled.View<ContainerTotalValueProps>`
+    background-color: ${(props) => props?.enoughMoney ? theme?.colors?.primary : 'red'};
     width: 47%;
     border-radius: 10px;
     display: flex;

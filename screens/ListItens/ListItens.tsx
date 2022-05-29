@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   ContainerProductsList,
@@ -70,6 +71,26 @@ const ListItens = ({ navigation }) => {
   const [action, setAction] = useState("");
   const [totalValue, setTotalValue] = useState<number>(0);
   const [sortOfOrdering, setSortOfOrdering] = useState<Sorting>(sortingKinds[0]);
+  const [balance, setBalance] = useState<number>(0);
+  const [enoughMoney, setEnoughMoney] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getBalance = async () => {
+      const balance = await AsyncStorage.getItem('@balance');
+      setBalance(Number(balance));
+    }
+
+    getBalance();
+  }, [isModalMoneyVisible]);
+
+  useEffect(() => {
+    if (totalValue > 0 && balance <= totalValue) {
+      setEnoughMoney(false);
+      return;
+    }
+
+    setEnoughMoney(true);
+  }, [totalValue, balance]);
 
   useEffect(() => {
     const searchedProductsByName = listProducts?.filter((product) => {
@@ -623,7 +644,7 @@ const ListItens = ({ navigation }) => {
               <MaterialIcons size={40} color="#fff" name="attach-money" />
             </Button>
           </ContainerButtonsActions>
-          <ContainerTotalValue>
+          <ContainerTotalValue enoughMoney={enoughMoney}>
             <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
               R$ {formatMoney(totalValue)}
             </Text>

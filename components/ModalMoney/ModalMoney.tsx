@@ -1,4 +1,5 @@
 import { Modal } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Text from "../Text/Text";
 import Button from "../Button/Button";
@@ -7,12 +8,29 @@ import { Button as ButtonProps } from "../../utils/interfaces";
 import ModalMoneyProps from "./ModalMoney.types";
 import { CenteredView, ModalView, ModalTitle, ButtonsContainer } from "../ModalForm/ModalForm.styles";
 import { styles } from "../../utils/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ModalMoney = (props: ModalMoneyProps) => {
     const { isModalOpen, closeModal, fontFamily } = props;
 
-    const [balance, setBalance] = useState<number>(0);
+    const [balance, setBalance] = useState<number | null>(0);
+
+    useEffect(() => {
+        const getBalance = async () => {
+            const balance = await AsyncStorage.getItem('@balance');
+            setBalance(Number(balance));
+        }
+
+        getBalance();
+    }, []);
+
+    const storeBalanceData = async (value: number | null) => {
+        try {
+            await AsyncStorage.setItem('@balance', String(value))
+        } catch (e) {
+            // saving error
+        }
+    }
 
     const buttons: ButtonProps[] = [
         {
@@ -28,7 +46,8 @@ const ModalMoney = (props: ModalMoneyProps) => {
             backgroundColor: 'green',
             style: styles?.shadowPropMainColor,
             action: () => {
-                console.log('Deu bom...')
+                storeBalanceData(balance);
+                closeModal();
             },
         },
     ];
@@ -54,7 +73,7 @@ const ModalMoney = (props: ModalMoneyProps) => {
                     <MoneyInput
                         fontFamily={fontFamily}
                         value={balance}
-                        // onChangeValue={(value) => setBalance(value)}
+                        onChangeValue={(value) => setBalance(value)}
                         prefix="R$ "
                         delimiter="."
                         separator=","
