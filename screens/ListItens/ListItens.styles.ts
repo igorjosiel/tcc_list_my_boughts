@@ -67,6 +67,7 @@ export const ContainerActions = styled.View`
 `;
 
 export const ContainerFooter = styled.View<ContainerScreenProps>`
+    width: 100%;
     height: 10%;
     padding-top: 3%;
     margin-right: 20px;
@@ -74,6 +75,7 @@ export const ContainerFooter = styled.View<ContainerScreenProps>`
 `;
 
 export const ContainerActionsFooter = styled.View`
+    width: 100%;    
     display: flex;
     flex-direction: row;
 `;
@@ -81,13 +83,13 @@ export const ContainerActionsFooter = styled.View`
 export const ContainerButtonsActions = styled.View`
     display: flex;
     flex-direction: row;
-    width: 40%;
+    width: 45%;
     justify-content: space-around;
 `;
 
 export const ContainerTotalValue = styled.View`
     background-color: ${theme?.colors?.primary}
-    width: 60%;
+    width: 47%;
     border-radius: 10px;
     display: flex;
     flex-direction: row;

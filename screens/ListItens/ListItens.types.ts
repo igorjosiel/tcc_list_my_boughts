@@ -1,4 +1,4 @@
 
 export interface ContainerScreenProps {
-    applyFilter: boolean
+    applyFilter?: boolean
 }

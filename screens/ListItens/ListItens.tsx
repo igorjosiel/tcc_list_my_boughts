@@ -19,6 +19,7 @@ import {
   ScrollView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Entypo from "react-native-vector-icons/Entypo";
 
@@ -34,6 +35,7 @@ import TextInput from "../../components/Input/TextInput/TextInput.styles";
 import { styles } from "../../utils/constants";
 import Button from "../../components/Button/Button";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
+import ModalMoney from "../../components/ModalMoney/ModalMoney";
 import Factory from "../../components/Factory/Factory";
 
 const sortingKinds: Sorting[] = [
@@ -47,7 +49,7 @@ const sortingKinds: Sorting[] = [
   },
 ];
 
-const ListItens = () => {
+const ListItens = ({ navigation }) => {
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   const [listProducts, setListProducts] = useState<Product[]>([]);
@@ -63,6 +65,7 @@ const ListItens = () => {
   });
   const [isModalFormVisible, setIsModalFormVisible] = useState<boolean>(false);
   const [isModalConfirmationVisible, setIsModalConfirmationVisible] = useState<boolean>(false);
+  const [isModalMoneyVisible, setIsModalMoneyVisible] = useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [action, setAction] = useState("");
   const [totalValue, setTotalValue] = useState<number>(0);
@@ -317,6 +320,12 @@ const ListItens = () => {
           );
         })}
       </ModalConfirmation>
+
+      <ModalMoney
+        isModalOpen={isModalMoneyVisible}
+        closeModal={() => setIsModalMoneyVisible(false)}
+        fontFamily={Poppins_600SemiBold}
+      />
 
       <Header />
 
@@ -593,8 +602,25 @@ const ListItens = () => {
               alignItems={"center"}
               justifyContent={"center"}
               style={styles?.shadowPropMainColor}
+              onPress={() => navigation.navigate('Summary')}
             >
               <FontAwesome size={40} color="#fff" name="check" />
+            </Button>
+            <Button
+              backgroundColor={theme.colors.primary}
+              height={"55px"}
+              width={"55px"}
+              borderRadius={"50px"}
+              borderBottomLeftRadius={"50px"}
+              borderTopRightRadius={"50px"}
+              borderBottomRightRadius={"50px"}
+              borderTopLeftRadius={"50px"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              style={styles?.shadowPropMainColor}
+              onPress={() => setIsModalMoneyVisible(true)}
+            >
+              <MaterialIcons size={40} color="#fff" name="attach-money" />
             </Button>
           </ContainerButtonsActions>
           <ContainerTotalValue>
