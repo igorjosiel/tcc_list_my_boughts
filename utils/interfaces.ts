@@ -28,6 +28,7 @@ export interface Button {
     name: string,
     style: object,
     backgroundColor: string,
+    color: string,
     action: () => void;
 }
 

@@ -257,7 +257,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             </Button>
             {action === "alteration" &&
               <Button
-                backgroundColor={"green"}
+                backgroundColor={theme?.colors?.primary}
                 width={"48%"}
                 borderRadius={'10px'}
                 flexDirection={"row"}
@@ -294,7 +294,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           )}
           <ButtonsContainer>
             <Button
-              backgroundColor={'#D2691E'}
+              backgroundColor={"#FFF"}
               width={"48%"}
               borderRadius={'10px'}
               flexDirection={"row"}
@@ -306,7 +306,11 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 resetProductData();
               }}
             >
-              <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+              <Text
+                fontFamily={Poppins_600SemiBold}
+                fontSize={22}
+                color={theme?.colors?.primary}
+              >
                 Cancelar
               </Text>
             </Button>
@@ -329,7 +333,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 </Text>
               </Button> :
               <Button
-                backgroundColor={'green'}
+                backgroundColor={theme?.colors?.primary}
                 width={"48%"}
                 borderRadius={'10px'}
                 flexDirection={"row"}
@@ -363,7 +367,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
         icon="exclamation"
       >
         <Button
-          backgroundColor={"green"}
+          backgroundColor={theme?.colors?.primary}
           width={"40%"}
           marginLeft={"auto"}
           marginRight={"auto"}
@@ -374,7 +378,10 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           style={styles?.shadowPropMainColor}
           onPress={() => setIsModalConfirmationVisible(false)}
         >
-          <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+          <Text
+            fontFamily={Poppins_600SemiBold}
+            fontSize={22}
+          >
             Ok
           </Text>
         </Button>

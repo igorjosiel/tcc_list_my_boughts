@@ -38,14 +38,16 @@ const ModalMoney = (props: ModalMoneyProps) => {
         {
             id: 0,
             name: 'Cancelar',
-            backgroundColor: '#D2691E',
+            backgroundColor: '#FFF',
+            color: theme?.colors?.primary,
             style: styles?.shadowPropMainColor,
             action: () => closeModal(),
         },
         {
             id: 1,
             name: 'Salvar',
-            backgroundColor: 'green',
+            backgroundColor: theme?.colors?.primary,
+            color: '#FFF',
             style: styles?.shadowPropMainColor,
             action: () => {
                 storeBalanceData(balance);
@@ -99,7 +101,11 @@ const ModalMoney = (props: ModalMoneyProps) => {
                                     justifyContent={"space-around"}
                                     style={button?.style}
                                 >
-                                    <Text fontFamily={fontFamily} fontSize={22}>
+                                    <Text
+                                        fontFamily={fontFamily}
+                                        fontSize={22}
+                                        color={button?.color}
+                                    >
                                         {button?.name}
                                     </Text>
                                 </Button>
