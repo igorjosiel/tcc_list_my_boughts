@@ -215,3 +215,7 @@ export const styles = StyleSheet.create({
         elevation: 5,
     },
 });
+
+export const ContainerModalIcon = {
+    marginBottom: '10px',
+};

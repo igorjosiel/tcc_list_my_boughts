@@ -320,6 +320,7 @@ const ListItens = ({ navigation }) => {
         closeModal={() => setIsModalConfirmationVisible(false)}
         fontFamily={Poppins_600SemiBold}
         message={"Tem certeza de que deseja remover a lista?"}
+        icon="question"
       >
         {buttons?.map((button) => {
           return (

@@ -1,4 +1,5 @@
-import { Modal } from "react-native";
+import { Modal, View } from "react-native";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Text from "../Text/Text";
@@ -7,8 +8,9 @@ import MoneyInput from "../Input/MoneyInput/MoneyInput";
 import { Button as ButtonProps } from "../../utils/interfaces";
 import ModalMoneyProps from "./ModalMoney.types";
 import { CenteredView, ModalView, ModalTitle, ButtonsContainer } from "../ModalForm/ModalForm.styles";
-import { styles } from "../../utils/constants";
+import { ContainerModalIcon, styles } from "../../utils/constants";
 import { useEffect, useState } from "react";
+import theme from "../../global/styles/theme";
 
 const ModalMoney = (props: ModalMoneyProps) => {
     const { isModalOpen, closeModal, fontFamily } = props;
@@ -60,6 +62,9 @@ const ModalMoney = (props: ModalMoneyProps) => {
         >
             <CenteredView>
                 <ModalView>
+                    <View style={ContainerModalIcon}>
+                        <MaterialIcons size={70} color={theme?.colors?.primary} name="attach-money" />
+                    </View>
                     <ModalTitle>
                         <Text
                             fontFamily={fontFamily}
@@ -67,7 +72,7 @@ const ModalMoney = (props: ModalMoneyProps) => {
                             color={"#000"}
                             textAlign={"center"}
                         >
-                            Quanto você está disposto a gastar aqui no CrieLista?
+                            Limite máximo de compras
                         </Text>
                     </ModalTitle>
                     <MoneyInput

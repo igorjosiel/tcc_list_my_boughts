@@ -5,4 +5,5 @@ export default interface ModalConfirmationProps extends ModalProps {
     closeModal: () => void;
     fontFamily: string;
     message: string;
+    icon: string;
 }

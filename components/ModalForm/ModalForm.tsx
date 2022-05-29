@@ -360,6 +360,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
         closeModal={() => setIsModalConfirmationVisible(false)}
         fontFamily={Poppins_600SemiBold}
         message={"Para salvar, preencha o nome do produto!"}
+        icon="exclamation"
       >
         <Button
           backgroundColor={"green"}
