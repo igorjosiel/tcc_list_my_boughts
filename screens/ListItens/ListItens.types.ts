@@ -4,5 +4,5 @@ export interface ContainerScreenProps {
     applyFilter?: boolean
 }
 export interface ContainerTotalValueProps {
-    enoughMoney: boolean
+    enoughMoney?: boolean
 }

@@ -630,7 +630,7 @@ const ListItens = ({ navigation }) => {
               alignItems={"center"}
               justifyContent={"center"}
               style={styles?.shadowPropMainColor}
-              onPress={() => navigation.navigate('Summary')}
+              onPress={() => navigation.navigate('Summary', { listProducts, totalValue })}
             >
               <FontAwesome size={40} color="#fff" name="check" />
             </Button>

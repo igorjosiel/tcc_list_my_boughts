@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import theme from './global/styles/theme';
 import ListItens from "./screens/ListItens/ListItens";
+import Summary from "./screens/Summary/Summary";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,11 @@ export default function App() {
           <Stack.Screen
             name='ListItens'
             component={ListItens}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='Summary'
+            component={Summary}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
