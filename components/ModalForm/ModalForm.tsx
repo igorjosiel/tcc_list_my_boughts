@@ -265,7 +265,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 justifyContent={"space-around"}
                 style={styles?.shadowPropMainColor}
                 onPress={() => {
-                  if (!newProduct?.productName || !newProduct?.category) {
+                  if (!newProduct?.productName) {
                     setIsModalConfirmationVisible(true);
                     return;
                   }

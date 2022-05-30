@@ -24,11 +24,11 @@ const Summary = ({ navigation, route }) => {
             backgroundColor: '#FFF',
             color: theme?.colors?.primary,
             style: styles?.shadowPropMainColor,
-            action: () => console.log('dfdf'),
+            action: () => navigation?.navigate('ListItens'),
         },
         {
             id: 1,
-            name: 'Salvar',
+            name: 'Finalizar',
             backgroundColor: theme?.colors?.primary,
             color: '#FFF',
             style: styles?.shadowPropMainColor,

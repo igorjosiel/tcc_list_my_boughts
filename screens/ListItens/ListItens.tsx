@@ -37,7 +37,6 @@ import { styles } from "../../utils/constants";
 import Button from "../../components/Button/Button";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
 import ModalMoney from "../../components/ModalMoney/ModalMoney";
-import Factory from "../../components/Factory/Factory";
 
 const sortingKinds: Sorting[] = [
   {
@@ -429,9 +428,8 @@ const ListItens = ({ navigation }) => {
                     color={theme?.colors?.primary}
                     textAlign={"center"}
                   >
-                    {product?.category}
+                    {product?.category ? product?.category : 'Sem categoria'}
                   </Text>
-                  {/* <Factory library={eachData?.library} icon={eachData?.icon} /> */}
                 </ContainerProductsCategory>
                 <ContainerData>
                   <ContainerStar>
@@ -516,7 +514,7 @@ const ListItens = ({ navigation }) => {
                       color={theme?.colors?.primary}
                       textAlign={"center"}
                     >
-                      {product?.category}
+                      {product?.category ? product?.category : 'Sem categoria'}
                     </Text>
                   </ContainerProductsCategory>
                   <ContainerData>
