@@ -48,12 +48,12 @@ const Summary = ({ navigation, route }) => {
                     display: 'flex',
                     flexDirection: 'row',
                     width: '90%',
-                    height: '55px',
+                    height: 55,
                     backgroundColor: theme?.colors?.primary,
                     borderTopLeftRadius: 7,
                     borderTopRightRadius: 7,
                     marginTop: '5%',
-                    marginBottom: '0px',
+                    marginBottom: 0,
                     marginLeft: '5%',
                     marginRight: '5%',
                     paddingLeft: '3%',
@@ -70,7 +70,7 @@ const Summary = ({ navigation, route }) => {
                             fontSize={14}
                             textAlign={"center"}
                         >
-                            Produto
+                            ITEM
                         </Text>
                     </View>
                     <View style={{
@@ -84,7 +84,7 @@ const Summary = ({ navigation, route }) => {
                             fontSize={14}
                             textAlign={"center"}
                         >
-                            Quant.
+                            QTD.
                         </Text>
                     </View>
                     <View style={{
@@ -98,7 +98,7 @@ const Summary = ({ navigation, route }) => {
                             fontSize={14}
                             textAlign={"center"}
                         >
-                            (R$) PU
+                            VL. UNI.
                         </Text>
                     </View>
                     <View style={{
@@ -112,7 +112,7 @@ const Summary = ({ navigation, route }) => {
                             fontSize={14}
                             textAlign={"center"}
                         >
-                            (R$) Total
+                            TOTAL
                         </Text>
                     </View>
                 </View>
@@ -120,11 +120,11 @@ const Summary = ({ navigation, route }) => {
                     display: 'flex',
                     flexDirection: 'column',
                     width: '90%',
-                    marginBottom: '0px',
-                    marginTop: '0px',
+                    marginBottom: 10,
+                    marginTop: 0,
                     margin: '5%',
-                    borderBottomRightRadius: 7,
-                    borderBottomLeftRadius: 7,
+                    borderBottomRightRadius: 10,
+                    borderBottomLeftRadius: 10,
                     shadowColor: '#000',
                     shadowOffset: {
                         width: 0,
@@ -132,14 +132,14 @@ const Summary = ({ navigation, route }) => {
                     },
                     shadowOpacity: 0.58,
                     shadowRadius: 16.00,
-                    elevation: 5,
+                    elevation: 3,
                 }}>
-                    {products?.map((product) => {
+                    {products?.map((product, index) => {
                         return (
                             <View style={{
                                 display: 'flex',
                                 flexDirection: 'row',
-                                height: '50px',
+                                height: 50,
                                 paddingLeft: '3%',
                                 paddingRight: '3%',
                             }}>
@@ -224,6 +224,7 @@ const Summary = ({ navigation, route }) => {
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
+                        paddingLeft: 5,
                     }}>
                         <Text fontFamily={Poppins_600SemiBold} fontSize={18} color={'#000'}>
                             Valor total:
@@ -231,10 +232,11 @@ const Summary = ({ navigation, route }) => {
                     </View>
                     <View style={{
                         width: '45%',
-                        height: '50px',
+                        height: 50,
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
+                        paddingRight: 10,
                         alignItems: 'center',
                         backgroundColor: theme?.colors?.primary,
                         borderRadius: 7,
