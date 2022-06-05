@@ -92,6 +92,10 @@ const ListItens = ({ navigation }) => {
   }, [listProducts]);
 
   useEffect(() => {
+    if (hasSomethingToSaveOnAsyncStorage) AsyncStorage?.setItem('@totalValue', JSON.stringify(totalValue));
+  }, [totalValue]);
+
+  useEffect(() => {
     if (totalValue > 0 && balance <= totalValue) {
       setEnoughMoney(false);
       return;
@@ -122,11 +126,13 @@ const ListItens = ({ navigation }) => {
     const fetchData = async () => {
       const listStoraged = await AsyncStorage?.getItem('@listProducts');
       const id = await AsyncStorage?.getItem('@idGenerator');
+      const totalValue = await AsyncStorage?.getItem('@totalValue');
 
       if (listStoraged !== null) {
-        setListProducts(JSON.parse(listStoraged))
+        setListProducts(JSON.parse(listStoraged));
       }
 
+      setTotalValue(Number(totalValue));
       setIdGenerator(Number(id));
     }
 
