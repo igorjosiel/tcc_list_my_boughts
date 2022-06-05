@@ -316,7 +316,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             </Button>
             {action === "alteration" ?
               <Button
-                backgroundColor={'red'}
+                backgroundColor={'#FF4500'}
                 width={"48%"}
                 borderRadius={'10px'}
                 flexDirection={"row"}

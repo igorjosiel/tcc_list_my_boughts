@@ -177,7 +177,7 @@ const ListItens = ({ navigation }) => {
     {
       id: 1,
       name: 'Remover',
-      backgroundColor: 'red',
+      backgroundColor: '#FF4500',
       color: '#FFF',
       style: styles?.shadowPropMainColor,
       action: () => {
@@ -465,7 +465,7 @@ const ListItens = ({ navigation }) => {
                 <ContainerProductsCategory>
                   <Text
                     fontFamily={Poppins_600SemiBold}
-                    fontSize={18}
+                    fontSize={16}
                     color={theme?.colors?.primary}
                     textAlign={"center"}
                   >
@@ -481,7 +481,7 @@ const ListItens = ({ navigation }) => {
                     )}
                     <Text
                       fontFamily={Poppins_600SemiBold}
-                      fontSize={17}
+                      fontSize={15}
                       color={"#000"}
                       textAlign={"center"}
                     >
@@ -503,7 +503,10 @@ const ListItens = ({ navigation }) => {
                       fontSize={16}
                       color={"#000"}
                     >
-                      {product?.productName?.slice(0, 15)} ...
+                      {product?.productName?.length > 15 ?
+                        product?.productName?.slice(0, 15) + '...' :
+                        product?.productName
+                      }
                     </Text>
                   </Button>
                   <ContainerActions>
@@ -549,7 +552,7 @@ const ListItens = ({ navigation }) => {
                   <ContainerProductsCategory>
                     <Text
                       fontFamily={Poppins_600SemiBold}
-                      fontSize={18}
+                      fontSize={16}
                       color={theme?.colors?.primary}
                       textAlign={"center"}
                     >
@@ -585,10 +588,13 @@ const ListItens = ({ navigation }) => {
                       <View>
                         <Text
                           fontFamily={Poppins_600SemiBold}
-                          fontSize={18}
+                          fontSize={16}
                           color={"#000"}
                         >
-                          {product?.productName}
+                          {product?.productName?.length > 15 ?
+                            product?.productName?.slice(0, 15) + '...' :
+                            product?.productName
+                          }
                         </Text>
                       </View>
                     </Button>

@@ -89,7 +89,7 @@ export const ContainerButtonsActions = styled.View`
 `;
 
 export const ContainerTotalValue = styled.View<ContainerTotalValueProps>`
-    background-color: ${(props) => props?.enoughMoney ? theme?.colors?.primary : 'red'};
+    background-color: ${(props) => props?.enoughMoney ? theme?.colors?.primary : '#FF4500'};
     width: 47%;
     border-radius: 10px;
     display: flex;
