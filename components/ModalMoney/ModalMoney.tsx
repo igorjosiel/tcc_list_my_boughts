@@ -103,7 +103,7 @@ const ModalMoney = (props: ModalMoneyProps) => {
                                 >
                                     <Text
                                         fontFamily={fontFamily}
-                                        fontSize={22}
+                                        fontSize={20}
                                         color={button?.color}
                                     >
                                         {button?.name}

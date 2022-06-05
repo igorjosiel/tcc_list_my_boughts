@@ -379,7 +379,7 @@ const ListItens = ({ navigation }) => {
             >
               <Text
                 fontFamily={Poppins_600SemiBold}
-                fontSize={22}
+                fontSize={20}
                 color={button?.color}
               >
                 {button?.name}
@@ -451,7 +451,7 @@ const ListItens = ({ navigation }) => {
           >
             <Text
               fontFamily={Poppins_600SemiBold}
-              fontSize={24}
+              fontSize={22}
               textAlign={"center"}
             >
               Novo Item
@@ -498,15 +498,13 @@ const ListItens = ({ navigation }) => {
                     textAlign={"center"}
                     onPress={() => openModalToChangeProduct(product)}
                   >
-                    <View>
-                      <Text
-                        fontFamily={Poppins_600SemiBold}
-                        fontSize={20}
-                        color={"#000"}
-                      >
-                        {product?.productName}
-                      </Text>
-                    </View>
+                    <Text
+                      fontFamily={Poppins_600SemiBold}
+                      fontSize={16}
+                      color={"#000"}
+                    >
+                      {product?.productName?.slice(0, 15)} ...
+                    </Text>
                   </Button>
                   <ContainerActions>
                     <Button
@@ -587,7 +585,7 @@ const ListItens = ({ navigation }) => {
                       <View>
                         <Text
                           fontFamily={Poppins_600SemiBold}
-                          fontSize={20}
+                          fontSize={18}
                           color={"#000"}
                         >
                           {product?.productName}
@@ -611,7 +609,7 @@ const ListItens = ({ navigation }) => {
                       </Button>
                       <Text
                         fontFamily={Poppins_600SemiBold}
-                        fontSize={20}
+                        fontSize={18}
                         color={"#FFF"}
                       >
                         {product?.amount}
@@ -691,7 +689,7 @@ const ListItens = ({ navigation }) => {
             </Button>
           </ContainerButtonsActions>
           <ContainerTotalValue enoughMoney={enoughMoney}>
-            <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
+            <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
               R$ {formatMoney(totalValue)}
             </Text>
           </ContainerTotalValue>

@@ -114,7 +114,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
       <CenteredView>
         <ModalView>
           <ModalTitle>
-            <Text fontFamily={Poppins_600SemiBold} fontSize={22} color={"#000"}>
+            <Text fontFamily={Poppins_600SemiBold} fontSize={20} color={"#000"}>
               Informações do Produto
             </Text>
           </ModalTitle>
@@ -274,7 +274,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                   resetProductData();
                 }}
               >
-                <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                <Text fontFamily={Poppins_600SemiBold} fontSize={20}>
                   Salvar
                 </Text>
               </Button>}
@@ -308,7 +308,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             >
               <Text
                 fontFamily={Poppins_600SemiBold}
-                fontSize={22}
+                fontSize={20}
                 color={theme?.colors?.primary}
               >
                 Cancelar
@@ -328,7 +328,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                   resetProductData();
                 }}
               >
-                <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                <Text fontFamily={Poppins_600SemiBold} fontSize={20}>
                   Remover
                 </Text>
               </Button> :

@@ -60,7 +60,7 @@ const Summary = ({ navigation, route }) => {
                     paddingRight: '3%',
                 }}>
                     <View style={{
-                        width: '25%',
+                        width: '35%',
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
@@ -74,7 +74,7 @@ const Summary = ({ navigation, route }) => {
                         </Text>
                     </View>
                     <View style={{
-                        width: '25%',
+                        width: '15%',
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'center',
@@ -144,7 +144,7 @@ const Summary = ({ navigation, route }) => {
                                 paddingRight: '3%',
                             }}>
                                 <View style={{
-                                    width: '25%',
+                                    width: '35%',
                                     display: 'flex',
                                     flexDirection: 'row',
                                     justifyContent: 'flex-start',
@@ -156,11 +156,11 @@ const Summary = ({ navigation, route }) => {
                                         color={'black'}
                                         textAlign={"center"}
                                     >
-                                        {product?.productName}
+                                        {product?.productName?.slice(0, 15)} ...
                                     </Text>
                                 </View>
                                 <View style={{
-                                    width: '25%',
+                                    width: '15%',
                                     display: 'flex',
                                     flexDirection: 'row',
                                     justifyContent: 'center',
@@ -282,7 +282,7 @@ const Summary = ({ navigation, route }) => {
                             >
                                 <Text
                                     fontFamily={Poppins_600SemiBold}
-                                    fontSize={22}
+                                    fontSize={20}
                                     color={button?.color}
                                 >
                                     {button?.name}
