@@ -72,6 +72,7 @@ const ListItens = ({ navigation }) => {
   const [sortOfOrdering, setSortOfOrdering] = useState<Sorting>(sortingKinds[0]);
   const [balance, setBalance] = useState<number>(0);
   const [enoughMoney, setEnoughMoney] = useState<boolean>(true);
+  const [hasSomethingToSaveOnAsyncStorage, setHasSomethingToSaveOnAsyncStorage] = useState<boolean>(false);
 
   useEffect(() => {
     const getBalance = async () => {
@@ -81,6 +82,14 @@ const ListItens = ({ navigation }) => {
 
     getBalance();
   }, [isModalMoneyVisible]);
+
+  useEffect(() => {
+    if (hasSomethingToSaveOnAsyncStorage) AsyncStorage?.setItem('@idGenerator', String(idGenerator));
+  }, [idGenerator]);
+
+  useEffect(() => {
+    if (hasSomethingToSaveOnAsyncStorage) AsyncStorage?.setItem('@listProducts', JSON.stringify(listProducts));
+  }, [listProducts]);
 
   useEffect(() => {
     if (totalValue > 0 && balance <= totalValue) {
@@ -109,7 +118,24 @@ const ListItens = ({ navigation }) => {
     setListSearchedProducts(joinSearchedProducts);
   }, [productSearch]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const listStoraged = await AsyncStorage?.getItem('@listProducts');
+      const id = await AsyncStorage?.getItem('@idGenerator');
+
+      if (listStoraged !== null) {
+        setListProducts(JSON.parse(listStoraged))
+      }
+
+      setIdGenerator(Number(id));
+    }
+
+    fetchData();
+  }, []);
+
   const sortProducts = () => {
+    setHasSomethingToSaveOnAsyncStorage(true);
+
     if (sortOfOrdering?.sortingNumber === 0) {
       setListProducts((oldState) => {
         let newState = [...oldState];
@@ -177,7 +203,7 @@ const ListItens = ({ navigation }) => {
     });
   }
 
-  const addItemToList = (newProduct: Product) => {
+  async function addItemToList(newProduct: Product) {
     if (!newProduct?.productName) return;
 
     const newItem = {
@@ -236,21 +262,26 @@ const ListItens = ({ navigation }) => {
   };
 
   const onSaveNewProduct = (newProduct: Product) => {
+    setHasSomethingToSaveOnAsyncStorage(true);
     addItemToList(newProduct);
     setIsModalFormVisible(false);
   };
 
   const onChangeProduct = (changedProduct: Product) => {
+    setHasSomethingToSaveOnAsyncStorage(true);
     changeItemFromList(changedProduct);
     setIsModalFormVisible(false);
   }
 
   const onRemoveProduct = (removedProduct: Product) => {
+    setHasSomethingToSaveOnAsyncStorage(true);
     removeItemFromList(removedProduct);
     setIsModalFormVisible(false);
   }
 
   function increaseItemAmount(id: number) {
+    setHasSomethingToSaveOnAsyncStorage(true);
+
     const newItems: Product[] = listProducts?.map((item) => {
       if (item?.id === id) {
         setTotalValue((oldState) => oldState + item?.price);
@@ -268,12 +299,16 @@ const ListItens = ({ navigation }) => {
   }
 
   function clearProductsList() {
+    setHasSomethingToSaveOnAsyncStorage(true);
     setListProducts([]);
     setListSearchedProducts([]);
     setTotalValue(0);
+    setIdGenerator(0);
   }
 
   function decreaseItemAmount(id: number) {
+    setHasSomethingToSaveOnAsyncStorage(true);
+
     const newItems: Product[] = listProducts?.map((item) => {
       if (item?.id === id) {
         setTotalValue((oldState) => oldState - item?.price);
