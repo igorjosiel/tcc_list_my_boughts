@@ -156,7 +156,11 @@ const Summary = ({ navigation, route }) => {
                                         color={'black'}
                                         textAlign={"center"}
                                     >
-                                        {product?.productName?.slice(0, 15)} ...
+                                        {
+                                            product?.productName?.length > 13 ?
+                                                product?.productName?.slice(0, 13) + '...' :
+                                                product?.productName
+                                        }
                                     </Text>
                                 </View>
                                 <View style={{

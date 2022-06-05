@@ -503,8 +503,8 @@ const ListItens = ({ navigation }) => {
                       fontSize={16}
                       color={"#000"}
                     >
-                      {product?.productName?.length > 15 ?
-                        product?.productName?.slice(0, 15) + '...' :
+                      {product?.productName?.length > 13 ?
+                        product?.productName?.slice(0, 13) + '...' :
                         product?.productName
                       }
                     </Text>
@@ -568,7 +568,7 @@ const ListItens = ({ navigation }) => {
                       )}
                       <Text
                         fontFamily={Poppins_600SemiBold}
-                        fontSize={17}
+                        fontSize={15}
                         color={"#000"}
                         textAlign={"center"}
                       >
@@ -591,8 +591,8 @@ const ListItens = ({ navigation }) => {
                           fontSize={16}
                           color={"#000"}
                         >
-                          {product?.productName?.length > 15 ?
-                            product?.productName?.slice(0, 15) + '...' :
+                          {product?.productName?.length > 13 ?
+                            product?.productName?.slice(0, 13) + '...' :
                             product?.productName
                           }
                         </Text>
