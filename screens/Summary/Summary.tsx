@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSetFonts } from "../../hooks/useSetFonts";
 import { View } from "react-native";
 import Header from "../../components/Header/Header";
@@ -8,11 +8,14 @@ import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
 import formatMoney from "../../utils/formatMoney";
 import Button from "../../components/Button/Button";
+import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
 import { ContainerTotalValue } from "../ListItens/ListItens.styles";
 import { styles } from "../../utils/constants";
 
 const Summary = ({ navigation, route }) => {
     const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
+
+    const [isModalConfirmationVisible, setIsModalConfirmationVisible] = useState<boolean>(false);
 
     const products: Product[] = route?.params?.listProducts;
     const value: number = route?.params?.totalValue;
@@ -24,7 +27,10 @@ const Summary = ({ navigation, route }) => {
             backgroundColor: '#FFF',
             color: theme?.colors?.primary,
             style: styles?.shadowPropMainColor,
-            action: () => navigation?.navigate('ListItens'),
+            action: () => {
+                if (!isModalConfirmationVisible) navigation?.navigate('ListItens');
+                else setIsModalConfirmationVisible(false);
+            }
         },
         {
             id: 1,
@@ -33,13 +39,46 @@ const Summary = ({ navigation, route }) => {
             color: '#FFF',
             style: styles?.shadowPropMainColor,
             action: () => {
-                console.log('sds');
+                if (!isModalConfirmationVisible) setIsModalConfirmationVisible(true);
+                else setIsModalConfirmationVisible(false);
             },
         },
     ];
 
     return (
         <>
+            <ModalConfirmation
+                isModalOpen={isModalConfirmationVisible}
+                closeModal={() => setIsModalConfirmationVisible(false)}
+                fontFamily={Poppins_600SemiBold}
+                message={"Tem certeza de que deseja finalizar a lista?"}
+                icon="question"
+            >
+                {buttons?.map((button) => {
+                    return (
+                        <Button
+                            key={button?.id}
+                            onPress={button?.action}
+                            backgroundColor={button?.backgroundColor}
+                            width={"48%"}
+                            borderRadius={'10px'}
+                            flexDirection={"row"}
+                            alignItems={"center"}
+                            justifyContent={"space-around"}
+                            style={button?.style}
+                        >
+                            <Text
+                                fontFamily={Poppins_600SemiBold}
+                                fontSize={20}
+                                color={button?.color}
+                            >
+                                {button?.name}
+                            </Text>
+                        </Button>
+                    );
+                })}
+            </ModalConfirmation>
+
             <Header />
 
             <ContainerProductsList>
