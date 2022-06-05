@@ -19,6 +19,7 @@ const Summary = ({ navigation, route }) => {
 
     const products: Product[] = route?.params?.listProducts;
     const value: number = route?.params?.totalValue;
+    const clearProductsList = route?.params?.clearProductsList;
 
     const buttons: ButtonProps[] = [
         {
@@ -40,7 +41,11 @@ const Summary = ({ navigation, route }) => {
             style: styles?.shadowPropMainColor,
             action: () => {
                 if (!isModalConfirmationVisible) setIsModalConfirmationVisible(true);
-                else setIsModalConfirmationVisible(false);
+                else {
+                    clearProductsList();
+                    setIsModalConfirmationVisible(false);
+                    navigation.navigate('ListItens');
+                }
             },
         },
     ];
