@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { printToFileAsync } from "expo-print";
+import { shareAsync } from "expo-sharing";
+
 import { useSetFonts } from "../../hooks/useSetFonts";
 import { View } from "react-native";
 import Header from "../../components/Header/Header";
@@ -58,6 +61,24 @@ const Summary = ({ navigation, route }) => {
     },
   ];
 
+  const html = `
+    <html>
+        <body>
+            <h1>Lista de itens</h1>
+            <h3>11/09/2022</h3>
+        </body>
+    </html>
+  `;
+
+  const generatePdf = async () => {
+    const file = await printToFileAsync({
+      html: html,
+      base64: false,
+    });
+
+    await shareAsync(file?.uri);
+  };
+
   return (
     <>
       <ModalConfirmation
@@ -91,9 +112,7 @@ const Summary = ({ navigation, route }) => {
           );
         })}
       </ModalConfirmation>
-
       <Header />
-
       <ContainerProductsList>
         <View
           style={{
@@ -260,6 +279,20 @@ const Summary = ({ navigation, route }) => {
           </View>
         </ContainerTotalValue>
       </ContainerProductsList>
+      {/* // Só pra testar */}
+      <Button
+        onPress={generatePdf}
+        backgroundColor={"red"}
+        width={"48%"}
+        borderRadius={"10px"}
+        flexDirection={"row"}
+        alignItems={"center"}
+        justifyContent={"space-around"}
+      >
+        <Text fontFamily={Poppins_600SemiBold} fontSize={20} color={"black"}>
+          Teste
+        </Text>
+      </Button>
       <ContainerButtons>
         <Buttons>
           {buttons?.map((button) => {
