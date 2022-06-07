@@ -4,6 +4,7 @@ import { CellProps } from "./Summary.types";
 
 export const Cells = styled.View<CellProps>`
   width: ${(props) => props?.width && props?.width};
+  height: 35px;
   display: flex;
   flex-direction: row;
   justify-content: ${(props) => props?.justifyContent && props?.justifyContent};
@@ -13,7 +14,6 @@ export const Cells = styled.View<CellProps>`
 export const ValueCells = styled.View`
   display: flex;
   flex-direction: row;
-  height: 50px;
   padding-left: 3%;
   padding-right: 3%;
 `;

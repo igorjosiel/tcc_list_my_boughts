@@ -23,6 +23,8 @@ import {
 } from "./Summary.styles";
 
 const Summary = ({ navigation, route }) => {
+  const date = new Date();
+
   const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   const [isModalConfirmationVisible, setIsModalConfirmationVisible] =
@@ -46,13 +48,14 @@ const Summary = ({ navigation, route }) => {
     },
     {
       id: 1,
-      name: "Finalizar",
+      name: !isModalConfirmationVisible ? "Finalizar" : "Enviar",
       backgroundColor: theme?.colors?.primary,
       color: "#FFF",
       style: styles?.shadowPropMainColor,
       action: () => {
         if (!isModalConfirmationVisible) setIsModalConfirmationVisible(true);
         else {
+          generatePdf();
           clearProductsList();
           setIsModalConfirmationVisible(false);
           navigation.navigate("ListItens");
@@ -61,11 +64,75 @@ const Summary = ({ navigation, route }) => {
     },
   ];
 
+  const generateDate = (date: number) => {
+    const convertDayToString = String(date);
+
+    if (convertDayToString?.length === 1) return 0 + convertDayToString;
+    return convertDayToString;
+  }
+
+  const generateMonth = (month: number) => {
+    const dateMonth = Number(generateDate(month));
+
+    return '0' + (dateMonth + 1);
+  }
+
+  const generateRowsTable = () => {
+    let generatedRows = [];
+
+    generatedRows = products?.map((product) => {
+      return (
+        `<tr style="
+          border-bottom: 3px solid ${theme?.colors?.primary};
+          height: 25px;
+        ">
+          <td style="text-align: left;">${product?.productName}</td>
+          <td style="text-align: center;">${product?.amount}</td>
+          <td style="text-align: right;">R$ ${formatMoney(product?.price)}</td>
+          <td style="text-align: right;">R$ ${formatMoney(product?.price * product?.amount)}</td>
+        </tr>`
+      )
+    });
+
+    return generatedRows;
+  }
+
   const html = `
     <html>
         <body>
-            <h1>Lista de itens</h1>
-            <h3>11/09/2022</h3>
+            <h1 style="
+              color: black;
+              text-align: center;
+              text-transform: uppercase;
+            ">
+              Lista de itens
+            </h1>
+            <h2 style="text-align: center">
+              ${generateDate(date?.getDate())}/${generateMonth(date?.getMonth())}/${date?.getFullYear()}
+            </h2>
+
+            <table style="
+              width: 100%;
+              box-shadow: -2px -2px 2px #DCDCDC, 2px 2px 2px #DCDCDC;
+              border-radius: 5px;
+            ">
+              <thead style="
+                height: 30px;
+                background-color: ${theme?.colors?.primary};
+                color: white;
+                font-weight: bold;
+              ">
+                <tr>
+                  <th style="width: 40%; text-align: left;">Item</th>
+                  <th style="width: 20%; text-align: center;">Quantidade</th>
+                  <th style="width: 20%; text-align: right;">Valor Unidade</th>
+                  <th style="width: 20%; text-align: right;">Valor Total</th>
+                </tr>
+              </thead>
+              <tbody style="color: black;">
+              ${generateRowsTable()}
+              </tbody>
+            </table>
         </body>
     </html>
   `;
@@ -119,7 +186,7 @@ const Summary = ({ navigation, route }) => {
             display: "flex",
             flexDirection: "row",
             width: "90%",
-            height: 55,
+            height: 40,
             backgroundColor: theme?.colors?.primary,
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
@@ -181,7 +248,6 @@ const Summary = ({ navigation, route }) => {
             display: "flex",
             flexDirection: "column",
             width: "90%",
-            height: 55,
             marginBottom: 10,
             marginTop: 0,
             margin: "5%",
@@ -279,20 +345,6 @@ const Summary = ({ navigation, route }) => {
           </View>
         </ContainerTotalValue>
       </ContainerProductsList>
-      {/* // Só pra testar */}
-      <Button
-        onPress={generatePdf}
-        backgroundColor={"red"}
-        width={"48%"}
-        borderRadius={"10px"}
-        flexDirection={"row"}
-        alignItems={"center"}
-        justifyContent={"space-around"}
-      >
-        <Text fontFamily={Poppins_600SemiBold} fontSize={20} color={"black"}>
-          Teste
-        </Text>
-      </Button>
       <ContainerButtons>
         <Buttons>
           {buttons?.map((button) => {
