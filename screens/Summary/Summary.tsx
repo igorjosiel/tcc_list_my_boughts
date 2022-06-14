@@ -69,33 +69,33 @@ const Summary = ({ navigation, route }) => {
 
     if (convertDayToString?.length === 1) return 0 + convertDayToString;
     return convertDayToString;
-  }
+  };
 
   const generateMonth = (month: number) => {
     const dateMonth = Number(generateDate(month));
 
-    return '0' + (dateMonth + 1);
-  }
+    return "0" + (dateMonth + 1);
+  };
 
   const generateRowsTable = () => {
     let generatedRows = [];
 
     generatedRows = products?.map((product) => {
-      return (
-        `<tr style="
+      return `<tr style="
           border-bottom: 3px solid ${theme?.colors?.primary};
           height: 25px;
         ">
           <td style="text-align: left;">${product?.productName}</td>
           <td style="text-align: center;">${product?.amount}</td>
           <td style="text-align: right;">R$ ${formatMoney(product?.price)}</td>
-          <td style="text-align: right;">R$ ${formatMoney(product?.price * product?.amount)}</td>
-        </tr>`
-      )
+          <td style="text-align: right;">R$ ${formatMoney(
+            product?.price * product?.amount
+          )}</td>
+        </tr>`;
     });
 
     return generatedRows;
-  }
+  };
 
   const html = `
     <html>
@@ -108,7 +108,9 @@ const Summary = ({ navigation, route }) => {
               Lista de itens
             </h1>
             <h2 style="text-align: center">
-              ${generateDate(date?.getDate())}/${generateMonth(date?.getMonth())}/${date?.getFullYear()}
+              ${generateDate(date?.getDate())}/${generateMonth(
+    date?.getMonth()
+  )}/${date?.getFullYear()}
             </h2>
 
             <table style="
@@ -133,6 +135,35 @@ const Summary = ({ navigation, route }) => {
               ${generateRowsTable()}
               </tbody>
             </table>
+
+            <div style="
+              width: 30%;
+              margin-left: auto;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              border: 1px solid black;
+              height: 30px;
+              margin-top: 10px;
+              border-radius: 7px;"
+            >
+              <div style="
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;"
+              >
+                <h4>Valor Total:</h4>
+              </div>
+              <div style="
+                display: flex;
+                flex-direction: row;
+                justify-content: end;
+                align-items: center;"
+              >
+                <h4>R$ ${formatMoney(value)}</h4>
+              </div>
+            </div>
         </body>
     </html>
   `;
