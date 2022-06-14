@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tcc_list_my_boughts",
-    "slug": "tcc_list_my_boughts",
+    "name": "CrieList",
+    "slug": "CrieList",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,9 +12,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

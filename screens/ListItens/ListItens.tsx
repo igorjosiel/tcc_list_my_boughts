@@ -15,10 +15,7 @@ import {
   ContainerProductsCategory,
   ContainerData,
 } from "./ListItens.styles";
-import {
-  View,
-  ScrollView,
-} from "react-native";
+import { View, ScrollView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -29,7 +26,11 @@ import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
 import formatMoney from "../../utils/formatMoney";
 
-import { Product, Button as ButtonProps, Sorting } from "../../utils/interfaces";
+import {
+  Product,
+  Button as ButtonProps,
+  Sorting,
+} from "../../utils/interfaces";
 import Header from "../../components/Header/Header";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import TextInput from "../../components/Input/TextInput/TextInput.styles";
@@ -54,7 +55,9 @@ const ListItens = ({ navigation }) => {
 
   const [listProducts, setListProducts] = useState<Product[]>([]);
   const [productSearch, setProductSearch] = useState<string>("");
-  const [listSearchedProducts, setListSearchedProducts] = useState<Product[]>([]);
+  const [listSearchedProducts, setListSearchedProducts] = useState<Product[]>(
+    []
+  );
   const [productWillBeChanged, setProductWillBeChanged] = useState<Product>({
     id: 0,
     amount: 0,
@@ -64,35 +67,45 @@ const ListItens = ({ navigation }) => {
     priority: "",
   });
   const [isModalFormVisible, setIsModalFormVisible] = useState<boolean>(false);
-  const [isModalConfirmationVisible, setIsModalConfirmationVisible] = useState<boolean>(false);
-  const [isModalMoneyVisible, setIsModalMoneyVisible] = useState<boolean>(false);
+  const [isModalConfirmationVisible, setIsModalConfirmationVisible] =
+    useState<boolean>(false);
+  const [isModalMoneyVisible, setIsModalMoneyVisible] =
+    useState<boolean>(false);
   const [idGenerator, setIdGenerator] = useState<number>(0);
   const [action, setAction] = useState("");
   const [totalValue, setTotalValue] = useState<number>(0);
-  const [sortOfOrdering, setSortOfOrdering] = useState<Sorting>(sortingKinds[0]);
+  const [sortOfOrdering, setSortOfOrdering] = useState<Sorting>(
+    sortingKinds[0]
+  );
   const [balance, setBalance] = useState<number>(0);
   const [enoughMoney, setEnoughMoney] = useState<boolean>(true);
-  const [hasSomethingToSaveOnAsyncStorage, setHasSomethingToSaveOnAsyncStorage] = useState<boolean>(false);
+  const [
+    hasSomethingToSaveOnAsyncStorage,
+    setHasSomethingToSaveOnAsyncStorage,
+  ] = useState<boolean>(false);
 
   useEffect(() => {
     const getBalance = async () => {
-      const balance = await AsyncStorage.getItem('@balance');
+      const balance = await AsyncStorage.getItem("@balance");
       setBalance(Number(balance));
-    }
+    };
 
     getBalance();
   }, [isModalMoneyVisible]);
 
   useEffect(() => {
-    if (hasSomethingToSaveOnAsyncStorage) AsyncStorage?.setItem('@idGenerator', String(idGenerator));
+    if (hasSomethingToSaveOnAsyncStorage)
+      AsyncStorage?.setItem("@idGenerator", String(idGenerator));
   }, [idGenerator]);
 
   useEffect(() => {
-    if (hasSomethingToSaveOnAsyncStorage) AsyncStorage?.setItem('@listProducts', JSON.stringify(listProducts));
+    if (hasSomethingToSaveOnAsyncStorage)
+      AsyncStorage?.setItem("@listProducts", JSON.stringify(listProducts));
   }, [listProducts]);
 
   useEffect(() => {
-    if (hasSomethingToSaveOnAsyncStorage) AsyncStorage?.setItem('@totalValue', JSON.stringify(totalValue));
+    if (hasSomethingToSaveOnAsyncStorage)
+      AsyncStorage?.setItem("@totalValue", JSON.stringify(totalValue));
   }, [totalValue]);
 
   useEffect(() => {
@@ -114,19 +127,25 @@ const ListItens = ({ navigation }) => {
     });
 
     const searchedProductsByPrice = listProducts?.filter((product) => {
-      return product?.price?.toFixed(2)?.toString()?.replace('.', ',')?.includes(productSearch);
+      return product?.price
+        ?.toFixed(2)
+        ?.toString()
+        ?.replace(".", ",")
+        ?.includes(productSearch);
     });
 
-    const joinSearchedProducts = searchedProductsByName?.concat(searchedProductsByPrice)?.concat(searchedProductsByCategory);
+    const joinSearchedProducts = searchedProductsByName
+      ?.concat(searchedProductsByPrice)
+      ?.concat(searchedProductsByCategory);
 
     setListSearchedProducts(joinSearchedProducts);
   }, [productSearch]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const listStoraged = await AsyncStorage?.getItem('@listProducts');
-      const id = await AsyncStorage?.getItem('@idGenerator');
-      const totalValue = await AsyncStorage?.getItem('@totalValue');
+      const listStoraged = await AsyncStorage?.getItem("@listProducts");
+      const id = await AsyncStorage?.getItem("@idGenerator");
+      const totalValue = await AsyncStorage?.getItem("@totalValue");
 
       if (listStoraged !== null) {
         setListProducts(JSON.parse(listStoraged));
@@ -134,7 +153,7 @@ const ListItens = ({ navigation }) => {
 
       setTotalValue(Number(totalValue));
       setIdGenerator(Number(id));
-    }
+    };
 
     fetchData();
   }, []);
@@ -146,7 +165,9 @@ const ListItens = ({ navigation }) => {
       setListProducts((oldState) => {
         let newState = [...oldState];
         newState?.sort((firstElement, secondElement) => {
-          return firstElement?.productName?.localeCompare(secondElement?.productName);
+          return firstElement?.productName?.localeCompare(
+            secondElement?.productName
+          );
         });
 
         return newState;
@@ -157,28 +178,30 @@ const ListItens = ({ navigation }) => {
       setListProducts((oldState) => {
         let newState = [...oldState];
         newState?.sort((firstElement, secondElement) => {
-          return secondElement?.productName?.localeCompare(firstElement?.productName);
+          return secondElement?.productName?.localeCompare(
+            firstElement?.productName
+          );
         });
 
         return newState;
       });
     }
-  }
+  };
 
   const buttons: ButtonProps[] = [
     {
       id: 0,
-      name: 'Cancelar',
-      backgroundColor: '#FFF',
+      name: "Cancelar",
+      backgroundColor: "#FFF",
       color: theme?.colors?.primary,
       style: styles?.shadowPropMainColor,
       action: () => setIsModalConfirmationVisible(false),
     },
     {
       id: 1,
-      name: 'Remover',
-      backgroundColor: '#FF4500',
-      color: '#FFF',
+      name: "Remover",
+      backgroundColor: "#FF4500",
+      color: "#FFF",
       style: styles?.shadowPropMainColor,
       action: () => {
         clearProductsList();
@@ -205,9 +228,10 @@ const ListItens = ({ navigation }) => {
     setSortOfOrdering({
       ...sortOfOrdering,
       sortingName: sortingKinds[sortOfOrdering?.sortingNumber + 1]?.sortingName,
-      sortingNumber: sortingKinds[sortOfOrdering?.sortingNumber + 1]?.sortingNumber,
+      sortingNumber:
+        sortingKinds[sortOfOrdering?.sortingNumber + 1]?.sortingNumber,
     });
-  }
+  };
 
   async function addItemToList(newProduct: Product) {
     if (!newProduct?.productName) return;
@@ -223,7 +247,7 @@ const ListItens = ({ navigation }) => {
     setListProducts((oldState) => [...oldState, newItem]);
     setIdGenerator((oldState) => oldState + 1);
     sortProducts();
-  };
+  }
 
   const changeItemFromList = (changedProduct: Product) => {
     const { id } = changedProduct;
@@ -239,30 +263,30 @@ const ListItens = ({ navigation }) => {
         return {
           ...changedProduct,
         };
-      }
-      else return { ...product };
+      } else return { ...product };
     });
 
-    const searchedProducts = newListProducts?.filter((product) => product?.productName?.includes(productSearch));
+    const searchedProducts = newListProducts?.filter((product) =>
+      product?.productName?.includes(productSearch)
+    );
     setListSearchedProducts(searchedProducts);
     setListProducts(newListProducts);
     sortProducts();
-  }
+  };
 
   const removeItemFromList = (product: Product) => {
     const { id, price, amount } = product;
     const valueWillBeRemoved = price * amount;
 
-    const listProductsFiltered: Product[] = listProducts?.filter(
-      (item) => {
-        if (item.id !== id) {
-          return { ...item };
-        }
-        else setTotalValue((oldState) => oldState - valueWillBeRemoved);
-      }
-    );
+    const listProductsFiltered: Product[] = listProducts?.filter((item) => {
+      if (item.id !== id) {
+        return { ...item };
+      } else setTotalValue((oldState) => oldState - valueWillBeRemoved);
+    });
 
-    const searchedProducts = listProductsFiltered?.filter((product) => product?.productName?.includes(productSearch));
+    const searchedProducts = listProductsFiltered?.filter((product) =>
+      product?.productName?.includes(productSearch)
+    );
     setListSearchedProducts(searchedProducts);
     setListProducts(listProductsFiltered);
   };
@@ -277,13 +301,13 @@ const ListItens = ({ navigation }) => {
     setHasSomethingToSaveOnAsyncStorage(true);
     changeItemFromList(changedProduct);
     setIsModalFormVisible(false);
-  }
+  };
 
   const onRemoveProduct = (removedProduct: Product) => {
     setHasSomethingToSaveOnAsyncStorage(true);
     removeItemFromList(removedProduct);
     setIsModalFormVisible(false);
-  }
+  };
 
   function increaseItemAmount(id: number) {
     setHasSomethingToSaveOnAsyncStorage(true);
@@ -299,7 +323,9 @@ const ListItens = ({ navigation }) => {
       } else return { ...item };
     });
 
-    const searchedProducts = newItems?.filter((product) => product?.productName?.includes(productSearch));
+    const searchedProducts = newItems?.filter((product) =>
+      product?.productName?.includes(productSearch)
+    );
     setListSearchedProducts(searchedProducts);
     setListProducts(newItems);
   }
@@ -322,12 +348,13 @@ const ListItens = ({ navigation }) => {
         return {
           ...item,
           amount: item?.amount - 1,
-        }
+        };
       } else return { ...item };
-    }
-    );
+    });
 
-    const searchedProducts = newItems?.filter((product) => product?.productName?.includes(productSearch));
+    const searchedProducts = newItems?.filter((product) =>
+      product?.productName?.includes(productSearch)
+    );
     setListSearchedProducts(searchedProducts);
     setListProducts(newItems);
   }
@@ -371,7 +398,7 @@ const ListItens = ({ navigation }) => {
               onPress={button?.action}
               backgroundColor={button?.backgroundColor}
               width={"48%"}
-              borderRadius={'10px'}
+              borderRadius={"10px"}
               flexDirection={"row"}
               alignItems={"center"}
               justifyContent={"space-around"}
@@ -401,17 +428,17 @@ const ListItens = ({ navigation }) => {
         <ContainerProductsListHeader>
           <TextInput
             fontFamily={Poppins_600SemiBold}
-            width={'65%'}
-            borderRadius={'10px'}
+            width={"65%"}
+            borderRadius={"10px"}
             value={productSearch}
             onChangeText={(value) => setProductSearch(value)}
             placeholder={"Pesquisar produto"}
           ></TextInput>
           <Button
             backgroundColor={theme.colors.primary}
-            height={'55px'}
-            width={'55px'}
-            borderRadius={'50px'}
+            height={"55px"}
+            width={"55px"}
+            borderRadius={"50px"}
             borderBottomLeftRadius={"50px"}
             borderTopRightRadius={"50px"}
             borderBottomRightRadius={"50px"}
@@ -425,9 +452,9 @@ const ListItens = ({ navigation }) => {
           </Button>
           <Button
             backgroundColor={theme.colors.primary}
-            height={'55px'}
-            width={'55px'}
-            borderRadius={'50px'}
+            height={"55px"}
+            width={"55px"}
+            borderRadius={"50px"}
             borderBottomLeftRadius={"50px"}
             borderTopRightRadius={"50px"}
             borderBottomRightRadius={"50px"}
@@ -437,10 +464,11 @@ const ListItens = ({ navigation }) => {
             style={styles?.shadowPropMainColor}
             onPress={() => changeSorting()}
           >
-            {sortOfOrdering?.sortingNumber === 0 ?
-              <FontAwesome size={35} color="#fff" name="sort-alpha-asc" /> :
+            {sortOfOrdering?.sortingNumber === 0 ? (
+              <FontAwesome size={35} color="#fff" name="sort-alpha-asc" />
+            ) : (
               <FontAwesome size={35} color="#fff" name="sort-alpha-desc" />
-            }
+            )}
           </Button>
         </ContainerProductsListHeader>
         <ContainerNewProduct style={styles?.shadowPropMainColor}>
@@ -451,7 +479,7 @@ const ListItens = ({ navigation }) => {
           >
             <Text
               fontFamily={Poppins_600SemiBold}
-              fontSize={22}
+              fontSize={20}
               textAlign={"center"}
             >
               Novo Item
@@ -459,183 +487,199 @@ const ListItens = ({ navigation }) => {
           </Button>
         </ContainerNewProduct>
         <ScrollView>
-          {!productSearch ? listProducts?.map((product, index) => {
-            return (
-              <ContainerProductData key={index} style={styles?.shadowPropMainColor} >
-                <ContainerProductsCategory>
-                  <Text
-                    fontFamily={Poppins_600SemiBold}
-                    fontSize={16}
-                    color={theme?.colors?.primary}
-                    textAlign={"center"}
+          {!productSearch
+            ? listProducts?.map((product, index) => {
+                return (
+                  <ContainerProductData
+                    key={index}
+                    style={styles?.shadowPropMainColor}
                   >
-                    {product?.category ? product?.category : 'Sem categoria'}
-                  </Text>
-                </ContainerProductsCategory>
-                <ContainerData>
-                  <ContainerStar>
-                    {product?.priority === "Sim" ? (
-                      <FontAwesome name="star" size={25} color={"#FFA500"} />
-                    ) : (
-                      <FontAwesome name="star-o" size={25} color={"#000"} />
-                    )}
-                    <Text
-                      fontFamily={Poppins_600SemiBold}
-                      fontSize={15}
-                      color={"#000"}
-                      textAlign={"center"}
-                    >
-                      R$ {formatMoney(product?.price)}
-                    </Text>
-                  </ContainerStar>
-                  <Button
-                    width={"50%"}
-                    height={"100%"}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    justifyContent={"center"}
-                    backgroundColor={"#FFF"}
-                    textAlign={"center"}
-                    onPress={() => openModalToChangeProduct(product)}
-                  >
-                    <Text
-                      fontFamily={Poppins_600SemiBold}
-                      fontSize={16}
-                      color={"#000"}
-                    >
-                      {product?.productName?.length > 13 ?
-                        product?.productName?.slice(0, 13) + '...' :
-                        product?.productName
-                      }
-                    </Text>
-                  </Button>
-                  <ContainerActions>
-                    <Button
-                      width={"25px"}
-                      height={"100%"}
-                      borderRadius={"50px"}
-                      alignItems={"center"}
-                      justifyContent={"center"}
-                      onPress={
-                        product?.amount === 1
-                          ? () => removeItemFromList(product)
-                          : () => decreaseItemAmount(product?.id)
-                      }
-                    >
-                      <FontAwesome size={30} color="#FFF" name="minus" />
-                    </Button>
-                    <Text
-                      fontFamily={Poppins_600SemiBold}
-                      fontSize={20}
-                      color={"#FFF"}
-                    >
-                      {product?.amount}
-                    </Text>
-                    <Button
-                      width={"25px"}
-                      height={"100%"}
-                      borderRadius={"50px"}
-                      alignItems={"center"}
-                      justifyContent={"center"}
-                      onPress={() => increaseItemAmount(product?.id)}
-                    >
-                      <FontAwesome size={30} color="#FFF" name="plus" />
-                    </Button>
-                  </ContainerActions>
-                </ContainerData>
-              </ContainerProductData>
-            );
-          }) :
-            listSearchedProducts?.map((product, index) => {
-              return (
-                <ContainerProductData key={index} style={styles?.shadowPropMainColor}>
-                  <ContainerProductsCategory>
-                    <Text
-                      fontFamily={Poppins_600SemiBold}
-                      fontSize={16}
-                      color={theme?.colors?.primary}
-                      textAlign={"center"}
-                    >
-                      {product?.category ? product?.category : 'Sem categoria'}
-                    </Text>
-                  </ContainerProductsCategory>
-                  <ContainerData>
-                    <ContainerStar>
-                      {product?.priority === "Sim" ? (
-                        <FontAwesome name="star" size={25} color={"#FFA500"} />
-                      ) : (
-                        <FontAwesome name="star-o" size={25} color={"#000"} />
-                      )}
+                    <ContainerProductsCategory>
                       <Text
                         fontFamily={Poppins_600SemiBold}
-                        fontSize={15}
-                        color={"#000"}
+                        fontSize={16}
+                        color={theme?.colors?.primary}
                         textAlign={"center"}
                       >
-                        R$ {formatMoney(product?.price)}
+                        {product?.category
+                          ? product?.category
+                          : "Sem categoria"}
                       </Text>
-                    </ContainerStar>
-                    <Button
-                      width={"50%"}
-                      height={"100%"}
-                      display={"flex"}
-                      flexDirection={"column"}
-                      justifyContent={"center"}
-                      backgroundColor={"#FFF"}
-                      textAlign={"center"}
-                      onPress={() => openModalToChangeProduct(product)}
-                    >
-                      <View>
+                    </ContainerProductsCategory>
+                    <ContainerData>
+                      <ContainerStar>
+                        {product?.priority === "Sim" ? (
+                          <FontAwesome
+                            name="star"
+                            size={25}
+                            color={"#FFA500"}
+                          />
+                        ) : (
+                          <FontAwesome name="star-o" size={25} color={"#000"} />
+                        )}
+                        <Text
+                          fontFamily={Poppins_600SemiBold}
+                          fontSize={15}
+                          color={"#000"}
+                          textAlign={"center"}
+                        >
+                          R$ {formatMoney(product?.price)}
+                        </Text>
+                      </ContainerStar>
+                      <Button
+                        width={"50%"}
+                        height={"100%"}
+                        display={"flex"}
+                        flexDirection={"column"}
+                        justifyContent={"center"}
+                        backgroundColor={"#FFF"}
+                        textAlign={"center"}
+                        onPress={() => openModalToChangeProduct(product)}
+                      >
                         <Text
                           fontFamily={Poppins_600SemiBold}
                           fontSize={16}
                           color={"#000"}
                         >
-                          {product?.productName?.length > 13 ?
-                            product?.productName?.slice(0, 13) + '...' :
-                            product?.productName
-                          }
+                          {product?.productName?.length > 13
+                            ? product?.productName?.slice(0, 13) + "..."
+                            : product?.productName}
                         </Text>
-                      </View>
-                    </Button>
-                    <ContainerActions>
-                      <Button
-                        width={"25px"}
-                        height={"100%"}
-                        borderRadius={"50px"}
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        onPress={
-                          product?.amount === 1
-                            ? () => removeItemFromList(product)
-                            : () => decreaseItemAmount(product?.id)
-                        }
-                      >
-                        <FontAwesome size={30} color="#FFF" name="minus" />
                       </Button>
+                      <ContainerActions>
+                        <Button
+                          width={"25px"}
+                          height={"100%"}
+                          borderRadius={"50px"}
+                          alignItems={"center"}
+                          justifyContent={"center"}
+                          onPress={
+                            product?.amount === 1
+                              ? () => removeItemFromList(product)
+                              : () => decreaseItemAmount(product?.id)
+                          }
+                        >
+                          <FontAwesome size={30} color="#FFF" name="minus" />
+                        </Button>
+                        <Text
+                          fontFamily={Poppins_600SemiBold}
+                          fontSize={20}
+                          color={"#FFF"}
+                        >
+                          {product?.amount}
+                        </Text>
+                        <Button
+                          width={"25px"}
+                          height={"100%"}
+                          borderRadius={"50px"}
+                          alignItems={"center"}
+                          justifyContent={"center"}
+                          onPress={() => increaseItemAmount(product?.id)}
+                        >
+                          <FontAwesome size={30} color="#FFF" name="plus" />
+                        </Button>
+                      </ContainerActions>
+                    </ContainerData>
+                  </ContainerProductData>
+                );
+              })
+            : listSearchedProducts?.map((product, index) => {
+                return (
+                  <ContainerProductData
+                    key={index}
+                    style={styles?.shadowPropMainColor}
+                  >
+                    <ContainerProductsCategory>
                       <Text
                         fontFamily={Poppins_600SemiBold}
-                        fontSize={18}
-                        color={"#FFF"}
+                        fontSize={16}
+                        color={theme?.colors?.primary}
+                        textAlign={"center"}
                       >
-                        {product?.amount}
+                        {product?.category
+                          ? product?.category
+                          : "Sem categoria"}
                       </Text>
+                    </ContainerProductsCategory>
+                    <ContainerData>
+                      <ContainerStar>
+                        {product?.priority === "Sim" ? (
+                          <FontAwesome
+                            name="star"
+                            size={25}
+                            color={"#FFA500"}
+                          />
+                        ) : (
+                          <FontAwesome name="star-o" size={25} color={"#000"} />
+                        )}
+                        <Text
+                          fontFamily={Poppins_600SemiBold}
+                          fontSize={15}
+                          color={"#000"}
+                          textAlign={"center"}
+                        >
+                          R$ {formatMoney(product?.price)}
+                        </Text>
+                      </ContainerStar>
                       <Button
-                        width={"25px"}
+                        width={"50%"}
                         height={"100%"}
-                        borderRadius={"50px"}
-                        alignItems={"center"}
+                        display={"flex"}
+                        flexDirection={"column"}
                         justifyContent={"center"}
-                        onPress={() => increaseItemAmount(product?.id)}
+                        backgroundColor={"#FFF"}
+                        textAlign={"center"}
+                        onPress={() => openModalToChangeProduct(product)}
                       >
-                        <FontAwesome size={30} color="#FFF" name="plus" />
+                        <View>
+                          <Text
+                            fontFamily={Poppins_600SemiBold}
+                            fontSize={16}
+                            color={"#000"}
+                          >
+                            {product?.productName?.length > 13
+                              ? product?.productName?.slice(0, 13) + "..."
+                              : product?.productName}
+                          </Text>
+                        </View>
                       </Button>
-                    </ContainerActions>
-                  </ContainerData>
-                </ContainerProductData>
-              );
-            })
-          }
+                      <ContainerActions>
+                        <Button
+                          width={"25px"}
+                          height={"100%"}
+                          borderRadius={"50px"}
+                          alignItems={"center"}
+                          justifyContent={"center"}
+                          onPress={
+                            product?.amount === 1
+                              ? () => removeItemFromList(product)
+                              : () => decreaseItemAmount(product?.id)
+                          }
+                        >
+                          <FontAwesome size={30} color="#FFF" name="minus" />
+                        </Button>
+                        <Text
+                          fontFamily={Poppins_600SemiBold}
+                          fontSize={18}
+                          color={"#FFF"}
+                        >
+                          {product?.amount}
+                        </Text>
+                        <Button
+                          width={"25px"}
+                          height={"100%"}
+                          borderRadius={"50px"}
+                          alignItems={"center"}
+                          justifyContent={"center"}
+                          onPress={() => increaseItemAmount(product?.id)}
+                        >
+                          <FontAwesome size={30} color="#FFF" name="plus" />
+                        </Button>
+                      </ContainerActions>
+                    </ContainerData>
+                  </ContainerProductData>
+                );
+              })}
         </ScrollView>
       </ContainerProductsList>
       <ContainerFooter applyFilter={isModalFormVisible}>
@@ -655,11 +699,7 @@ const ListItens = ({ navigation }) => {
               style={styles?.shadowPropMainColor}
               onPress={() => setIsModalConfirmationVisible(true)}
             >
-              <MaterialCommunityIcons
-                size={40}
-                color="#fff"
-                name="trash-can"
-              />
+              <MaterialCommunityIcons size={40} color="#fff" name="trash-can" />
             </Button>
             <Button
               backgroundColor={theme.colors.primary}
@@ -673,7 +713,13 @@ const ListItens = ({ navigation }) => {
               alignItems={"center"}
               justifyContent={"center"}
               style={styles?.shadowPropMainColor}
-              onPress={() => navigation.navigate('Summary', { listProducts, totalValue, clearProductsList })}
+              onPress={() =>
+                navigation.navigate("Summary", {
+                  listProducts,
+                  totalValue,
+                  clearProductsList,
+                })
+              }
             >
               <FontAwesome size={40} color="#fff" name="check" />
             </Button>
