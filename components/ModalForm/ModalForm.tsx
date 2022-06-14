@@ -54,7 +54,8 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     price: 0,
     priority: "",
   });
-  const [isModalConfirmationVisible, setIsModalConfirmationVisible] = useState<boolean>(false);
+  const [isModalConfirmationVisible, setIsModalConfirmationVisible] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (isModalOpen && action === "alteration") {
@@ -100,9 +101,12 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     setSelectedPriority(priority);
   };
 
-  const setPropertyNewProduct = (value: string | number | boolean | null, property: string) => {
+  const setPropertyNewProduct = (
+    value: string | number | boolean | null,
+    property: string
+  ) => {
     setNewProduct({ ...newProduct, [property]: value });
-  }
+  };
 
   return (
     <Modal
@@ -150,10 +154,14 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               borderRadius={"0"}
               width={"70%"}
               keyboardType={"numeric"}
-              onChangeText={(value) => value && setAmountNewProduct(parseInt(value))}
-              value={newProduct?.amount?.toString() == "0"
-                ? ""
-                : newProduct?.amount?.toString()}
+              onChangeText={(value) =>
+                value && setAmountNewProduct(parseInt(value))
+              }
+              value={
+                newProduct?.amount?.toString() == "0"
+                  ? ""
+                  : newProduct?.amount?.toString()
+              }
               placeholder="Quantidade"
               maxLength={10}
             />
@@ -204,12 +212,14 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               <Text
                 fontFamily={Poppins_600SemiBold}
                 fontSize={20}
-                color={"#adadac"}
+                color={"black"}
               >
                 {selectedCategory ? selectedCategory : `Categoria`}
               </Text>
               <MaterialIcons
-                name={!showCategoryOptions ? "arrow-drop-down" : "arrow-drop-up"}
+                name={
+                  !showCategoryOptions ? "arrow-drop-down" : "arrow-drop-up"
+                }
                 size={35}
                 color={"black"}
               />
@@ -219,7 +229,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             <ScrollViewContainer>
               <Scroll
                 data={categories}
-                scrollName={'category'}
+                scrollName={"category"}
                 onSelected={onSelectCategory}
                 setPropertyNewProduct={setPropertyNewProduct}
               />
@@ -245,21 +255,23 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               <Text
                 fontFamily={Poppins_600SemiBold}
                 fontSize={20}
-                color={"#adadac"}
+                color={"black"}
               >
                 {selectedPriority ? selectedPriority : `Prioridade`}
               </Text>
               <MaterialIcons
-                name={!showPriorityOptions ? "arrow-drop-down" : "arrow-drop-up"}
+                name={
+                  !showPriorityOptions ? "arrow-drop-down" : "arrow-drop-up"
+                }
                 size={35}
                 color={"black"}
               />
             </Button>
-            {action === "alteration" &&
+            {action === "alteration" && (
               <Button
                 backgroundColor={theme?.colors?.primary}
                 width={"48%"}
-                borderRadius={'10px'}
+                borderRadius={"10px"}
                 flexDirection={"row"}
                 alignItems={"center"}
                 justifyContent={"space-around"}
@@ -277,7 +289,8 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 <Text fontFamily={Poppins_600SemiBold} fontSize={20}>
                   Salvar
                 </Text>
-              </Button>}
+              </Button>
+            )}
           </PriorityContainer>
           {showPriorityOptions && (
             <ScrollViewContainer
@@ -286,7 +299,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             >
               <Scroll
                 data={priorities}
-                scrollName={'priority'}
+                scrollName={"priority"}
                 onSelected={onSelectPriority}
                 setPropertyNewProduct={setPropertyNewProduct}
               />
@@ -296,7 +309,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             <Button
               backgroundColor={"#FFF"}
               width={"48%"}
-              borderRadius={'10px'}
+              borderRadius={"10px"}
               flexDirection={"row"}
               alignItems={"center"}
               justifyContent={"space-around"}
@@ -314,11 +327,11 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 Cancelar
               </Text>
             </Button>
-            {action === "alteration" ?
+            {action === "alteration" ? (
               <Button
-                backgroundColor={'#FF4500'}
+                backgroundColor={"#FF4500"}
                 width={"48%"}
-                borderRadius={'10px'}
+                borderRadius={"10px"}
                 flexDirection={"row"}
                 alignItems={"center"}
                 justifyContent={"space-around"}
@@ -331,11 +344,12 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                 <Text fontFamily={Poppins_600SemiBold} fontSize={20}>
                   Remover
                 </Text>
-              </Button> :
+              </Button>
+            ) : (
               <Button
                 backgroundColor={theme?.colors?.primary}
                 width={"48%"}
-                borderRadius={'10px'}
+                borderRadius={"10px"}
                 flexDirection={"row"}
                 alignItems={"center"}
                 justifyContent={"space-around"}
@@ -354,7 +368,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                   Salvar
                 </Text>
               </Button>
-            }
+            )}
           </ButtonsContainer>
         </ModalView>
       </CenteredView>
@@ -371,17 +385,14 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           width={"40%"}
           marginLeft={"auto"}
           marginRight={"auto"}
-          borderRadius={'10px'}
+          borderRadius={"10px"}
           flexDirection={"row"}
           alignItems={"center"}
           justifyContent={"space-around"}
           style={styles?.shadowPropMainColor}
           onPress={() => setIsModalConfirmationVisible(false)}
         >
-          <Text
-            fontFamily={Poppins_600SemiBold}
-            fontSize={22}
-          >
+          <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
             Ok
           </Text>
         </Button>
