@@ -48,6 +48,10 @@ const sortingKinds: Sorting[] = [
     sortingName: "Z-A",
     sortingNumber: 1,
   },
+  {
+    sortingName: "Priority",
+    sortingNumber: 2,
+  },
 ];
 
 const ListItens = ({ navigation }) => {
@@ -186,6 +190,19 @@ const ListItens = ({ navigation }) => {
         return newState;
       });
     }
+
+    if (sortOfOrdering?.sortingNumber === 2) {
+      setListProducts(() => {
+        let newStateWithPriority = listProducts?.filter(
+          (product) => product?.priority === "Sim"
+        );
+        let newStateWithNoPriority = listProducts?.filter(
+          (product) => product?.priority !== "Sim"
+        );
+
+        return [...newStateWithPriority, ...newStateWithNoPriority];
+      });
+    }
   };
 
   const buttons: ButtonProps[] = [
@@ -215,7 +232,7 @@ const ListItens = ({ navigation }) => {
   }, [sortOfOrdering]);
 
   const changeSorting = () => {
-    if (sortOfOrdering?.sortingNumber === sortingKinds?.length - 1) {
+    if (sortOfOrdering?.sortingNumber === 2) {
       setSortOfOrdering({
         ...sortOfOrdering,
         sortingName: sortingKinds[0]?.sortingName,
@@ -464,10 +481,14 @@ const ListItens = ({ navigation }) => {
             style={styles?.shadowPropMainColor}
             onPress={() => changeSorting()}
           >
-            {sortOfOrdering?.sortingNumber === 0 ? (
+            {sortOfOrdering?.sortingNumber === 0 && (
               <FontAwesome size={35} color="#fff" name="sort-alpha-asc" />
-            ) : (
+            )}
+            {sortOfOrdering?.sortingNumber === 1 && (
               <FontAwesome size={35} color="#fff" name="sort-alpha-desc" />
+            )}
+            {sortOfOrdering?.sortingNumber === 2 && (
+              <FontAwesome size={35} color="#fff" name="star" />
             )}
           </Button>
         </ContainerProductsListHeader>
