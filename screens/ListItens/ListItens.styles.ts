@@ -102,5 +102,6 @@ export const ContainerTotalValue = styled.View<ContainerTotalValueProps>`
 
 export const ContainerProductsCategory = styled.View`
     border-bottom-width: 4px;
+    margin-bottom: 10px;
     border-bottom-color: ${theme?.colors?.primary};
 `;

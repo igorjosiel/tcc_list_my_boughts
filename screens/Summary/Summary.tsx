@@ -48,16 +48,17 @@ const Summary = ({ navigation, route }) => {
     },
     {
       id: 1,
-      name: !isModalConfirmationVisible ? "Finalizar" : "Enviar",
+      name: !isModalConfirmationVisible ? "Finalizar" : "Finalizar",
       backgroundColor: theme?.colors?.primary,
       color: "#FFF",
       style: styles?.shadowPropMainColor,
       action: () => {
         if (!isModalConfirmationVisible) setIsModalConfirmationVisible(true);
         else {
-          generatePdf();
+          // generatePdf();
           clearProductsList();
           setIsModalConfirmationVisible(false);
+
           navigation.navigate("ListItens");
         }
       },
@@ -89,8 +90,8 @@ const Summary = ({ navigation, route }) => {
           <td style="text-align: center;">${product?.amount}</td>
           <td style="text-align: right;">R$ ${formatMoney(product?.price)}</td>
           <td style="text-align: right;">R$ ${formatMoney(
-            product?.price * product?.amount
-          )}</td>
+        product?.price * product?.amount
+      )}</td>
         </tr>`;
     });
 

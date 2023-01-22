@@ -510,53 +510,149 @@ const ListItens = ({ navigation }) => {
         <ScrollView>
           {!productSearch
             ? listProducts?.map((product, index) => {
-                return (
-                  <ContainerProductData
-                    key={index}
-                    style={styles?.shadowPropMainColor}
-                  >
-                    <ContainerProductsCategory>
+              return (
+                <ContainerProductData
+                  key={index}
+                  style={styles?.shadowPropMainColor}
+                >
+                  <ContainerProductsCategory>
+                    <Text
+                      fontFamily={Poppins_600SemiBold}
+                      fontSize={18}
+                      color={theme?.colors?.primary}
+                      textAlign={"center"}
+                    >
+                      {product?.category
+                        ? product?.category
+                        : "Sem categoria"}
+                    </Text>
+                  </ContainerProductsCategory>
+                  <ContainerData>
+                    <ContainerStar>
+                      {product?.priority === "Sim" ? (
+                        <FontAwesome
+                          name="star"
+                          size={25}
+                          color={"#FFA500"}
+                        />
+                      ) : (
+                        <FontAwesome name="star-o" size={25} color={"#000"} />
+                      )}
                       <Text
                         fontFamily={Poppins_600SemiBold}
-                        fontSize={16}
-                        color={theme?.colors?.primary}
+                        fontSize={18}
+                        color={"#040404"}
                         textAlign={"center"}
                       >
-                        {product?.category
-                          ? product?.category
-                          : "Sem categoria"}
+                        R$ {formatMoney(product?.price)}
                       </Text>
-                    </ContainerProductsCategory>
-                    <ContainerData>
-                      <ContainerStar>
-                        {product?.priority === "Sim" ? (
-                          <FontAwesome
-                            name="star"
-                            size={25}
-                            color={"#FFA500"}
-                          />
-                        ) : (
-                          <FontAwesome name="star-o" size={25} color={"#000"} />
-                        )}
-                        <Text
-                          fontFamily={Poppins_600SemiBold}
-                          fontSize={15}
-                          color={"#000"}
-                          textAlign={"center"}
-                        >
-                          R$ {formatMoney(product?.price)}
-                        </Text>
-                      </ContainerStar>
-                      <Button
-                        width={"50%"}
-                        height={"100%"}
-                        display={"flex"}
-                        flexDirection={"column"}
-                        justifyContent={"center"}
-                        backgroundColor={"#FFF"}
-                        textAlign={"center"}
-                        onPress={() => openModalToChangeProduct(product)}
+                    </ContainerStar>
+                    <Button
+                      width={"50%"}
+                      height={"100%"}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      justifyContent={"center"}
+                      backgroundColor={"#FFF"}
+                      textAlign={"center"}
+                      onPress={() => openModalToChangeProduct(product)}
+                    >
+                      <Text
+                        fontFamily={Poppins_600SemiBold}
+                        fontSize={18}
+                        color={"#000"}
                       >
+                        {product?.productName?.length > 13
+                          ? product?.productName?.slice(0, 13) + "..."
+                          : product?.productName}
+                      </Text>
+                    </Button>
+                    <ContainerActions>
+                      <Button
+                        width={"25px"}
+                        height={"100%"}
+                        borderRadius={"50px"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        onPress={
+                          product?.amount === 1
+                            ? () => removeItemFromList(product)
+                            : () => decreaseItemAmount(product?.id)
+                        }
+                      >
+                        <FontAwesome size={30} color="#FFF" name="minus" />
+                      </Button>
+                      <Text
+                        fontFamily={Poppins_600SemiBold}
+                        fontSize={20}
+                        color={"#FFF"}
+                      >
+                        {product?.amount}
+                      </Text>
+                      <Button
+                        width={"25px"}
+                        height={"100%"}
+                        borderRadius={"50px"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        onPress={() => increaseItemAmount(product?.id)}
+                      >
+                        <FontAwesome size={30} color="#FFF" name="plus" />
+                      </Button>
+                    </ContainerActions>
+                  </ContainerData>
+                </ContainerProductData>
+              );
+            })
+            : listSearchedProducts?.map((product, index) => {
+              return (
+                <ContainerProductData
+                  key={index}
+                  style={styles?.shadowPropMainColor}
+                >
+                  <ContainerProductsCategory>
+                    <Text
+                      fontFamily={Poppins_600SemiBold}
+                      fontSize={16}
+                      color={theme?.colors?.primary}
+                      textAlign={"center"}
+                    >
+                      {product?.category
+                        ? product?.category
+                        : "Sem categoria"}
+                    </Text>
+                  </ContainerProductsCategory>
+                  <ContainerData>
+                    <ContainerStar>
+                      {product?.priority === "Sim" ? (
+                        <FontAwesome
+                          name="star"
+                          size={25}
+                          color={"#FFA500"}
+                        />
+                      ) : (
+                        <FontAwesome name="star-o" size={25} color={"#000"} />
+                      )}
+                      <Text
+                        fontFamily={Poppins_600SemiBold}
+                        fontSize={15}
+                        color={"#000"}
+                        textAlign={"center"}
+                      >
+                        R$ {formatMoney(product?.price)}
+                      </Text>
+                    </ContainerStar>
+                    <Button
+                      width={"50%"}
+                      height={"100%"}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      justifyContent={"center"}
+                      backgroundColor={"#FFF"}
+                      textAlign={"center"}
+                      onPress={() => openModalToChangeProduct(product)}
+                    >
+                      <View>
                         <Text
                           fontFamily={Poppins_600SemiBold}
                           fontSize={16}
@@ -566,141 +662,45 @@ const ListItens = ({ navigation }) => {
                             ? product?.productName?.slice(0, 13) + "..."
                             : product?.productName}
                         </Text>
+                      </View>
+                    </Button>
+                    <ContainerActions>
+                      <Button
+                        width={"25px"}
+                        height={"100%"}
+                        borderRadius={"50px"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        onPress={
+                          product?.amount === 1
+                            ? () => removeItemFromList(product)
+                            : () => decreaseItemAmount(product?.id)
+                        }
+                      >
+                        <FontAwesome size={30} color="#FFF" name="minus" />
                       </Button>
-                      <ContainerActions>
-                        <Button
-                          width={"25px"}
-                          height={"100%"}
-                          borderRadius={"50px"}
-                          alignItems={"center"}
-                          justifyContent={"center"}
-                          onPress={
-                            product?.amount === 1
-                              ? () => removeItemFromList(product)
-                              : () => decreaseItemAmount(product?.id)
-                          }
-                        >
-                          <FontAwesome size={30} color="#FFF" name="minus" />
-                        </Button>
-                        <Text
-                          fontFamily={Poppins_600SemiBold}
-                          fontSize={20}
-                          color={"#FFF"}
-                        >
-                          {product?.amount}
-                        </Text>
-                        <Button
-                          width={"25px"}
-                          height={"100%"}
-                          borderRadius={"50px"}
-                          alignItems={"center"}
-                          justifyContent={"center"}
-                          onPress={() => increaseItemAmount(product?.id)}
-                        >
-                          <FontAwesome size={30} color="#FFF" name="plus" />
-                        </Button>
-                      </ContainerActions>
-                    </ContainerData>
-                  </ContainerProductData>
-                );
-              })
-            : listSearchedProducts?.map((product, index) => {
-                return (
-                  <ContainerProductData
-                    key={index}
-                    style={styles?.shadowPropMainColor}
-                  >
-                    <ContainerProductsCategory>
                       <Text
                         fontFamily={Poppins_600SemiBold}
-                        fontSize={16}
-                        color={theme?.colors?.primary}
-                        textAlign={"center"}
+                        fontSize={18}
+                        color={"#FFF"}
                       >
-                        {product?.category
-                          ? product?.category
-                          : "Sem categoria"}
+                        {product?.amount}
                       </Text>
-                    </ContainerProductsCategory>
-                    <ContainerData>
-                      <ContainerStar>
-                        {product?.priority === "Sim" ? (
-                          <FontAwesome
-                            name="star"
-                            size={25}
-                            color={"#FFA500"}
-                          />
-                        ) : (
-                          <FontAwesome name="star-o" size={25} color={"#000"} />
-                        )}
-                        <Text
-                          fontFamily={Poppins_600SemiBold}
-                          fontSize={15}
-                          color={"#000"}
-                          textAlign={"center"}
-                        >
-                          R$ {formatMoney(product?.price)}
-                        </Text>
-                      </ContainerStar>
                       <Button
-                        width={"50%"}
+                        width={"25px"}
                         height={"100%"}
-                        display={"flex"}
-                        flexDirection={"column"}
+                        borderRadius={"50px"}
+                        alignItems={"center"}
                         justifyContent={"center"}
-                        backgroundColor={"#FFF"}
-                        textAlign={"center"}
-                        onPress={() => openModalToChangeProduct(product)}
+                        onPress={() => increaseItemAmount(product?.id)}
                       >
-                        <View>
-                          <Text
-                            fontFamily={Poppins_600SemiBold}
-                            fontSize={16}
-                            color={"#000"}
-                          >
-                            {product?.productName?.length > 13
-                              ? product?.productName?.slice(0, 13) + "..."
-                              : product?.productName}
-                          </Text>
-                        </View>
+                        <FontAwesome size={30} color="#FFF" name="plus" />
                       </Button>
-                      <ContainerActions>
-                        <Button
-                          width={"25px"}
-                          height={"100%"}
-                          borderRadius={"50px"}
-                          alignItems={"center"}
-                          justifyContent={"center"}
-                          onPress={
-                            product?.amount === 1
-                              ? () => removeItemFromList(product)
-                              : () => decreaseItemAmount(product?.id)
-                          }
-                        >
-                          <FontAwesome size={30} color="#FFF" name="minus" />
-                        </Button>
-                        <Text
-                          fontFamily={Poppins_600SemiBold}
-                          fontSize={18}
-                          color={"#FFF"}
-                        >
-                          {product?.amount}
-                        </Text>
-                        <Button
-                          width={"25px"}
-                          height={"100%"}
-                          borderRadius={"50px"}
-                          alignItems={"center"}
-                          justifyContent={"center"}
-                          onPress={() => increaseItemAmount(product?.id)}
-                        >
-                          <FontAwesome size={30} color="#FFF" name="plus" />
-                        </Button>
-                      </ContainerActions>
-                    </ContainerData>
-                  </ContainerProductData>
-                );
-              })}
+                    </ContainerActions>
+                  </ContainerData>
+                </ContainerProductData>
+              );
+            })}
         </ScrollView>
       </ContainerProductsList>
       <ContainerFooter applyFilter={isModalFormVisible}>
