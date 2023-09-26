@@ -707,7 +707,7 @@ const ListItens = ({ navigation }) => {
         <ContainerActionsFooter>
           <ContainerButtonsActions>
             <Button
-              backgroundColor={theme.colors.primary}
+              backgroundColor={'#990000'}
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}
@@ -723,7 +723,7 @@ const ListItens = ({ navigation }) => {
               <MaterialCommunityIcons size={40} color="#fff" name="trash-can" />
             </Button>
             <Button
-              backgroundColor={theme.colors.primary}
+              backgroundColor={'#00008B'}
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}
@@ -745,7 +745,7 @@ const ListItens = ({ navigation }) => {
               <FontAwesome size={40} color="#fff" name="check" />
             </Button>
             <Button
-              backgroundColor={theme.colors.primary}
+              backgroundColor={'#808000'}
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}

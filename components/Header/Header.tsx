@@ -19,11 +19,11 @@ const Header: React.FC = () => {
       marginRight={"auto"}
       flex={1}
       flexDirection={"row"}
-      alignItems={"flex-end"}
+      alignItems={"center"}
       justifyContent={"center"}
     >
-      <Text fontFamily={Poppins_600SemiBold} fontSize={25}>
-        CrieList
+      <Text fontFamily={Poppins_600SemiBold} fontSize={30}>
+        LI$TA
       </Text>
       <FontAwesome size={40} color="#fff" name="shopping-cart" />
     </ContainerHeader>
