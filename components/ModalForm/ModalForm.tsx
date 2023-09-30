@@ -194,7 +194,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           />
           <CategoryContainer>
             <Button
-              borderWidth={3}
+              borderWidth={"3px"}
               borderColor={theme?.colors?.primary}
               backgroundColor={"#FFF"}
               borderRadius={"10px"}
@@ -237,7 +237,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           )}
           <PriorityContainer>
             <Button
-              borderWidth={3}
+              borderWidth={"3px"}
               borderColor={theme?.colors?.primary}
               borderRadius={"10px"}
               borderBottomColor={theme?.colors?.primary}

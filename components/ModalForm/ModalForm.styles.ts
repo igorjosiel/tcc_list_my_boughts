@@ -17,11 +17,6 @@ const ModalView = styled.View`
     background-color: white;
     border-radius: 10px;
     align-items: center;
-    shadow-color: #000;
-    shadow-offset: {
-        width: 0,
-        height: 2,
-    };
 `;
 
 const ModalTitle = styled.View`

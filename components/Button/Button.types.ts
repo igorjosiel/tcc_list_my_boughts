@@ -8,7 +8,7 @@ export default interface ButtonProps extends TouchableOpacityProps {
   borderBottomRightRadius?: string;
   borderTopLeftRadius?: string;
   borderTopRightRadius?: string;
-  borderWidth?: number;
+  borderWidth?: string;
   borderColor?: string;
   borderRadius?: string;
   borderBottomColor?: string;
