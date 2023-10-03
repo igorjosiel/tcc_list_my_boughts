@@ -13,7 +13,7 @@ const MoneyInput = styled(CurrencyInput)<MoneyInputProps>`
   padding: 10px;
   border-radius: 10px;
   font-size: 18px;
-  font-family: ${(props) => props?.fontFamily};
+  /* font-family: ${(props) => props?.fontFamily}; */
 `;
 
 export default MoneyInput;

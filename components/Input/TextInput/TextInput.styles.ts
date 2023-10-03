@@ -12,7 +12,7 @@ const TextInput = styled.TextInput<TextInputProps>`
   padding: 10px;
   border-radius: ${(props) => props?.borderRadius};
   font-size: 18px;
-  font-family: ${(props) => props?.fontFamily};
+  /* font-family: ${(props) => props?.fontFamily}; */
 `;
 
 export default TextInput;

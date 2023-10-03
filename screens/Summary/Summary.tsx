@@ -25,8 +25,6 @@ import {
 const Summary = ({ navigation, route }) => {
   const date = new Date();
 
-  const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
-
   const [isModalConfirmationVisible, setIsModalConfirmationVisible] =
     useState<boolean>(false);
 
@@ -183,7 +181,7 @@ const Summary = ({ navigation, route }) => {
       <ModalConfirmation
         isModalOpen={isModalConfirmationVisible}
         closeModal={() => setIsModalConfirmationVisible(false)}
-        fontFamily={Poppins_600SemiBold}
+        
         message={"Tem certeza de que deseja finalizar a lista?"}
         icon="question"
       >
@@ -201,7 +199,7 @@ const Summary = ({ navigation, route }) => {
               style={button?.style}
             >
               <Text
-                fontFamily={Poppins_600SemiBold}
+                
                 fontSize={20}
                 color={button?.color}
               >
@@ -240,7 +238,7 @@ const Summary = ({ navigation, route }) => {
         >
           <Cells width="35%" justifyContent="flex-start">
             <Text
-              fontFamily={Poppins_600SemiBold}
+              
               fontSize={14}
               textAlign={"center"}
             >
@@ -249,7 +247,7 @@ const Summary = ({ navigation, route }) => {
           </Cells>
           <Cells width="15%" justifyContent="center">
             <Text
-              fontFamily={Poppins_600SemiBold}
+              
               fontSize={14}
               textAlign={"center"}
             >
@@ -258,7 +256,7 @@ const Summary = ({ navigation, route }) => {
           </Cells>
           <Cells width="25%" justifyContent="flex-end">
             <Text
-              fontFamily={Poppins_600SemiBold}
+              
               fontSize={14}
               textAlign={"center"}
             >
@@ -267,7 +265,7 @@ const Summary = ({ navigation, route }) => {
           </Cells>
           <Cells width="25%" justifyContent="flex-end">
             <Text
-              fontFamily={Poppins_600SemiBold}
+              
               fontSize={14}
               textAlign={"center"}
             >
@@ -283,8 +281,8 @@ const Summary = ({ navigation, route }) => {
             marginBottom: 10,
             marginTop: 0,
             margin: "5%",
-            borderBottomRightRadius: 10,
-            borderBottomLeftRadius: 10,
+            // borderBottomRightRadius: 10,
+            // borderBottomLeftRadius: 10,
             shadowColor: "#000",
             shadowOffset: {
               width: 0,
@@ -300,7 +298,7 @@ const Summary = ({ navigation, route }) => {
               <ValueCells>
                 <Cells width="35%" justifyContent="flex-start">
                   <Text
-                    fontFamily={Poppins_600SemiBold}
+                    
                     fontSize={14}
                     color={"black"}
                     textAlign={"center"}
@@ -312,7 +310,7 @@ const Summary = ({ navigation, route }) => {
                 </Cells>
                 <Cells width="15%" justifyContent="center">
                   <Text
-                    fontFamily={Poppins_600SemiBold}
+                    
                     fontSize={14}
                     color={"black"}
                     textAlign={"center"}
@@ -322,7 +320,7 @@ const Summary = ({ navigation, route }) => {
                 </Cells>
                 <Cells width="25%" justifyContent="flex-end">
                   <Text
-                    fontFamily={Poppins_600SemiBold}
+                    
                     fontSize={14}
                     color={"black"}
                     textAlign={"center"}
@@ -332,7 +330,7 @@ const Summary = ({ navigation, route }) => {
                 </Cells>
                 <Cells width="25%" justifyContent="flex-end">
                   <Text
-                    fontFamily={Poppins_600SemiBold}
+                    
                     fontSize={14}
                     color={"black"}
                     textAlign={"center"}
@@ -346,7 +344,7 @@ const Summary = ({ navigation, route }) => {
         </View>
         <ContainerTotalValue>
           <ContainerTotalValueText>
-            <Text fontFamily={Poppins_600SemiBold} fontSize={18} color={"#000"}>
+            <Text  fontSize={18} color={"#000"}>
               Valor total:
             </Text>
           </ContainerTotalValueText>
@@ -371,7 +369,7 @@ const Summary = ({ navigation, route }) => {
               elevation: 5,
             }}
           >
-            <Text fontFamily={Poppins_600SemiBold} fontSize={18}>
+            <Text  fontSize={18}>
               R$ {formatMoney(value)}
             </Text>
           </View>
@@ -393,7 +391,7 @@ const Summary = ({ navigation, route }) => {
                 style={button?.style}
               >
                 <Text
-                  fontFamily={Poppins_600SemiBold}
+                  
                   fontSize={20}
                   color={button?.color}
                 >

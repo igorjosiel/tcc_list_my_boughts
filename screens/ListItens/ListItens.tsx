@@ -20,8 +20,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Entypo from "react-native-vector-icons/Entypo";
-
-import { useSetFonts } from "../../hooks/useSetFonts";
 import Text from "../../components/Text/Text";
 import theme from "../../global/styles/theme";
 import formatMoney from "../../utils/formatMoney";
@@ -55,8 +53,6 @@ const sortingKinds: Sorting[] = [
 ];
 
 const ListItens = ({ navigation }) => {
-  const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
-
   const [listProducts, setListProducts] = useState<Product[]>([]);
   const [productSearch, setProductSearch] = useState<string>("");
   const [listSearchedProducts, setListSearchedProducts] = useState<Product[]>(
@@ -404,7 +400,7 @@ const ListItens = ({ navigation }) => {
       <ModalConfirmation
         isModalOpen={isModalConfirmationVisible}
         closeModal={() => setIsModalConfirmationVisible(false)}
-        fontFamily={Poppins_600SemiBold}
+        
         message={"Tem certeza de que deseja remover a lista?"}
         icon="question"
       >
@@ -422,7 +418,6 @@ const ListItens = ({ navigation }) => {
               style={button?.style}
             >
               <Text
-                fontFamily={Poppins_600SemiBold}
                 fontSize={20}
                 color={button?.color}
               >
@@ -436,7 +431,7 @@ const ListItens = ({ navigation }) => {
       <ModalMoney
         isModalOpen={isModalMoneyVisible}
         closeModal={() => setIsModalMoneyVisible(false)}
-        fontFamily={Poppins_600SemiBold}
+        
       />
 
       <Header />
@@ -444,7 +439,7 @@ const ListItens = ({ navigation }) => {
       <ContainerProductsList applyFilter={isModalFormVisible}>
         <ContainerProductsListHeader>
           <TextInput
-            fontFamily={Poppins_600SemiBold}
+            
             width={"65%"}
             borderRadius={"10px"}
             value={productSearch}
@@ -456,7 +451,7 @@ const ListItens = ({ navigation }) => {
             height={"55px"}
             width={"55px"}
             borderRadius={"50px"}
-            borderBottomLeftRadius={"50px"}
+            // borderBottomLeftRadius={"50px"}
             borderTopRightRadius={"50px"}
             borderBottomRightRadius={"50px"}
             borderTopLeftRadius={"50px"}
@@ -472,7 +467,7 @@ const ListItens = ({ navigation }) => {
             height={"55px"}
             width={"55px"}
             borderRadius={"50px"}
-            borderBottomLeftRadius={"50px"}
+            // borderBottomLeftRadius={"50px"}
             borderTopRightRadius={"50px"}
             borderBottomRightRadius={"50px"}
             borderTopLeftRadius={"50px"}
@@ -499,7 +494,6 @@ const ListItens = ({ navigation }) => {
             onPress={openModalToCreateNewProduct}
           >
             <Text
-              fontFamily={Poppins_600SemiBold}
               fontSize={20}
               textAlign={"center"}
             >
@@ -517,7 +511,6 @@ const ListItens = ({ navigation }) => {
                 >
                   <ContainerProductsCategory>
                     <Text
-                      fontFamily={Poppins_600SemiBold}
                       fontSize={18}
                       color={theme?.colors?.primary}
                       textAlign={"center"}
@@ -539,7 +532,7 @@ const ListItens = ({ navigation }) => {
                         <FontAwesome name="star-o" size={25} color={"#000"} />
                       )}
                       <Text
-                        fontFamily={Poppins_600SemiBold}
+                        
                         fontSize={18}
                         color={"#040404"}
                         textAlign={"center"}
@@ -558,7 +551,7 @@ const ListItens = ({ navigation }) => {
                       onPress={() => openModalToChangeProduct(product)}
                     >
                       <Text
-                        fontFamily={Poppins_600SemiBold}
+                        
                         fontSize={18}
                         color={"#000"}
                       >
@@ -583,7 +576,7 @@ const ListItens = ({ navigation }) => {
                         <FontAwesome size={30} color="#FFF" name="minus" />
                       </Button>
                       <Text
-                        fontFamily={Poppins_600SemiBold}
+                        
                         fontSize={20}
                         color={"#FFF"}
                       >
@@ -612,7 +605,7 @@ const ListItens = ({ navigation }) => {
                 >
                   <ContainerProductsCategory>
                     <Text
-                      fontFamily={Poppins_600SemiBold}
+                      
                       fontSize={16}
                       color={theme?.colors?.primary}
                       textAlign={"center"}
@@ -634,7 +627,7 @@ const ListItens = ({ navigation }) => {
                         <FontAwesome name="star-o" size={25} color={"#000"} />
                       )}
                       <Text
-                        fontFamily={Poppins_600SemiBold}
+                        
                         fontSize={15}
                         color={"#000"}
                         textAlign={"center"}
@@ -654,7 +647,7 @@ const ListItens = ({ navigation }) => {
                     >
                       <View>
                         <Text
-                          fontFamily={Poppins_600SemiBold}
+                          
                           fontSize={16}
                           color={"#000"}
                         >
@@ -680,7 +673,7 @@ const ListItens = ({ navigation }) => {
                         <FontAwesome size={30} color="#FFF" name="minus" />
                       </Button>
                       <Text
-                        fontFamily={Poppins_600SemiBold}
+                        
                         fontSize={18}
                         color={"#FFF"}
                       >
@@ -711,7 +704,7 @@ const ListItens = ({ navigation }) => {
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}
-              borderBottomLeftRadius={"50px"}
+              // borderBottomLeftRadius={"50px"}
               borderTopRightRadius={"50px"}
               borderBottomRightRadius={"50px"}
               borderTopLeftRadius={"50px"}
@@ -727,7 +720,7 @@ const ListItens = ({ navigation }) => {
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}
-              borderBottomLeftRadius={"50px"}
+              // borderBottomLeftRadius={"50px"}
               borderTopRightRadius={"50px"}
               borderBottomRightRadius={"50px"}
               borderTopLeftRadius={"50px"}
@@ -749,7 +742,7 @@ const ListItens = ({ navigation }) => {
               height={"55px"}
               width={"55px"}
               borderRadius={"50px"}
-              borderBottomLeftRadius={"50px"}
+              // borderBottomLeftRadius={"50px"}
               borderTopRightRadius={"50px"}
               borderBottomRightRadius={"50px"}
               borderTopLeftRadius={"50px"}
@@ -762,7 +755,7 @@ const ListItens = ({ navigation }) => {
             </Button>
           </ContainerButtonsActions>
           <ContainerTotalValue enoughMoney={enoughMoney}>
-            <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+            <Text  fontSize={22}>
               R$ {formatMoney(totalValue)}
             </Text>
           </ContainerTotalValue>

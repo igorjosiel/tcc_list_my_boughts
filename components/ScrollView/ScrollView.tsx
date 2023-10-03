@@ -3,15 +3,11 @@ import Factory from "../Factory/Factory";
 
 import ScrollViewProps from "./ScrollView.types";
 import theme from "../../global/styles/theme";
-import { useSetFonts } from "../../hooks/useSetFonts";
-
 import Text from "../Text/Text";
 import Button from "../Button/Button";
 
 const Scroll = (props: ScrollViewProps) => {
   const { data, scrollName, onSelected, setPropertyNewProduct } = props;
-
-  const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
 
   return (
     <ScrollView
@@ -26,13 +22,12 @@ const Scroll = (props: ScrollViewProps) => {
         alignItems={"center"}
         marginBottom={"2px"}
         padding={"5px"}
-        borderBottomLeftRadius={"0px"}
+        // borderBottomLeftRadius={"0px"}
         borderBottomRightRadius={"0px"}
         borderBottomColor={"#ffffff"}
         borderBottomWidth={"5px"}
       >
         <Text
-          fontFamily={Poppins_600SemiBold}
           fontSize={20}
           color={"white"}
         >
@@ -54,13 +49,12 @@ const Scroll = (props: ScrollViewProps) => {
             alignItems={"center"}
             marginBottom={"2px"}
             padding={"5px"}
-            borderBottomLeftRadius={"0px"}
+            // borderBottomLeftRadius={"0px"}
             borderBottomRightRadius={"0px"}
             borderBottomColor={"#ffffff"}
             borderBottomWidth={"3px"}
           >
             <Text
-              fontFamily={Poppins_600SemiBold}
               fontSize={18}
               color={"white"}
             >

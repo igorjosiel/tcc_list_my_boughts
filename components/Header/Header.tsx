@@ -1,15 +1,10 @@
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
-import { useSetFonts } from "../../hooks/useSetFonts";
-
 import ContainerHeader from "./Header.styles";
 import Text from "../Text/Text";
 import theme from "../../global/styles/theme";
 
 const Header: React.FC = () => {
-  const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
-
   return (
     <ContainerHeader
       width={"100%"}
@@ -22,7 +17,7 @@ const Header: React.FC = () => {
       alignItems={"center"}
       justifyContent={"center"}
     >
-      <Text fontFamily={Poppins_600SemiBold} fontSize={30}>
+      <Text fontSize={30}>
         LI$TA
       </Text>
       <FontAwesome size={40} color="#fff" name="shopping-cart" />

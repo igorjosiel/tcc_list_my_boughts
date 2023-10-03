@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import theme from "../../global/styles/theme";
 
 const ModalMoney = (props: ModalMoneyProps) => {
-    const { isModalOpen, closeModal, fontFamily } = props;
+    const { isModalOpen, closeModal } = props;
 
     const [balance, setBalance] = useState<number | null>(0);
 
@@ -69,7 +69,7 @@ const ModalMoney = (props: ModalMoneyProps) => {
                     </View>
                     <ModalTitle>
                         <Text
-                            fontFamily={fontFamily}
+                            // fontFamily={fontFamily}
                             fontSize={20}
                             color={"#000"}
                             textAlign={"center"}
@@ -78,7 +78,7 @@ const ModalMoney = (props: ModalMoneyProps) => {
                         </Text>
                     </ModalTitle>
                     <MoneyInput
-                        fontFamily={fontFamily}
+                        // fontFamily={fontFamily}
                         value={balance}
                         onChangeValue={(value) => setBalance(value)}
                         prefix="R$ "
@@ -102,7 +102,7 @@ const ModalMoney = (props: ModalMoneyProps) => {
                                     style={button?.style}
                                 >
                                     <Text
-                                        fontFamily={fontFamily}
+                                        // fontFamily={fontFamily}
                                         fontSize={20}
                                         color={button?.color}
                                     >

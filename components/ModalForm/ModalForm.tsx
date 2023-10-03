@@ -26,7 +26,6 @@ import { ModalFormProps } from "./ModalForm.types";
 import { Product } from "../../utils/interfaces";
 
 import theme from "../../global/styles/theme";
-import { useSetFonts } from "../../hooks/useSetFonts";
 import { categories, priorities } from "../../utils/constants";
 
 const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
@@ -73,8 +72,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
     }
   }, [isModalOpen]);
 
-  const Poppins_600SemiBold = useSetFonts("Poppins_600SemiBold");
-
   const resetProductData = () => {
     setNewProduct({
       ...newProduct,
@@ -118,12 +115,11 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
       <CenteredView>
         <ModalView>
           <ModalTitle>
-            <Text fontFamily={Poppins_600SemiBold} fontSize={20} color={"#000"}>
+            <Text fontSize={20} color={"#000"}>
               Informações do Produto
             </Text>
           </ModalTitle>
           <TextInput
-            fontFamily={Poppins_600SemiBold}
             borderRadius={"10px"}
             width={"100%"}
             onChangeText={(value) =>
@@ -138,7 +134,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               backgroundColor={theme?.colors?.primary}
               height={"60px"}
               width={"15%"}
-              borderBottomLeftRadius={"10px"}
+              // borderBottomLeftRadius={"10px"}
               borderTopLeftRadius={"10px"}
               borderBottomRightRadius={"0px"}
               borderTopRightRadius={"0px"}
@@ -150,7 +146,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               <FontAwesome size={30} color={"#FFF"} name="minus" />
             </Button>
             <TextInput
-              fontFamily={Poppins_600SemiBold}
               borderRadius={"0"}
               width={"70%"}
               keyboardType={"numeric"}
@@ -170,7 +165,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               height={"60px"}
               width={"15%"}
               borderTopLeftRadius={"0px"}
-              borderBottomLeftRadius={"0px"}
+              // borderBottomLeftRadius={"0px"}
               borderBottomRightRadius={"10px"}
               borderTopRightRadius={"10px"}
               flexDirection={"row"}
@@ -182,7 +177,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
             </Button>
           </AmountContainer>
           <MoneyInput
-            fontFamily={Poppins_600SemiBold}
             placeholder="Preço"
             value={newProduct?.price === 0 ? null : newProduct?.price}
             onChangeValue={(value) => setPropertyNewProduct(value, "price")}
@@ -210,7 +204,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               onPress={() => setShowCategoryOptions(!showCategoryOptions)}
             >
               <Text
-                fontFamily={Poppins_600SemiBold}
                 fontSize={20}
                 color={"black"}
               >
@@ -253,7 +246,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               onPress={() => setShowPriorityOptions(!showPriorityOptions)}
             >
               <Text
-                fontFamily={Poppins_600SemiBold}
                 fontSize={20}
                 color={"black"}
               >
@@ -286,7 +278,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                   resetProductData();
                 }}
               >
-                <Text fontFamily={Poppins_600SemiBold} fontSize={20}>
+                <Text fontSize={20}>
                   Salvar
                 </Text>
               </Button>
@@ -320,7 +312,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
               }}
             >
               <Text
-                fontFamily={Poppins_600SemiBold}
                 fontSize={20}
                 color={theme?.colors?.primary}
               >
@@ -341,7 +332,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                   resetProductData();
                 }}
               >
-                <Text fontFamily={Poppins_600SemiBold} fontSize={20}>
+                <Text fontSize={20}>
                   Remover
                 </Text>
               </Button>
@@ -364,7 +355,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
                   resetProductData();
                 }}
               >
-                <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+                <Text fontSize={22}>
                   Salvar
                 </Text>
               </Button>
@@ -376,7 +367,6 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
       <ModalConfirmation
         isModalOpen={isModalConfirmationVisible}
         closeModal={() => setIsModalConfirmationVisible(false)}
-        fontFamily={Poppins_600SemiBold}
         message={"Para salvar, preencha o nome do produto!"}
         icon="exclamation"
       >
@@ -392,7 +382,7 @@ const ModalForm: React.FC<ModalFormProps> = (props: ModalFormProps) => {
           style={styles?.shadowPropMainColor}
           onPress={() => setIsModalConfirmationVisible(false)}
         >
-          <Text fontFamily={Poppins_600SemiBold} fontSize={22}>
+          <Text fontSize={22}>
             Ok
           </Text>
         </Button>

@@ -9,7 +9,7 @@ import ModalConfirmationProps from "./ModalConfirmationProps";
 import { CenteredView, ModalView, ModalTitle, ButtonsContainer } from "../ModalForm/ModalForm.styles";
 
 const ModalConfirmation = (props: ModalConfirmationProps) => {
-    const { isModalOpen, fontFamily, message, icon, children } = props;
+    const { isModalOpen, message, icon, children } = props;
 
     return (
         <Modal
@@ -24,7 +24,7 @@ const ModalConfirmation = (props: ModalConfirmationProps) => {
                     </View>
                     <ModalTitle>
                         <Text
-                            fontFamily={fontFamily}
+                            // fontFamily={fontFamily}
                             fontSize={20}
                             color={"#000"}
                             textAlign={"center"}

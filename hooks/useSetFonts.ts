@@ -9,8 +9,8 @@ import {
     Poppins_400Regular_Italic,
     Poppins_500Medium,
     Poppins_500Medium_Italic,
-    Poppins_600SemiBold,
-    Poppins_600SemiBold_Italic,
+    ,
+    _Italic,
     Poppins_700Bold,
     Poppins_700Bold_Italic,
     Poppins_800ExtraBold,
@@ -62,13 +62,13 @@ export const useSetFonts = (font: string) => {
             useFonts({ Poppins_500Medium_Italic });
             return 'Poppins_500Medium_Italic';
         }
-        case 'Poppins_600SemiBold': {
-            useFonts({ Poppins_600SemiBold });
-            return 'Poppins_600SemiBold';
+        case '': {
+            useFonts({  });
+            return '';
         }
-        case 'Poppins_600SemiBold_Italic': {
-            useFonts({ Poppins_600SemiBold_Italic });
-            return 'Poppins_600SemiBold_Italic';
+        case '_Italic': {
+            useFonts({ _Italic });
+            return '_Italic';
         }
         case 'Poppins_700Bold': {
             useFonts({ Poppins_700Bold });
